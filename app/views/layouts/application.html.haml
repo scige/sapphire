@@ -1,0 +1,35 @@
+!!!
+%html
+  %head
+    %title= Sapphire
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+
+  %body
+    .navbar.navbar-inverse.navbar-static-top
+      .navbar-inner
+        .container
+          /.brand= link_to image_tag("logo.png", :width=>75), root_path
+          = link_to "Sapphire", root_path, :class=>"brand"
+          .nav-collapse.collapse
+            %ul.nav
+              %li.active
+                %a{:href=>"#"} Home
+              %li
+                %a{:href=>"#about"} About
+              %li
+                %a{:href=>"#contact"} Contact
+    
+    .container
+      .row
+        .span3
+          %ul.nav.nav-list
+            %li.nav-header List header
+            %li.active= link_to "Home", root_path
+            %li= link_to "Library", root_path
+        .span9
+          = yield
+
+      .footer
+        %p © Aliyun 2013
