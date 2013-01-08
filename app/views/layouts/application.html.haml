@@ -7,9 +7,9 @@
     = csrf_meta_tags
 
   %body
-    .navbar.navbar-inverse.navbar-static-top
+    .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
-        .container
+        .container-fluid
           /.brand= link_to image_tag("logo.png", :width=>75), root_path
           = link_to "Sapphire", root_path, :class=>"brand"
           .nav-collapse.collapse
@@ -21,13 +21,14 @@
               %li
                 %a{:href=>"#contact"} Contact
     
-    .container
-      .row
+    .container-fluid
+      .row-fluid
         .span3
-          %ul.nav.nav-list
-            %li.nav-header List header
-            %li.active= link_to "Home", root_path
-            %li= link_to "Library", root_path
+          .well.sidebar-nav
+            %ul.nav.nav-list
+              %li.nav-header List header
+              %li.active= link_to "Home", root_path
+              %li= link_to "Library", root_path
         .span9
           = yield
 
