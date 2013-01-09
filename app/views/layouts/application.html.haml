@@ -1,4 +1,4 @@
-!!!
+!!! 5
 %html
   %head
     %title= Sapphire
@@ -9,28 +9,24 @@
   %body
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
-        .container-fluid
-          /.brand= link_to image_tag("logo.png", :width=>75), root_path
-          = link_to "Sapphire", root_path, :class=>"brand"
+        .container
+          /= link_to "Sapphire", root_path, :class=>"brand"
           .nav-collapse.collapse
             %ul.nav
-              %li.active
-                %a{:href=>"#"} Home
-              %li
-                %a{:href=>"#about"} About
-              %li
-                %a{:href=>"#contact"} Contact
-    
-    .container-fluid
-      .row-fluid
-        .span3
-          .well.sidebar-nav
-            %ul.nav.nav-list
-              %li.nav-header List header
               %li.active= link_to "Home", root_path
-              %li= link_to "Library", root_path
-        .span9
-          = yield
+              %li= link_to "Editor", root_path
+              %li= link_to "Repositories", root_path
+              %li= link_to "Help", root_path
+    
+    %header.jumbotron.subhead
+      .container
+        %h1 Let's go
+        %p.lead Move fast, and break things.
 
-      .footer
+    .container.affix-top
+      = yield
+
+    .footer
+      .container
         %p © Aliyun 2013
+
