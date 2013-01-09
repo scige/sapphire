@@ -26,8 +26,35 @@
         %li= link_to "Filter", root_path
         %li= link_to "Rerank", root_path
         %li= link_to "Summary", root_path
-  
-      %p
-        Use this document as a way to quick start any new project.
-        %br
-        All you get is this message and a barebones HTML document.
+
+      %table.table
+        %tr
+          %th id
+          %th name
+          %th type
+          %th operation
+
+        %tr
+          %td 1
+          %td meishichina.com
+          %td domain
+          %td
+            %button.btn.btn{:type=>"submit"} Show
+            %button.btn.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-danger{:type=>"submit"} Delete
+        %tr
+          %td 2
+          %td book.zongheng.com
+          %td host
+          %td
+            %button.btn.btn{:type=>"submit"} Show
+            %button.btn.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-danger{:type=>"submit"} Delete
+        %tr
+          %td 3
+          %td ent.cn.yahoo.com/newspic
+          %td path
+          %td
+            %button.btn.btn{:type=>"submit"} Show
+            %button.btn.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-danger{:type=>"submit"} Delete
