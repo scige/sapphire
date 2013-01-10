@@ -13,10 +13,10 @@
           /= link_to "Sapphire", root_path, :class=>"brand"
           .nav-collapse.collapse
             %ul.nav
-              %li.active= link_to "Home", root_path
-              %li= link_to "Editor", sites_path
-              %li= link_to "Repositories", root_path
-              %li= link_to "Help", root_path
+              %li{:class => (controller_name=="home"?"active":nil)}= link_to "Home", root_path
+              %li{:class => (controller_name=="sites"?"active":nil)}= link_to "Editor", sites_path
+              %li{:class => (controller_name=="repositories"?"active":nil)}= link_to "Repositories", root_path
+              %li{:class => (controller_name=="helps"?"active":nil)}= link_to "Help", root_path
     
     %header.jumbotron.subhead
       .container
