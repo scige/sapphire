@@ -22,39 +22,59 @@
         .span1
           %button.btn.btn-primary{:type=>"submit"} New
       %ul.nav.nav-tabs
-        %li.active= link_to "Algorithm", root_path
-        %li= link_to "Filter", root_path
-        %li= link_to "Rerank", root_path
-        %li= link_to "Summary", root_path
+        %li.active= link_to "Sites", root_path
+        %li= link_to "Other", root_path
 
-      %table.table
+      %table.table.table-striped
         %tr
           %th id
           %th name
           %th type
+          %th domain
           %th operation
 
         %tr
           %td 1
           %td meishichina.com
           %td domain
+          %td meishichina.com
           %td
-            %button.btn.btn{:type=>"submit"} Show
-            %button.btn.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-danger{:type=>"submit"} Delete
+            %button.btn.btn-small{:type=>"submit"} Show
+            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
         %tr
           %td 2
           %td book.zongheng.com
           %td host
+          %td zongheng.com
           %td
-            %button.btn.btn{:type=>"submit"} Show
-            %button.btn.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-danger{:type=>"submit"} Delete
+            %button.btn.btn-small{:type=>"submit"} Show
+            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
         %tr
           %td 3
           %td ent.cn.yahoo.com/newspic
           %td path
+          %td yahoo.com
           %td
-            %button.btn.btn{:type=>"submit"} Show
-            %button.btn.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-danger{:type=>"submit"} Delete
+            %button.btn.btn-small{:type=>"submit"} Show
+            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
+        %tr
+          %td 4
+          %td mili.cn.yahoo.com
+          %td path
+          %td yahoo.com
+          %td
+            %button.btn.btn-small{:type=>"submit"} Show
+            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
+        %tr
+          %td 5
+          %td cn.yahoo.com
+          %td path
+          %td yahoo.com
+          %td
+            %button.btn.btn-small{:type=>"submit"} Show
+            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
+            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
