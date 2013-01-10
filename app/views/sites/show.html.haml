@@ -1,0 +1,22 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %p#notice= notice
+      
+      %p
+        %b Scope:
+        = @site.scope
+      
+      %p
+        %b Scope_Type:
+        = @site.scope_type
+      
+      %p
+        %b Domain:
+        = @site.domain
+      
+      = link_to 'Edit', edit_site_path(@site), :class=>"btn btn-info"
+      = link_to 'Back', sites_path, :class=>"btn"

@@ -1,0 +1,11 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %h1 New site
+      
+      = render 'form'
+      
+      = link_to 'Back', sites_path, :class=>"btn"
