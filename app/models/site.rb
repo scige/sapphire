@@ -1,3 +1,6 @@
-class Site < ActiveRecord::Base
-  attr_accessible :domain, :scope, :scope_type
+class Site
+  include Mongoid::Document
+  field :scope, type: String
+  field :scope_type, type: String
+  field :domain, type: String
 end

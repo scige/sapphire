@@ -8,10 +8,6 @@ group :development, :test do
   gem 'capybara'
 end
 
-group :production do
-  gem 'mysql2'
-end
-
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -24,5 +20,9 @@ gem 'bootstrap-sass', '~> 2.2.2.0'
 
 gem 'haml'
 
-gem 'annotate'
+gem 'mongoid'
+
+gem 'bson_ext'
+
+gem 'mongoid_auto_increment_id', "0.5.0"
 
