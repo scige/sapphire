@@ -1,0 +1,25 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %p#notice= notice
+      
+      %h3 Showing table schema
+
+      %p
+        %b Table:
+        = @table_schema.table
+      
+      %p
+        %b Version:
+        = @table_schema.version
+      
+      %p
+        %b Owner:
+        = @table_schema.owner
+      
+      = link_to 'Edit', edit_table_schema_path(@table_schema), :class=>"btn btn-info"
+      = link_to 'Back', table_schemas_path, :class=>"btn"
+
