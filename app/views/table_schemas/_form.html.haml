@@ -9,66 +9,55 @@
       - @table_schema.errors.full_messages.each do |msg|
         %li= msg
 
-  .accordion#accordion2
-    .accordion-group
-      .accordion-heading
-        %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapseOne"} Basic Config
-      .accordion-body.collapse.in#collapseOne
-        .accordion-inner
+  .control-group
+    = f.label :table, :class=>"control-label"
+    .controls
+      = f.text_field :table
+
+  .control-group
+    = f.label :version, :class=>"control-label"
+    .controls
+      = f.text_field :version
+
+  .control-group
+    = f.label :owner, :class=>"control-label"
+    .controls
+      = f.text_field :owner
+
+  .control-group
+    = f.fields_for :table_fields do |fields|
+      .row
+        .span3
           .control-group
-            = f.label :table, :class=>"control-label"
-            .controls
-              = f.text_field :table
-
+            = fields.label :name
+            = fields.text_field :name
+            = fields.label :required
+            = fields.text_field :required
+        .span3
           .control-group
-            = f.label :version, :class=>"control-label"
-            .controls
-              = f.text_field :version
-
+            = fields.label :label
+            = fields.text_field :label
+            = fields.label :help_text
+            = fields.text_field :help_text
+        .span3
           .control-group
-            = f.label :owner, :class=>"control-label"
-            .controls
-              = f.text_field :owner
-
-    .accordion-group
-      .accordion-heading
-        %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapseTwo"} Algorithm Config
-      .accordion-body.collapse#collapseTwo
-        .accordion-inner
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-          %p test test test test test
-
-    .accordion-group
-      .accordion-heading
-        %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapseThree"} Filter Config
-      .accordion-body.collapse#collapseThree
-        .accordion-inner
-          %p test test test test test
-
-    .accordion-group
-      .accordion-heading
-        %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapseFour"} Rerank Config
-      .accordion-body.collapse#collapseFour
-        .accordion-inner
-          %p test test test test test
-
-    .accordion-group
-      .accordion-heading
-        %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapseFive"} Summary Config
-      .accordion-body.collapse#collapseFive
-        .accordion-inner
-          %p test test test test test
+            = fields.label :group
+            = fields.text_field :group
+            = fields.label :field_type
+            = fields.text_field :field_type
 
   .control-group
     .controls
       = f.submit :class=>"btn btn-success"
       = link_to 'Back', table_schemas_path, :class=>"btn"
+
+%a{:href=>"#myModal", :role=>"button", :class=>"btn", "data-toggle"=>"modal"} Launch demo modal
+%div{:id=>"myModal", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
+  .modal-header
+    %h3#myModalLabel Modal header
+  .modal-body
+    %p One fine body
+  .modal-footer
+    %button{:class=>"btn", "data-dismiss"=>"modal", "aria-hidden"=>"true"} Close
+    %button{:class=>"btn btn-primary"} Save changes
 
