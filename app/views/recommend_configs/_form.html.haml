@@ -1,12 +1,11 @@
-= debug @table_schema
-
 = form_tag recommend_configs_path, :class=>"form-horizontal" do
   - @table_schema.table_fields.each do |field|
-    .control-group
-      .control-label
-        = label @table_schema.table, field[:label]
-      .controls
-        = text_field @table_schema.table, field[:name]
+    = fields_for "#{@table_schema.table}[#{field.group}]" do |f|
+      .control-group
+        .control-label
+          = f.label field[:label]
+        .controls
+          = f.text_field field[:name]
 
   .control-group
     .controls
