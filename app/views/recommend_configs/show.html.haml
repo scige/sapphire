@@ -11,7 +11,7 @@
       - @table_schema.table_fields.each do |field|
         %p
           %b= "#{field[:label]}:"
-          = @recommend_config[field[:name]]
+          = @recommend_config[field[:group]][field[:name]]
       
       = link_to 'Edit', edit_recommend_config_path(@recommend_config), :class=>"btn btn-info"
       = link_to 'Back', recommend_configs_path, :class=>"btn"
