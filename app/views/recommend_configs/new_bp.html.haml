@@ -1,0 +1,25 @@
+= debug @table_schema
+
+= form_for @table_schema, :html => {:class=>"form-horizontal"} do |f|
+  - if @table_schema.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@table_schema.errors.count, "error")
+        prohibited this table_schema from being saved:
+
+      %ul
+      - @table_schema.errors.full_messages.each do |msg|
+        %li= msg
+
+  .control-group
+    = f.fields_for :table_fields do |fields|
+      .control-group
+        = fields.label :label
+        .controls
+          = fields.text_field :name
+
+  .control-group
+    .controls
+      = f.submit :class=>"btn btn-success"
+      = link_to 'Back', table_schemas_path, :class=>"btn"
+

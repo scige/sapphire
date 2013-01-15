@@ -1,0 +1,33 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      .row
+        .span1.offset6
+          %button.btn.btn-success{:type=>"submit"} Save
+        .span2
+          =link_to "New Site", new_site_path, :class=>"btn btn-primary"
+      %ul.nav.nav-tabs
+        %li.active= link_to "Sites", root_path
+        %li= link_to "Other", root_path
+      
+      %table.table.table-striped
+        %tr
+          %th id
+          %th scope
+          %th scope_type
+          %th domain
+          %th operation
+      
+        - @sites.each do |site|
+          %tr
+            %td= site.id
+            %td= site.scope
+            %td= site.scope_type
+            %td= site.domain
+            %td
+              = link_to 'Show', site, :class=>"btn btn-small"
+              = link_to 'Edit', edit_site_path(site), :class=>"btn btn-small btn-info"
+              = link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
