@@ -1,5 +1,6 @@
 class RecommendConfigsController < ApplicationController
   def index
+    @table_schema = TableSchema.find_by(:table=>"sites")
     @recommend_configs = RecommendConfig.all
   end
 

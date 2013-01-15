@@ -1,0 +1,15 @@
+= debug @table_schema
+
+= form_tag recommend_configs_path, :class=>"form-horizontal" do
+  - @table_schema.table_fields.each do |field|
+    .control-group
+      .control-label
+        = label @table_schema.table, field[:label]
+      .controls
+        = text_field @table_schema.table, field[:name]
+
+  .control-group
+    .controls
+      = submit_tag "Create", :class=>"btn btn-success"
+      = link_to 'Back', recommend_configs_path, :class=>"btn"
+

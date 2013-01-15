@@ -8,7 +8,7 @@
         .span1.offset6
           %button.btn.btn-success{:type=>"submit"} Save
         .span2
-          =link_to "New Site", new_site_path, :class=>"btn btn-primary"
+          =link_to "New Site", new_recommend_config_path, :class=>"btn btn-primary"
       %ul.nav.nav-tabs
         %li.active= link_to "Sites", root_path
         %li= link_to "Other", root_path
@@ -16,18 +16,18 @@
       %table.table.table-striped
         %tr
           %th id
-          %th scope
-          %th scope_type
-          %th domain
+          - @table_schema.table_fields.each do |field|
+            - if field[:group] == "key"
+              %th= field[:label]
           %th operation
       
-        - @sites.each do |site|
+        - @recommend_configs.each do |config|
           %tr
-            %td= site.id
-            %td= site.scope
-            %td= site.scope_type
-            %td= site.domain
+            %td= config.id
+            - @table_schema.table_fields.each do |field|
+              - if field[:group] == "key"
+                %td= config[field[:label]]
             %td
-              = link_to 'Show', site, :class=>"btn btn-small"
-              = link_to 'Edit', edit_site_path(site), :class=>"btn btn-small btn-info"
-              = link_to 'Destroy', site, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+              = link_to 'Show', config, :class=>"btn btn-small"
+              = link_to 'Edit', edit_recommend_config_path(config), :class=>"btn btn-small btn-info"
+              = link_to 'Destroy', config, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
