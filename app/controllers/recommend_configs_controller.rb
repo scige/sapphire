@@ -13,9 +13,14 @@ class RecommendConfigsController < ApplicationController
     @table_schema = TableSchema.find_by(:table=>"sites")
   end
 
+  def edit
+    @table_schema = TableSchema.find_by(:table=>"sites")
+    @recommend_config = RecommendConfig.find(params[:id])
+    logger.debug @recommend_config
+  end
+
   def create
     @recommend_config = RecommendConfig.new(params[:sites])
-    logger.debug params[:sites]
     #@recommend_config = RecommendConfig.new(params[@table_schema.table])
 
     if @recommend_config.save
@@ -23,5 +28,22 @@ class RecommendConfigsController < ApplicationController
     else
       render action: "new"
     end
+  end
+
+  def update
+    @recommend_config = RecommendConfig.find(params[:id])
+
+    if @recommend_config.update_attributes(params[:sites])
+      redirect_to @recommend_config, notice: 'Recommend config was successfully updated.'
+    else
+      render action: "edit"
+    end
+  end
+
+  def destroy
+    @recommend_config = RecommendConfig.find(params[:id])
+    @recommend_config.destroy
+
+    redirect_to recommend_configs_url
   end
 end
