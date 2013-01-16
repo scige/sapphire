@@ -9,6 +9,8 @@ class TableSchema
   embeds_many :table_fields
   accepts_nested_attributes_for :table_fields, :allow_destroy => true
 
+  has_many :recommend_configs
+
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
   def group_fields

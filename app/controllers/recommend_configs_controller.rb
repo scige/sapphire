@@ -1,6 +1,7 @@
 class RecommendConfigsController < ApplicationController
   def index
     @table_schema = TableSchema.find_by(:table=>params[:table])
+    #@recommend_configs = TableSchema.recommend_configs
     @recommend_configs = RecommendConfig.all
   end
 
@@ -19,11 +20,11 @@ class RecommendConfigsController < ApplicationController
   end
 
   def create
-    @recommend_config = RecommendConfig.new(params[:sites])
+    @recommend_config = RecommendConfig.new(params[params[:table]])
     #@recommend_config = RecommendConfig.new(params[@table_schema.table])
 
     if @recommend_config.save
-      redirect_to @recommend_config, notice: 'Recommend config was successfully created.'
+      redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully created.'
     else
       render action: "new"
     end
@@ -33,7 +34,7 @@ class RecommendConfigsController < ApplicationController
     @recommend_config = RecommendConfig.find(params[:id])
 
     if @recommend_config.update_attributes(params[:recommend_config])
-      redirect_to @recommend_config, notice: 'Recommend config was successfully updated.'
+      redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully updated.'
     else
       render action: "edit"
     end
@@ -43,6 +44,6 @@ class RecommendConfigsController < ApplicationController
     @recommend_config = RecommendConfig.find(params[:id])
     @recommend_config.destroy
 
-    redirect_to recommend_configs_url
+    redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table])
   end
 end

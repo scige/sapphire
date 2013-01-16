@@ -28,6 +28,6 @@
               - if field[:group] == "key" and config["key"]
                 %td= config["key"][field[:label]]
             %td
-              = link_to 'Show', config, :class=>"btn btn-small"
-              = link_to 'Edit', edit_recommend_config_path(config), :class=>"btn btn-small btn-info"
-              = link_to 'Destroy', config, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+              = link_to 'Show', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small"
+              = link_to 'Edit', edit_recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small btn-info"
+              = link_to 'Destroy', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"

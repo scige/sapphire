@@ -19,3 +19,10 @@ ts.table_fields << TableField.new(:name=>"fetch_count", :label=>"fetch_count", :
 ts.table_fields << TableField.new(:name=>"enable", :label=>"enable", :group=>"alg_1")
 
 ts.save
+
+ts2 = TableSchema.create(:table=>"item_pattern", :version=>"trunk", :owner=>"offline")
+
+ts2.table_fields << TableField.new(:name=>"domain", :label=>"domain", :group=>"key")
+ts2.table_fields << TableField.new(:name=>"pattern", :label=>"pattern", :group=>"value")
+
+ts2.save
