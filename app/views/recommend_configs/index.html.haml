@@ -10,8 +10,9 @@
         .span2
           =link_to "New Site", new_recommend_config_path(:owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-primary"
       %ul.nav.nav-tabs
-        %li.active= link_to "Sites", root_path
-        %li= link_to "Other", root_path
+        - get_owner_all_tables(params[:owner]).each do |table_schema|
+          %li{:class => (request.url=~/#{table_schema.table}/ ? "active" : nil)}
+            = link_to table_schema.table, recommend_configs_path(:owner=>params[:owner], :table=>table_schema.table)
       
       %table.table.table-striped
         %tr

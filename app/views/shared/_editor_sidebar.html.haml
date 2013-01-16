@@ -1,13 +1,13 @@
 %ul.nav.nav-list.bs-docs-sidenav
-  %li.active
-    %a{:href=>"/recommend_configs?owner=online&table=#{get_first_table("online")}"}
+  %li{:class => (request.url=~/online/ ? "active" : nil)}
+    %a{:href=>"/recommend_configs?owner=online&table=#{get_owner_first_table("online")}"}
       %i.icon-chevron-right
       Online Group
-  %li
-    %a{:href=>"/recommend_configs?owner=offline&table=#{get_first_table("offline")}"}
+  %li{:class => (request.url=~/offline/ ? "active" : nil)}
+    %a{:href=>"/recommend_configs?owner=offline&table=#{get_owner_first_table("offline")}"}
       %i.icon-chevron-right
       Offline Group
-  %li
-    %a{:href=>"/recommend_configs?owner=flow&table=#{get_first_table("flow")}"}
+  %li{:class => (request.url=~/flow/ ? "active" : nil)}
+    %a{:href=>"/recommend_configs?owner=flow&table=#{get_owner_first_table("flow")}"}
       %i.icon-chevron-right
       Flow Group
