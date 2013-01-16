@@ -7,7 +7,9 @@ class TableSchema
   field :owner, type: String
 
   embeds_many :table_fields
-  accepts_nested_attributes_for :table_fields
+  accepts_nested_attributes_for :table_fields, :allow_destroy => true
+
+  attr_accessible :table_fields_attributes, :table, :version, :owner
 
   def group_fields
       group_fields_hash = {}
