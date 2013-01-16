@@ -33,21 +33,21 @@
         .row
           .span4
             .control-group
-              = fields.label :label
-              = fields.text_field :label
               = fields.label :group
               = fields.text_field :group
-              = fields.label :help_text
-              = fields.text_field :help_text
-          .span4
-            .control-group
+              = fields.label :label
+              = fields.text_field :label
               = fields.label :name
               = fields.text_field :name
+          .span4
+            .control-group
               = fields.label :required
               = fields.text_field :required
+              = fields.label :help_text
+              = fields.text_field :help_text
               = fields.label :field_type
               = fields.text_field :field_type
-  =f.link_to_add "Add a table field", :table_fields, :class=>"btn btn-small btn-primary"
+    = f.link_to_add "Add a table field", :table_fields, :class=>"btn btn-small btn-primary"
 
   .control-group
     .controls

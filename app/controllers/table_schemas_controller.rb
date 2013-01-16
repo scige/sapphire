@@ -35,22 +35,6 @@ class TableSchemasController < ApplicationController
     end
   end
 
-  #def update
-  #  @table_schema = TableSchema.find(params[:id])
-  #  logger.debug "[DEBUG] #@table_schema"
-  #  @table_schema.destroy
-
-  #  #if @table_schema.update_attributes(params[:table_schema])
-
-  #  @table_schema = TableSchema.new(params[:table_schema])
-  #  logger.debug "[DEBUG] #@table_schema"
-  #  if @table_schema.save
-  #    redirect_to @table_schema, notice: 'Table schema was successfully updated.'
-  #  else
-  #    render action: "edit"
-  #  end
-  #end
-
   def destroy
     @table_schema = TableSchema.find(params[:id])
     @table_schema.destroy
