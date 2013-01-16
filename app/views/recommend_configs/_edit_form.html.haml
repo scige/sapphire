@@ -1,6 +1,6 @@
 = form_for @recommend_config, :method=>:put, :class=>"form-horizontal" do |form|
   .accordion#accordion2
-    - divide_group_fields.each do |group, fields|
+    - @table_schema.group_fields.each do |group, fields|
       .accordion-group
         .accordion-heading
           %a.accordion-toggle{"data-toggle"=>"collapse", "data-parent"=>"#accordion2", :href=>"#collapse#{group}"}= "#{group} config"
