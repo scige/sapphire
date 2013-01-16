@@ -1,4 +1,6 @@
 = form_tag recommend_configs_path(:owner=>params[:owner], :table=>params[:table]), :class=>"form-horizontal" do
+  = fields_for "#{@table_schema.table}" do |f|
+    = f.hidden_field :table_schema_id, :value=>@table_schema.id
   .accordion#accordion2
     - @table_schema.group_fields.each do |group, fields|
       .accordion-group

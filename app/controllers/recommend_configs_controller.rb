@@ -1,8 +1,7 @@
 class RecommendConfigsController < ApplicationController
   def index
     @table_schema = TableSchema.find_by(:table=>params[:table])
-    #@recommend_configs = TableSchema.recommend_configs
-    @recommend_configs = RecommendConfig.all
+    @recommend_configs = @table_schema.recommend_configs
   end
 
   def show
@@ -21,7 +20,6 @@ class RecommendConfigsController < ApplicationController
 
   def create
     @recommend_config = RecommendConfig.new(params[params[:table]])
-    #@recommend_config = RecommendConfig.new(params[@table_schema.table])
 
     if @recommend_config.save
       redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully created.'
