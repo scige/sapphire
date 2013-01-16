@@ -1,20 +1,20 @@
 class RecommendConfigsController < ApplicationController
   def index
-    @table_schema = TableSchema.find_by(:table=>"sites")
+    @table_schema = TableSchema.find_by(:table=>params[:table])
     @recommend_configs = RecommendConfig.all
   end
 
   def show
-    @table_schema = TableSchema.find_by(:table=>"sites")
+    @table_schema = TableSchema.find_by(:table=>params[:table])
     @recommend_config = RecommendConfig.find(params[:id])
   end
 
   def new
-    @table_schema = TableSchema.find_by(:table=>"sites")
+    @table_schema = TableSchema.find_by(:table=>params[:table])
   end
 
   def edit
-    @table_schema = TableSchema.find_by(:table=>"sites")
+    @table_schema = TableSchema.find_by(:table=>params[:table])
     @recommend_config = RecommendConfig.find(params[:id])
   end
 

@@ -8,7 +8,7 @@
         .span1.offset6
           %button.btn.btn-success{:type=>"submit"} Save
         .span2
-          =link_to "New Site", new_recommend_config_path, :class=>"btn btn-primary"
+          =link_to "New Site", new_recommend_config_path(:owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-primary"
       %ul.nav.nav-tabs
         %li.active= link_to "Sites", root_path
         %li= link_to "Other", root_path

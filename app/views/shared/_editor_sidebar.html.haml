@@ -1,13 +1,13 @@
 %ul.nav.nav-list.bs-docs-sidenav
   %li.active
-    %a{:href=>"#"}
+    %a{:href=>"/recommend_configs?owner=online&table=#{get_first_table("online")}"}
       %i.icon-chevron-right
       Online Group
   %li
-    %a{:href=>"#"}
+    %a{:href=>"/recommend_configs?owner=offline&table=#{get_first_table("offline")}"}
       %i.icon-chevron-right
       Offline Group
   %li
-    %a{:href=>"#"}
+    %a{:href=>"/recommend_configs?owner=flow&table=#{get_first_table("flow")}"}
       %i.icon-chevron-right
       Flow Group
