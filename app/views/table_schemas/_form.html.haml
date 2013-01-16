@@ -1,4 +1,4 @@
-= form_for @table_schema, :html => {:class=>"form-horizontal"} do |f|
+= nested_form_for @table_schema, :html => {:class=>"form-horizontal"} do |f|
   - if @table_schema.errors.any?
     #error_explanation
       %h2
@@ -26,25 +26,28 @@
 
   .control-group
     = f.fields_for :table_fields do |fields|
-      .row
-        .span3
-          .control-group
-            = fields.label :name
-            = fields.text_field :name
-            = fields.label :required
-            = fields.text_field :required
-        .span3
-          .control-group
-            = fields.label :label
-            = fields.text_field :label
-            = fields.label :help_text
-            = fields.text_field :help_text
-        .span3
-          .control-group
-            = fields.label :group
-            = fields.text_field :group
-            = fields.label :field_type
-            = fields.text_field :field_type
+      .well
+        .row
+          .span2.offset7
+            = fields.link_to_remove "Remove this field", :class=>"btn btn-small btn-danger"
+        .row
+          .span4
+            .control-group
+              = fields.label :label
+              = fields.text_field :label
+              = fields.label :group
+              = fields.text_field :group
+              = fields.label :help_text
+              = fields.text_field :help_text
+          .span4
+            .control-group
+              = fields.label :name
+              = fields.text_field :name
+              = fields.label :required
+              = fields.text_field :required
+              = fields.label :field_type
+              = fields.text_field :field_type
+  =f.link_to_add "Add a table field", :table_fields, :class=>"btn btn-small btn-primary"
 
   .control-group
     .controls

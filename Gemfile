@@ -26,3 +26,5 @@ gem 'bson_ext'
 
 gem 'mongoid_auto_increment_id', '0.5.0'
 
+gem 'nested_form'
+
