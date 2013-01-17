@@ -1,7 +1,11 @@
 Sapphire::Application.routes.draw do
   resources :sites
 
-  resources :table_schemas
+  resources :table_schemas do
+    post :create_tag, :on => :collection
+  end
+
+  resources :tag_table_schemas, :only => [:show, :destroy]
 
   resources :recommend_configs
 

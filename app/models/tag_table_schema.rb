@@ -25,4 +25,14 @@ class TagTableSchema
 
       return group_fields_hash
   end
+
+  def clone_with_table_schema(table_schema, tag_version)
+      self.table   = table_schema.table
+      self.version = tag_version
+      self.owner   = table_schema.owner
+
+      table_schema.table_fields.each do |table_field|
+          self.table_fields << table_field
+      end
+  end
 end

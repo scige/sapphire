@@ -1,4 +1,4 @@
-= form_for @recommend_config, :url=> recommend_config_path(@recommend_config, :owner=>params[:owner], :table=>params[:table]), :method=>:put, :class=>"form-horizontal" do |form|
+= form_for @recommend_config, :url=>recommend_config_path(@recommend_config, :owner=>params[:owner], :table=>params[:table]), :method=>:put, :class=>"form-horizontal" do |form|
   = form.hidden_field :table_schema_id, :value=>@table_schema.id
   .accordion#accordion2
     - @table_schema.group_fields.each do |group, fields|

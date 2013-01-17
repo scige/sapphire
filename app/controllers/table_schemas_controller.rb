@@ -47,4 +47,14 @@ class TableSchemasController < ApplicationController
 
     redirect_to table_schemas_url
   end
+
+  def create_tag
+    @table_schema = TableSchema.find(params[:table_schema][:id])
+    @tag_table_schema = TagTableSchema.new
+    @tag_table_schema.clone_with_table_schema(@table_schema, params[:table_schema][:tag_version])
+
+    #TODO: 如果save失败, 需要用notice通知
+    @tag_table_schema.save
+    redirect_to table_schemas_url
+  end
 end

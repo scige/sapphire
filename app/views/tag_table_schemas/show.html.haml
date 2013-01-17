@@ -1,0 +1,24 @@
+.row
+  .span3
+    = render "shared/repo_sidebar"
+
+  .span9
+    %section.page-content
+      %p#notice= notice
+      
+      %h3 Showing table schema
+
+      %p
+        %b Table:
+        = @tag_table_schema.table
+      
+      %p
+        %b Version:
+        = @tag_table_schema.version
+      
+      %p
+        %b Owner:
+        = @tag_table_schema.owner
+      
+      = link_to 'Back', table_schemas_path, :class=>"btn"
+

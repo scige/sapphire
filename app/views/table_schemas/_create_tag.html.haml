@@ -2,21 +2,25 @@
   .modal-header
     %h3#myModalLabel Create New Tag
   .modal-body
-    = form_for table_schema, :url=>"#", :html=>{:class=>"form-horizontal"} do |f|
+    = form_for table_schema, :url=>create_tag_table_schemas_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
+      .control-group
+        = f.label :id, :class=>"control-label"
+        .controls
+          = f.text_field :id, :class=>"uneditable-input"
       .control-group
         = f.label :table, :class=>"control-label"
         .controls
-          = f.text_field :table, :disabled=>"disabled"
+          = f.text_field :table, :class=>"uneditable-input"
     
       .control-group
         = f.label :version, :class=>"control-label"
         .controls
-          = f.text_field :version, :disabled=>"disabled"
+          = f.text_field :version, :class=>"uneditable-input"
     
       .control-group
         = f.label :owner, :class=>"control-label"
         .controls
-          = f.text_field :owner, :disabled=>"disabled"
+          = f.text_field :owner, :class=>"uneditable-input"
 
       .control-group
         = label :table_schema, :tag_version, :class=>"control-label"
