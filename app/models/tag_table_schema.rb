@@ -1,4 +1,4 @@
-class TableSchema
+class TagTableSchema
   include Mongoid::Document
   include Mongoid::Timestamps
 

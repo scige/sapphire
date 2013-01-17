@@ -5,13 +5,11 @@
   .span9
     %section.page-content
       .row
-        .span1.offset6
-          %button.btn.btn-success{:type=>"submit"} Save
-        .span2
+        .span2.offset7
           =link_to "New Table", new_table_schema_path, :class=>"btn btn-primary"
-      %ul.nav.nav-tabs
-        %li.active= link_to "Sites", root_path
-        %li= link_to "Other", root_path
+
+      %p
+        %span.label.label-important Trunk
       
       %table.table.table-striped
         %tr
@@ -28,7 +26,28 @@
             %td= table_schema.version
             %td= table_schema.owner
             %td
+              = link_to 'Tags', "#", :class=>"btn btn-small btn-success"
               = link_to 'Show', table_schema, :class=>"btn btn-small"
               = link_to 'Edit', edit_table_schema_path(table_schema), :class=>"btn btn-small btn-info"
               = link_to 'Destroy', table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
 
+      %p
+        %span.label.label-important Tags
+
+      %table.table.table-striped
+        %tr
+          %th id
+          %th table
+          %th version
+          %th owner
+          %th operation
+      
+        - @tag_table_schemas.each do |table_schema|
+          %tr
+            %td= table_schema.id
+            %td= table_schema.table
+            %td= table_schema.version
+            %td= table_schema.owner
+            %td
+              = link_to 'Show', table_schema, :class=>"btn btn-small"
+              = link_to 'Destroy', table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"

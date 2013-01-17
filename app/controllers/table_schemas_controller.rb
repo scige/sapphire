@@ -1,6 +1,12 @@
 class TableSchemasController < ApplicationController
   def index
-    @table_schemas = TableSchema.all
+    if params[:owner] == nil
+      @table_schemas = TableSchema.all
+      @tag_table_schemas = TagTableSchema.all
+    else
+      @table_schemas = TableSchema.where(:owner=>params[:owner])
+      @tag_table_schemas = TagTableSchema.where(:owner=>params[:owner])
+    end
   end
 
   def show

@@ -1,4 +1,4 @@
-class RecommendConfig
+class TagRecommendConfig
   include Mongoid::Document
   include Mongoid::Timestamps
 
