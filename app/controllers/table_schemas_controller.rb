@@ -52,9 +52,17 @@ class TableSchemasController < ApplicationController
     @table_schema = TableSchema.find(params[:table_schema][:id])
     @tag_table_schema = TagTableSchema.new
     @tag_table_schema.clone_with_table_schema(@table_schema, params[:table_schema][:tag_version])
-
     #TODO: 如果save失败, 需要用notice通知
     @tag_table_schema.save
+
+    @table_schema.recommend_configs.each do |recommend_config|
+        recommend_config_dup = recommend_config.dup
+        recommend_config_dup.attributes.delete("table_schema_id")
+        tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
+        @tag_table_schema.tag_recommend_configs << tag_recommend_config
+        tag_recommend_config.save
+    end
+
     redirect_to table_schemas_url
   end
 end
