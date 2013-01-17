@@ -1,0 +1,31 @@
+%div{:id=>"myModal#{table_schema.id}", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
+  .modal-header
+    %h3#myModalLabel Create New Tag
+  .modal-body
+    = form_for table_schema, :url=>"#", :html=>{:class=>"form-horizontal"} do |f|
+      .control-group
+        = f.label :table, :class=>"control-label"
+        .controls
+          = f.text_field :table, :disabled=>"disabled"
+    
+      .control-group
+        = f.label :version, :class=>"control-label"
+        .controls
+          = f.text_field :version, :disabled=>"disabled"
+    
+      .control-group
+        = f.label :owner, :class=>"control-label"
+        .controls
+          = f.text_field :owner, :disabled=>"disabled"
+
+      .control-group
+        = label :table_schema, :tag_version, :class=>"control-label"
+        .controls
+          / 不依赖对象，手动组合二级form结构!
+          = text_field :table_schema, :tag_version
+
+      .control-group
+        .controls
+          = f.submit "Create", :class=>"btn btn-success"
+          %button{:class=>"btn", "data-dismiss"=>"modal", "aria-hidden"=>"true"} Cancel
+

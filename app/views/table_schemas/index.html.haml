@@ -26,10 +26,12 @@
             %td= table_schema.version
             %td= table_schema.owner
             %td
-              = link_to 'Tags', "#", :class=>"btn btn-small btn-success"
+              %a{:href=>"#myModal#{table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} Tag
+              = render :partial=>"create_tag", :locals=>{:table_schema=>table_schema}
               = link_to 'Show', table_schema, :class=>"btn btn-small"
               = link_to 'Edit', edit_table_schema_path(table_schema), :class=>"btn btn-small btn-info"
               = link_to 'Destroy', table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+
 
       %p
         %span.label.label-important Tags
@@ -51,3 +53,4 @@
             %td
               = link_to 'Show', table_schema, :class=>"btn btn-small"
               = link_to 'Destroy', table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+
