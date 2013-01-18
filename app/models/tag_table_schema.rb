@@ -32,6 +32,7 @@ class TagTableSchema
       self.owner   = table_schema.owner
 
       table_schema.table_fields.each do |table_field|
+          #TODO: table_field的created_at和updated_at都不是当前时间
           self.table_fields << table_field
       end
   end

@@ -62,6 +62,8 @@ class TableSchemasController < ApplicationController
     @table_schema.recommend_configs.each do |recommend_config|
         recommend_config_dup = recommend_config.dup
         recommend_config_dup.attributes.delete("table_schema_id")
+        recommend_config_dup.attributes.delete("created_at")
+        recommend_config_dup.attributes.delete("updated_at")
         tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
         @tag_table_schema.tag_recommend_configs << tag_recommend_config
         tag_recommend_config.save
