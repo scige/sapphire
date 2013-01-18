@@ -42,7 +42,11 @@ class TagTableSchemasController < ApplicationController
 
     logger.debug @xml_string
 
-    file_path = "/home/admin/sapphire_data/" + @tag_table_schema.owner + "/"
+    file_path = Rails.public_path + "/recommend_configs/"
+    if !Dir.exist?(file_path)
+      Dir.mkdir(file_path)
+    end
+    file_path += @tag_table_schema.owner + "/"
     if !Dir.exist?(file_path)
       Dir.mkdir(file_path)
     end
