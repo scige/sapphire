@@ -51,7 +51,8 @@ class TableSchemasController < ApplicationController
   def create_tag
     @table_schema = TableSchema.find(params[:table_schema][:id])
     @tag_table_schema = TagTableSchema.new
-    @tag_table_schema.clone_with_table_schema(@table_schema, params[:table_schema][:tag_version])
+    @tag_table_schema.clone_with_table_schema(@table_schema)
+    @tag_table_schema.version = params[:table_schema][:tag_version]
 
     #要先save tag_table_schema, 然后再save tag_recommend_config
     #否则tag_recommend_config.tag_table_schema_id为nil
@@ -72,8 +73,9 @@ class TableSchemasController < ApplicationController
   #def create_tag
   #  @table_schema = TableSchema.find(params[:table_schema][:id])
   #  table_schema_dup = @table_schema.dup
-  #  #似乎这里不会递归拷贝构造子对象, tag_table_schema.table_fields是空的
+  #  #这里不会递归拷贝构造子对象, 需要手动拷贝table_fields
   #  @tag_table_schema = TagTableSchema.new(table_schema_dup.attributes)
+  #  @tag_table_schema.table_fields = @table_schema.table_fields.dup
   #  @tag_table_schema.version = params[:table_schema][:tag_version]
 
   #  #要先save tag_table_schema, 然后再save tag_recommend_config
