@@ -11,5 +11,6 @@ class TagTableSchemasController < ApplicationController
   end
 
   def dump_xml
+    redirect_to table_schemas_url
   end
 end

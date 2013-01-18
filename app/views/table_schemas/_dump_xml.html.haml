@@ -1,9 +1,9 @@
-%div{:id=>"myModalCreateTag#{table_schema.id}", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
+%div{:id=>"myModalDumpXml#{tag_table_schema.id}", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
   .modal-header
-    %h3#myModalLabel Create New Tag
+    %h3#myModalLabel Dump Data to XML
   .modal-body
-    = form_for table_schema, :url=>create_tag_table_schemas_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
-      = f.hidden_field :id, :value=>table_schema.id
+    = form_for tag_table_schema, :url=>dump_xml_tag_table_schemas_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
+      = f.hidden_field :id, :value=>tag_table_schema.id
 
       .control-group
         = f.label :table, :class=>"control-label"
@@ -21,10 +21,10 @@
           = f.text_field :owner, :disabled=>"disabled"
 
       .control-group
-        = label :table_schema, :tag_version, :class=>"control-label"
+        = label :tag_table_schema, :file_name, :class=>"control-label"
         .controls
           / 不依赖对象，手动组合二级form结构!
-          = text_field :table_schema, :tag_version
+          = text_field :tag_table_schema, :file_name, :value=>"data/#{tag_table_schema.owner}/#{tag_table_schema.table}_#{tag_table_schema.version}.xml"
 
       .control-group
         .controls
