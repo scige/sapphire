@@ -26,7 +26,7 @@
             %td= table_schema.version
             %td= table_schema.owner
             %td
-              %a{:href=>"#myModal#{table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} Tag
+              %a{:href=>"#myModalCreateTag#{table_schema.id}", :role=>"button", :class=>"btn btn-small btn-inverse", "data-toggle"=>"modal"} Tag
               = render :partial=>"create_tag", :locals=>{:table_schema=>table_schema}
               = link_to 'Show', table_schema, :class=>"btn btn-small"
               = link_to 'Edit', edit_table_schema_path(table_schema), :class=>"btn btn-small btn-info"
@@ -44,13 +44,15 @@
           %th owner
           %th operation
       
-        - @tag_table_schemas.each do |table_schema|
+        - @tag_table_schemas.each do |tag_table_schema|
           %tr
-            %td= table_schema.id
-            %td= table_schema.table
-            %td= table_schema.version
-            %td= table_schema.owner
+            %td= tag_table_schema.id
+            %td= tag_table_schema.table
+            %td= tag_table_schema.version
+            %td= tag_table_schema.owner
             %td
-              = link_to 'Show', table_schema, :class=>"btn btn-small"
-              = link_to 'Destroy', table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+              %a{:href=>"#myModalDumpXml#{tag_table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} Dump
+              = render :partial=>"dump_xml", :locals=>{:tag_table_schema=>tag_table_schema}
+              = link_to 'Show', tag_table_schema, :class=>"btn btn-small"
+              = link_to 'Destroy', tag_table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
 

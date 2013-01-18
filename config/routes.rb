@@ -5,7 +5,9 @@ Sapphire::Application.routes.draw do
     post :create_tag, :on => :collection
   end
 
-  resources :tag_table_schemas, :only => [:show, :destroy]
+  resources :tag_table_schemas, :only => [:show, :destroy] do
+    post :dump_xml, :on => :collection
+  end
 
   resources :recommend_configs
 
