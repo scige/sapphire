@@ -24,7 +24,7 @@
         = label :tag_table_schema, :file_name, :class=>"control-label"
         .controls
           / 不依赖对象，手动组合二级form结构!
-          = text_field :tag_table_schema, :file_name, :value=>"data/#{tag_table_schema.owner}/#{tag_table_schema.table}_#{tag_table_schema.version}.xml"
+          = text_field :tag_table_schema, :file_name, :value=>"#{tag_table_schema.owner}/#{tag_table_schema.table}_#{tag_table_schema.version}.xml"
 
       .control-group
         .controls

@@ -13,17 +13,12 @@ class TagTableSchema
 
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
-  def group_fields
-      group_fields_hash = {}
-      self.table_fields.each do |field|
-          if group_fields_hash.has_key?(field.group)
-              group_fields_hash[field.group] << field
-          else
-              group_fields_hash[field.group] = [field]
-          end
-      end
-
-      return group_fields_hash
+  def groups
+    groups = []
+    self.table_fields.each do |table_field|
+      groups << table_field.group
+    end
+    groups.uniq
   end
 
   def clone_with_table_schema(table_schema)

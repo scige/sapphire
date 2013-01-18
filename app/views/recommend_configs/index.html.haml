@@ -5,10 +5,8 @@
   .span9
     %section.page-content
       .row
-        .span1.offset6
-          %button.btn.btn-success{:type=>"submit"} Save
-        .span2
-          =link_to "New Site", new_recommend_config_path(:owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-primary"
+        .span2.offset7
+          =link_to "New Config", new_recommend_config_path(:owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-primary"
       %ul.nav.nav-tabs
         - get_owner_all_tables(params[:owner]).each do |table_schema|
           %li{:class => (request.url=~/#{table_schema.table}/ ? "active" : nil)}

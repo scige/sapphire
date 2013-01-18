@@ -14,7 +14,7 @@
                   .control-label
                     = f.label field[:name]
                   .controls
-                    = f.text_field field[:name], :value=>@recommend_config[group][field[:name]]
+                    = f.text_field field[:name], :value=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
 
   .control-group
     .controls
