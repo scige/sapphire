@@ -1,6 +1,6 @@
 class TableSchemasController < ApplicationController
   def index
-    if params[:owner] == nil
+    if !params[:owner]
       @table_schemas = TableSchema.all
       @tag_table_schemas = TagTableSchema.all
     else

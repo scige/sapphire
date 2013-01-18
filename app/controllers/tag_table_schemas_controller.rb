@@ -42,7 +42,11 @@ class TagTableSchemasController < ApplicationController
 
     logger.debug @xml_string
 
-    file_name = "/home/admin/sapphire_data/" + params[:tag_table_schema][:file_name]
+    file_path = "/home/admin/sapphire_data/" + @tag_table_schema.owner + "/"
+    if !Dir.exist?(file_path)
+      Dir.mkdir(file_path)
+    end
+    file_name = file_path + params[:tag_table_schema][:file_name]
     file = File.new(file_name, 'w')
     file.puts(@xml_string)
     file.close
