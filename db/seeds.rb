@@ -29,3 +29,8 @@ ts3 = TableSchema.create(:table=>"image", :version=>"trunk", :owner=>"flow")
 ts3.table_fields << TableField.new(:name=>"url", :label=>"url", :group=>"key")
 ts3.table_fields << TableField.new(:name=>"image_url", :label=>"image_url", :group=>"value")
 ts3.save
+
+ts4 = TableSchema.create(:table=>"test", :version=>"trunk", :owner=>"sandbox")
+ts4.table_fields << TableField.new(:name=>"domain", :label=>"domain", :group=>"key")
+ts4.table_fields << TableField.new(:name=>"pattern", :label=>"pattern", :group=>"value")
+ts4.save

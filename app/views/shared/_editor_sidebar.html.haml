@@ -2,12 +2,16 @@
   %li{:class => (request.fullpath=~/online/ ? "active" : nil)}
     %a{:href=>"/recommend_configs?owner=online&table=#{get_owner_first_table("online")}"}
       %i.icon-chevron-right
-      Online Group
+      Online Team
   %li{:class => (request.fullpath=~/offline/ ? "active" : nil)}
     %a{:href=>"/recommend_configs?owner=offline&table=#{get_owner_first_table("offline")}"}
       %i.icon-chevron-right
-      Offline Group
+      Offline Team
   %li{:class => (request.fullpath=~/flow/ ? "active" : nil)}
     %a{:href=>"/recommend_configs?owner=flow&table=#{get_owner_first_table("flow")}"}
       %i.icon-chevron-right
-      Flow Group
+      Flow Team
+  %li{:class => (request.fullpath=~/sandbox/ ? "active" : nil)}
+    %a{:href=>"/recommend_configs?owner=sandbox&table=#{get_owner_first_table("sandbox")}"}
+      %i.icon-chevron-right
+      Sandbox

@@ -2,16 +2,20 @@
   %li{:class => (request.fullpath=="/table_schemas" ? "active" : nil)}
     %a{:href=>"/table_schemas"}
       %i.icon-chevron-right
-      All Group
+      All Team
   %li{:class => (request.fullpath=~/online/ ? "active" : nil)}
     %a{:href=>"/table_schemas?owner=online"}
       %i.icon-chevron-right
-      Online Group
+      Online Team
   %li{:class => (request.fullpath=~/offline/ ? "active" : nil)}
     %a{:href=>"/table_schemas?owner=offline"}
       %i.icon-chevron-right
-      Offline Group
+      Offline Team
   %li{:class => (request.fullpath=~/flow/ ? "active" : nil)}
     %a{:href=>"/table_schemas?owner=flow"}
       %i.icon-chevron-right
-      Flow Group
+      Flow Team
+  %li{:class => (request.fullpath=~/Sandbox/ ? "active" : nil)}
+    %a{:href=>"/table_schemas?owner=Sandbox"}
+      %i.icon-chevron-right
+      Sandbox
