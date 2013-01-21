@@ -5,13 +5,13 @@ class TableField
   field :group, :type => String
   field :label, :type => String
   field :name, :type => String
-  field :required, :type => Boolean, :default => true
-  field :help_text, :type => String
-  field :field_type, :type => String
+  field :default_value, :type => String, :default => ""
+  field :help_text, :type => String, :default => ""
+  field :field_type, :type => String, :default => ""
 
   embedded_in :table_schema
 
-  validates_presence_of :name, :label, :group, :required
+  validates_presence_of :group, :label, :name
 
-  attr_accessible :name, :label, :help_text, :required, :field_type, :group
+  attr_accessible :group, :label, :name, :default_value, :help_text, :field_type
 end

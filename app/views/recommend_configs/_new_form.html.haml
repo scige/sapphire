@@ -14,7 +14,7 @@
                   .control-label
                     = f.label field[:label]
                   .controls
-                    = f.text_field field[:name], :class=>"input-xxlarge"
+                    = f.text_field field[:name], :value=>field[:default_value], :class=>"input-xxlarge"
 
   .control-group
     .controls

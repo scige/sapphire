@@ -31,6 +31,9 @@ class TagTableSchemasController < ApplicationController
 
             xml.tag!(group_name) {
               tag_rc[group_name].each do |key, value|
+                if value or value == ""
+                  value = "default"
+                end
                 xml.tag!(key, value)
               end
             }
