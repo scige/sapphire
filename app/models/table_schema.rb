@@ -11,6 +11,8 @@ class TableSchema
 
   has_many :recommend_configs
 
+  validates_presence_of :table, :version, :owner, :table_fields
+
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
   def group_fields

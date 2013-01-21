@@ -3,4 +3,6 @@ class TagRecommendConfig
   include Mongoid::Timestamps
 
   belongs_to :tag_table_schema
+
+  validates_presence_of :tag_table_schema_id
 end

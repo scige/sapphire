@@ -11,6 +11,8 @@ class TagTableSchema
 
   has_many :tag_recommend_configs
 
+  validates_presence_of :table, :version, :owner, :table_fields
+
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
   def groups
