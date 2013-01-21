@@ -13,6 +13,9 @@ class TableSchema
 
   validates_presence_of :table, :version, :owner, :table_fields
 
+  index :table => 1
+  index :owner => 1
+
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
   def group_fields
