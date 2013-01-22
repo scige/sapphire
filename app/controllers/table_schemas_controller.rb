@@ -1,11 +1,11 @@
 class TableSchemasController < ApplicationController
   def index
     if !params[:owner]
-      @table_schemas = TableSchema.all
-      @tag_table_schemas = TagTableSchema.all
+      @table_schemas = TableSchema.order_by([[:owner, :asc], [:id, :asc]])
+      @tag_table_schemas = TagTableSchema.order_by([[:owner, :asc], [:id, :asc]])
     else
-      @table_schemas = TableSchema.where(:owner=>params[:owner])
-      @tag_table_schemas = TagTableSchema.where(:owner=>params[:owner])
+      @table_schemas = TableSchema.where(:owner=>params[:owner]).order_by([[:owner, :asc], [:id, :asc]])
+      @tag_table_schemas = TagTableSchema.where(:owner=>params[:owner]).order_by([[:owner, :asc], [:id, :asc]])
     end
   end
 
