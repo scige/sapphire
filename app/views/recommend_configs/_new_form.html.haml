@@ -18,6 +18,9 @@
                       = f.select field[:name], get_options(field[:option_value]), :class=>"input-xxlarge"
                     - else
                       = f.text_field field[:name], :value=>field[:default_value], :class=>"input-xxlarge"
+                  - if field[:help_text] and field[:help_text] != ""
+                    .controls
+                      = "( #{field[:help_text]} )"
 
   .control-group
     .controls

@@ -58,6 +58,8 @@ class TagTableSchemasController < ApplicationController
     file.puts(@xml_string)
     file.close
 
+    flash[:info] = "XML File Address: http://#{request.env["HTTP_HOST"]}/#{file_name[Rails.public_path.length+1..-1]}"
+
     redirect_to table_schemas_url
   end
 end
