@@ -40,6 +40,7 @@ class TableSchemasController < ApplicationController
       #获取更新详情：增加，删除，修改的field
       diff_fields = get_diff_fields(table_schema_old.table_fields, table_schema_new.table_fields)
       if !diff_fields
+        flash[:error] = 'Table schema was updated, but recommend config data updated failed.'
         redirect_to @table_schema, notice: 'Table schema was updated, but recommend config data updated failed.'
         return
       end
@@ -117,8 +118,10 @@ class TableSchemasController < ApplicationController
 
     #要先save tag_table_schema, 然后再save tag_recommend_config
     #否则tag_recommend_config.tag_table_schema_id为nil
-    #TODO: 如果save失败, 需要用notice通知
-    @tag_table_schema.save
+    if !@tag_table_schema.save
+      flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed."
+      redirect_to table_schemas_url
+    end
 
     @table_schema.recommend_configs.each do |recommend_config|
       recommend_config_dup = recommend_config.dup
@@ -130,7 +133,7 @@ class TableSchemasController < ApplicationController
       tag_recommend_config.save
     end
 
-    redirect_to table_schemas_url
+    redirect_to table_schemas_url, notice: "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] successed."
   end
 
   #def create_tag
