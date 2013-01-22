@@ -39,6 +39,10 @@ class TableSchemasController < ApplicationController
       table_schema_new = @table_schema.dup
       #获取更新详情：增加，删除，修改的field
       diff_fields = get_diff_fields(table_schema_old.table_fields, table_schema_new.table_fields)
+      if !diff_fields
+        redirect_to @table_schema, notice: 'Table schema was updated, but recommend config data updated failed.'
+        return
+      end
 
       #更新已经存在的数据
       @table_schema.recommend_configs.each do |recommend_config|
@@ -49,10 +53,23 @@ class TableSchemasController < ApplicationController
         end
 
         diff_fields[:add].each do |table_field|
+          #新增group
           if !update_attributes.has_key?(table_field["group"])
             update_attributes[table_field["group"]] = {}
           end
           update_attributes[table_field["group"]][table_field["name"]] = table_field["default_value"]
+        end
+
+        diff_fields[:modify].each do |table_field_pair|
+          ts_old = table_field_pair["old"]
+          ts_new = table_field_pair["new"]
+          #先插入新的字段, 更新默认值, 然后再删除旧的字段
+          value = update_attributes[ts_new["group"]][ts_old["name"]]
+          if update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
+            value = ts_new["default_value"]
+          end
+          update_attributes[ts_new["group"]][ts_new["name"]] = value
+          update_attributes[ts_new["group"]].delete(ts_old["name"])
         end
 
         logger.debug diff_fields
@@ -150,8 +167,13 @@ class TableSchemasController < ApplicationController
       ts_olds.each do |ts_old|
         if ts_new["_id"] == ts_old["_id"]
           is_find = true
-          if ts_new["name"] != ts_old["name"]
-            diff_fields[:modify] << ts_new
+          #不支持更新group的操作
+          if ts_new["group"] != ts_old["group"]
+            return nil
+          end
+          if ts_new["name"] != ts_old["name"] or
+             ts_new["default_value"] != ts_old["default_value"]
+            diff_fields[:modify] << {"old"=>ts_old, "new"=>ts_new}
           end
           break
         end
