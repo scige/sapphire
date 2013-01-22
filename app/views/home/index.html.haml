@@ -1,80 +1,47 @@
-.row
-  .span3
-    %ul.nav.nav-list.bs-docs-sidenav
-      %li.active
-        %a{:href=>"#"}
-          %i.icon-chevron-right
-          Online Team
-      %li
-        %a{:href=>"#"}
-          %i.icon-chevron-right
-          Offline Team
-      %li
-        %a{:href=>"#"}
-          %i.icon-chevron-right
-          Flow Team
-
-  .span9
-    %section.page-content
-      .row
-        .span1.offset7
-          %button.btn.btn-success{:type=>"submit"} Save
-        .span1
-          %button.btn.btn-primary{:type=>"submit"} New
-      %ul.nav.nav-tabs
-        %li.active= link_to "Sites", root_path
-        %li= link_to "Other", root_path
-
-      %table.table.table-striped
-        %tr
-          %th id
-          %th name
-          %th type
-          %th domain
-          %th operation
-
-        %tr
-          %td 1
-          %td meishichina.com
-          %td domain
-          %td meishichina.com
-          %td
-            %button.btn.btn-small{:type=>"submit"} Show
-            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
-        %tr
-          %td 2
-          %td book.zongheng.com
-          %td host
-          %td zongheng.com
-          %td
-            %button.btn.btn-small{:type=>"submit"} Show
-            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
-        %tr
-          %td 3
-          %td ent.cn.yahoo.com/newspic
-          %td path
-          %td yahoo.com
-          %td
-            %button.btn.btn-small{:type=>"submit"} Show
-            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
-        %tr
-          %td 4
-          %td mili.cn.yahoo.com
-          %td path
-          %td yahoo.com
-          %td
-            %button.btn.btn-small{:type=>"submit"} Show
-            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
-        %tr
-          %td 5
-          %td cn.yahoo.com
-          %td path
-          %td yahoo.com
-          %td
-            %button.btn.btn-small{:type=>"submit"} Show
-            %button.btn.btn-small.btn-info{:type=>"submit"} Edit
-            %button.btn.btn-small.btn-danger{:type=>"submit"} Delete
+%br
+%br
+.hero-unit
+  %h2 推荐系统配置和部署中心 V0.1
+  %h4
+    %i.icon-ok
+    动态库表: 
+  %h6 支持动态添加、删除数据库表，修改数据库表Schema
+  %h4
+    %i.icon-ok
+    动态表单: 
+  %h6 根据自定义的数据库表Schema动态生成配置数据编辑表单
+  %h4
+    %i.icon-ok
+    配置编辑器: 
+  %h6 支持配置项分组、数据默认值、候选下拉菜单等易用功能
+  %h4
+    %i.icon-ok
+    数据库分组：
+  %h6 为各组同学提供不同的逻辑数据库，各组同学工作互不影响
+  %h4
+    %i.icon-ok
+    数据版本控制: 
+  %h6 Trunk版本数据提供编辑功能，还可以存储为Tag版本数据
+  %h4
+    %i.icon-ok
+    转存XML文件: 
+  %h6 支持以数据库表的每个Tag版本数据为单位Dump成XML文件
+  %h4
+    %i.icon-ok
+    数据Web服务: 
+  %h6 支持Web访问Dump出的数据文件，提供数据的自动更新服务
+  %h4
+    %i.icon-time
+    帮助手册
+  %h4
+    %i.icon-time
+    自动化发布
+  %h4
+    %i.icon-time
+    自动化部署
+  %h4
+    %i.icon-time
+    批量导入数据
+  %h4
+    %i.icon-time
+    用户权限控制
