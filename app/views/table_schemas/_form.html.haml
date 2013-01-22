@@ -17,12 +17,12 @@
   .control-group
     = f.label :version, :class=>"control-label"
     .controls
-      = f.text_field :version
+      = f.text_field :version, :value=>"trunk"
 
   .control-group
     = f.label :owner, :class=>"control-label"
     .controls
-      = f.text_field :owner
+      = f.select :owner, [["online","online"], ["offline","offline"], ["flow","flow"], ["sandbox","sandbox"]]
 
   .control-group
     = f.fields_for :table_fields do |fields|
@@ -46,7 +46,10 @@
               = fields.label :help_text
               = fields.text_field :help_text
               = fields.label :field_type
-              = fields.text_field :field_type
+              = fields.select :field_type, [["input","input"], ["select","select"]]
+        .control-group
+          = fields.label :option_value
+          = fields.text_field :option_value, :class=>"input-xxlarge"
     = f.link_to_add "Add a table field", :table_fields, :class=>"btn btn-small btn-primary"
 
   .control-group

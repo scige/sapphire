@@ -14,7 +14,10 @@
                   .control-label
                     = f.label field[:name]
                   .controls
-                    = f.text_field field[:name], :value=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
+                    - if field[:field_type] == "select"
+                      = f.select field[:name], get_options(field[:option_value]), :selected=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
+                    - else
+                      = f.text_field field[:name], :value=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
 
   .control-group
     .controls
