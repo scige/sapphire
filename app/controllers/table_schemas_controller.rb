@@ -33,8 +33,52 @@ class TableSchemasController < ApplicationController
 
   def update
     @table_schema = TableSchema.find(params[:id])
+    table_schema_old = @table_schema.dup
 
     if @table_schema.update_attributes(params[:table_schema])
+      table_schema_new = @table_schema.dup
+      #获取更新详情：增加，删除，修改的field
+      diff_fields = get_diff_fields(table_schema_old.table_fields, table_schema_new.table_fields)
+
+      #更新已经存在的数据
+      @table_schema.recommend_configs.each do |recommend_config|
+        update_attributes = clone_attributes(recommend_config, table_schema_old)
+        #更新field的数据, 也可以新增group
+        diff_fields[:remove].each do |table_field|
+          update_attributes[table_field["group"]].delete(table_field["name"])
+        end
+
+        diff_fields[:add].each do |table_field|
+          if !update_attributes.has_key?(table_field["group"])
+            update_attributes[table_field["group"]] = {}
+          end
+          update_attributes[table_field["group"]][table_field["name"]] = table_field["default_value"]
+        end
+
+        logger.debug diff_fields
+        logger.debug recommend_config.attributes
+        logger.debug update_attributes
+
+        recommend_config.update_attributes(update_attributes)
+
+        #删除空的group
+        remove_attributes = []
+        update_attributes.each do |key, value|
+          if value.length == 0
+            remove_attributes << key
+          end
+        end
+
+        remove_attributes.each do |remove_attribute|
+          recommend_config.remove_attribute(remove_attribute)
+        end
+
+        logger.debug recommend_config.attributes
+        logger.debug remove_attributes
+
+        recommend_config.save
+      end
+
       redirect_to @table_schema, notice: 'Table schema was successfully updated.'
     else
       render action: "edit"
@@ -60,13 +104,13 @@ class TableSchemasController < ApplicationController
     @tag_table_schema.save
 
     @table_schema.recommend_configs.each do |recommend_config|
-        recommend_config_dup = recommend_config.dup
-        recommend_config_dup.attributes.delete("table_schema_id")
-        recommend_config_dup.attributes.delete("created_at")
-        recommend_config_dup.attributes.delete("updated_at")
-        tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
-        @tag_table_schema.tag_recommend_configs << tag_recommend_config
-        tag_recommend_config.save
+      recommend_config_dup = recommend_config.dup
+      recommend_config_dup.attributes.delete("table_schema_id")
+      recommend_config_dup.attributes.delete("created_at")
+      recommend_config_dup.attributes.delete("updated_at")
+      tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
+      @tag_table_schema.tag_recommend_configs << tag_recommend_config
+      tag_recommend_config.save
     end
 
     redirect_to table_schemas_url
@@ -86,13 +130,66 @@ class TableSchemasController < ApplicationController
   #  @tag_table_schema.save
 
   #  @table_schema.recommend_configs.each do |recommend_config|
-  #      recommend_config_dup = recommend_config.dup
-  #      recommend_config_dup.attributes.delete("table_schema_id")
-  #      tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
-  #      @tag_table_schema.tag_recommend_configs << tag_recommend_config
-  #      tag_recommend_config.save
+  #    recommend_config_dup = recommend_config.dup
+  #    recommend_config_dup.attributes.delete("table_schema_id")
+  #    tag_recommend_config = TagRecommendConfig.new(recommend_config_dup.attributes)
+  #    @tag_table_schema.tag_recommend_configs << tag_recommend_config
+  #    tag_recommend_config.save
   #  end
 
   #  redirect_to table_schemas_url
   #end
+
+  private
+
+  def get_diff_fields(ts_olds, ts_news)
+    diff_fields = {:add=>[], :remove=>[], :modify=>[]}
+
+    ts_news.each do |ts_new|
+      is_find = false
+      ts_olds.each do |ts_old|
+        if ts_new["_id"] == ts_old["_id"]
+          is_find = true
+          if ts_new["name"] != ts_old["name"]
+            diff_fields[:modify] << ts_new
+          end
+          break
+        end
+      end
+
+      if !is_find
+        diff_fields[:add] << ts_new
+      end
+    end
+
+    ts_olds.each do |ts_old|
+      is_find = false
+      ts_news.each do |ts_new|
+        if ts_new["_id"] == ts_old["_id"]
+          is_find = true
+          break
+        end
+      end
+
+      if !is_find
+        diff_fields[:remove] << ts_old
+      end
+    end
+
+    return diff_fields
+  end
+
+  def clone_attributes(recommend_config, table_schema)
+    rc_clone = {}
+    table_schema.table_fields.each do |table_field|
+      if !rc_clone.has_key?(table_field.group)
+        if !recommend_config.has_attribute?(table_field.group)
+          next
+        end
+        rc_clone[table_field.group] = recommend_config[table_field.group].dup
+      end
+    end
+
+    return rc_clone
+  end
 end
