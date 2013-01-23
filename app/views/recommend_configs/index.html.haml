@@ -25,7 +25,7 @@
             %td= config.id
             - @table_schema.table_fields.each do |field|
               - if field[:group] == "key" and config["key"]
-                %td= config["key"][field[:label]]
+                %td= config["key"][field[:name]]
             %td
               = link_to 'Show', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small"
               = link_to 'Edit', edit_recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small btn-info"

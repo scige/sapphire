@@ -6,6 +6,9 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'capybara'
+
+  gem 'pry-rails'
+  gem 'pry-nav'
 end
 
 group :assets do
