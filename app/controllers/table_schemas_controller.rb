@@ -45,6 +45,8 @@ class TableSchemasController < ApplicationController
         return
       end
 
+      #binding.pry
+
       #更新已经存在的数据
       @table_schema.recommend_configs.each do |recommend_config|
         update_attributes = clone_attributes(recommend_config, table_schema_old)

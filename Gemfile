@@ -8,7 +8,9 @@ group :development, :test do
   gem 'capybara'
 
   gem 'pry-rails'
-  gem 'pry-nav'
+  gem 'pry-debugger'
+  gem 'pry-stack_explorer'
+  gem 'pry-exception_explorer'
 end
 
 group :assets do
