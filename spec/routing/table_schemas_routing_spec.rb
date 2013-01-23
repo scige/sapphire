@@ -31,5 +31,9 @@ describe TableSchemasController do
       delete("/table_schemas/1").should route_to("table_schemas#destroy", :id => "1")
     end
 
+    it "routes to #create_tag" do
+      post("/table_schemas/create_tag").should route_to("table_schemas#create_tag")
+    end
+
   end
 end
