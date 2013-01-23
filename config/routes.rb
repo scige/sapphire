@@ -1,6 +1,4 @@
 Sapphire::Application.routes.draw do
-  resources :sites
-
   resources :table_schemas do
     post :create_tag, :on => :collection
   end
