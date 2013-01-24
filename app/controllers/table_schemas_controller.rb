@@ -121,8 +121,6 @@ class TableSchemasController < ApplicationController
     tag_table_schema_find = TagTableSchema.where(:table=>@tag_table_schema.table,
                                                  :version=>@tag_table_schema.version)
     
-    binding.pry
-
     if tag_table_schema_find.count > 0
       flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed. Reason: it has exist."
       redirect_to table_schemas_url
