@@ -17,6 +17,7 @@
           %th table
           %th version
           %th owner
+          %th time
           %th operation
       
         - @table_schemas.each do |table_schema|
@@ -25,6 +26,7 @@
             %td= table_schema.table
             %td= table_schema.version
             %td= table_schema.owner
+            %td= table_schema.updated_at.to_s[0..-7]
             %td
               %a{:href=>"#myModalCreateTag#{table_schema.id}", :role=>"button", :class=>"btn btn-small btn-warning", "data-toggle"=>"modal"} Tag
               = render :partial=>"create_tag", :locals=>{:table_schema=>table_schema}
@@ -42,6 +44,7 @@
           %th table
           %th version
           %th owner
+          %th time
           %th operation
       
         - @tag_table_schemas.each do |tag_table_schema|
@@ -50,6 +53,7 @@
             %td= tag_table_schema.table
             %td= tag_table_schema.version
             %td= tag_table_schema.owner
+            %td= tag_table_schema.updated_at.to_s[0..-7]
             %td
               %a{:href=>"#myModalDumpXml#{tag_table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} Dump
               = render :partial=>"dump_xml", :locals=>{:tag_table_schema=>tag_table_schema}
