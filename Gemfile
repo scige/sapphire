@@ -6,11 +6,12 @@ group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
   gem 'capybara'
+  gem 'factory_girl_rails'
 
   gem 'pry-rails'
   gem 'pry-debugger'
   gem 'pry-stack_explorer'
-  gem 'pry-exception_explorer'
+  #gem 'pry-exception_explorer'
 end
 
 group :assets do

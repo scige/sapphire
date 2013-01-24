@@ -66,6 +66,11 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (2.3.2)
+      activesupport
+    factory_girl_rails (1.4.0)
+      factory_girl (~> 2.3.0)
+      railties (>= 3.0.0)
     ffi (1.2.0)
     haml (3.1.7)
     hike (1.2.1)
@@ -104,8 +109,6 @@ GEM
     pry-debugger (0.2.1)
       debugger (~> 1.2.0)
       pry (~> 0.9.10)
-    pry-exception_explorer (0.2.3)
-      pry-stack_explorer (>= 0.4.6)
     pry-rails (0.2.2)
       pry (>= 0.9.10)
     pry-stack_explorer (0.4.7)
@@ -184,13 +187,13 @@ DEPENDENCIES
   bson_ext
   capybara
   coffee-rails (~> 3.2.1)
+  factory_girl_rails
   haml
   jquery-rails
   mongoid
   mongoid_auto_increment_id (= 0.5.0)
   nested_form
   pry-debugger
-  pry-exception_explorer
   pry-rails
   pry-stack_explorer
   rails (= 3.2.8)

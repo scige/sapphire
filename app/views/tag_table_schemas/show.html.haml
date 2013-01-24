@@ -6,17 +6,47 @@
     %section.page-content
       %h3 Showing table schema
 
-      %p
-        %b Table:
-        = @tag_table_schema.table
+      = form_for @tag_table_schema, :html => {:class=>"form-horizontal"} do |f|
+        .control-group
+          = f.label :table, :class=>"control-label"
+          .controls
+            = f.text_field :table, :disabled=>"disabled"
       
-      %p
-        %b Version:
-        = @tag_table_schema.version
+        .control-group
+          = f.label :version, :class=>"control-label"
+          .controls
+            = f.text_field :version, :disabled=>"disabled"
       
-      %p
-        %b Owner:
-        = @tag_table_schema.owner
+        .control-group
+          = f.label :owner, :class=>"control-label"
+          .controls
+            = f.text_field :owner, :disabled=>"disabled"
       
-      = link_to 'Back', table_schemas_path, :class=>"btn"
+        .control-group
+          = f.fields_for :table_fields do |fields|
+            .well
+              .row
+                .span4
+                  .control-group
+                    = fields.label :group
+                    = fields.text_field :group, :disabled=>"disabled"
+                    = fields.label :label
+                    = fields.text_field :label, :disabled=>"disabled"
+                    = fields.label :name
+                    = fields.text_field :name, :disabled=>"disabled"
+                .span4
+                  .control-group
+                    = fields.label :default_value
+                    = fields.text_field :default_value, :disabled=>"disabled"
+                    = fields.label :help_text
+                    = fields.text_field :help_text, :disabled=>"disabled"
+                    = fields.label :field_type
+                    = fields.text_field :field_type, :disabled=>"disabled"
+              .control-group
+                = fields.label :option_value
+                = fields.text_field :option_value, :class=>"input-xxlarge", :disabled=>"disabled"
+
+        .control-group
+          .controls
+            = link_to 'Back', table_schemas_path, :class=>"btn"
 

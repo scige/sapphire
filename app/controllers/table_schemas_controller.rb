@@ -41,7 +41,7 @@ class TableSchemasController < ApplicationController
       diff_fields = get_diff_fields(table_schema_old.table_fields, table_schema_new.table_fields)
       if !diff_fields
         flash[:error] = 'Table schema was updated, but recommend config data updated failed.'
-        redirect_to @table_schema, notice: 'Table schema was updated, but recommend config data updated failed.'
+        redirect_to @table_schema
         return
       end
 
@@ -118,10 +118,21 @@ class TableSchemasController < ApplicationController
     @tag_table_schema.clone_with_table_schema(@table_schema)
     @tag_table_schema.version = params[:table_schema][:tag_version]
 
+    tag_table_schema_find = TagTableSchema.where(:table=>@tag_table_schema.table,
+                                                 :version=>@tag_table_schema.version)
+    
+    binding.pry
+
+    if tag_table_schema_find.count > 0
+      flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed. Reason: it has exist."
+      redirect_to table_schemas_url
+      return
+    end
+
     #要先save tag_table_schema, 然后再save tag_recommend_config
     #否则tag_recommend_config.tag_table_schema_id为nil
     if !@tag_table_schema.save
-      flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed."
+      flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed. Reason: save table schema failed."
       redirect_to table_schemas_url
     end
 

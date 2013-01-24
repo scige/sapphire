@@ -12,6 +12,7 @@ class TableSchema
   has_many :recommend_configs
 
   validates_presence_of :table, :version, :owner, :table_fields
+  validates_uniqueness_of :table, :case_sensitive => false
 
   index :table => 1
   index :owner => 1
