@@ -84,17 +84,19 @@ describe TableSchema do
 
   describe "validate uniqueness" do
     let(:ts) {FactoryGirl.create(:table_schema)}
+    let(:ts2) {FactoryGirl.build(:table_schema)}
 
-    it "first model should be valid" do
+    it "first model should be valid, second model should not be valid" do
       ts.should be_valid
+      ts2.should_not be_valid
     end
 
     #binding.pry
 
-    let(:ts2) {FactoryGirl.build(:table_schema)}
-
-    it "second model should not be valid" do
-      ts2.should_not be_valid
+    describe "test database_cleaner :each clean" do
+      it "should be valid, because database_cleaner has executed" do
+        ts2.should be_valid
+      end
     end
   end
 end
