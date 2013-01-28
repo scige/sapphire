@@ -62,4 +62,38 @@ class TagTableSchemasController < ApplicationController
 
     redirect_to table_schemas_url
   end
+
+  def dump_nsf
+    @tag_table_schema = TagTableSchema.find(params[:tag_table_schema][:id])
+
+    @nsf_string = ""
+    group_name = "key"
+    @tag_table_schema.tag_recommend_configs.each do |tag_rc|
+      line_string = ""
+      tag_rc[group_name].each do |key, value|
+        line_string += value + "\t"
+      end
+      line_string = line_string[0...-1]
+      @nsf_string += line_string + "\n"
+    end
+
+    logger.debug @nsf_string
+
+    file_path = Rails.public_path + "/recommend_configs/"
+    if !Dir.exist?(file_path)
+      Dir.mkdir(file_path)
+    end
+    file_path += @tag_table_schema.owner + "/"
+    if !Dir.exist?(file_path)
+      Dir.mkdir(file_path)
+    end
+    file_name = file_path + params[:tag_table_schema][:file_name]
+    file = File.new(file_name, 'w')
+    file.puts(@nsf_string)
+    file.close
+
+    flash[:info] = "XML File Address: http://#{request.env["HTTP_HOST"]}/#{file_name[Rails.public_path.length+1..-1]}"
+
+    redirect_to table_schemas_url
+  end
 end

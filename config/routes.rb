@@ -5,6 +5,7 @@ Sapphire::Application.routes.draw do
 
   resources :tag_table_schemas, :only => [:show, :destroy] do
     post :dump_xml, :on => :collection
+    post :dump_nsf, :on => :collection
   end
 
   resources :recommend_configs

@@ -1,0 +1,33 @@
+%div{:id=>"myModalDumpNsf#{tag_table_schema.id}", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
+  .modal-header
+    %h3#myModalLabel Dump Data to NSF
+  .modal-body
+    = form_for tag_table_schema, :url=>dump_nsf_tag_table_schemas_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
+      = f.hidden_field :id, :value=>tag_table_schema.id
+
+      .control-group
+        = f.label :table, :class=>"control-label"
+        .controls
+          = f.text_field :table, :disabled=>"disabled"
+    
+      .control-group
+        = f.label :version, :class=>"control-label"
+        .controls
+          = f.text_field :version, :disabled=>"disabled"
+    
+      .control-group
+        = f.label :owner, :class=>"control-label"
+        .controls
+          = f.text_field :owner, :disabled=>"disabled"
+
+      .control-group
+        = label :tag_table_schema, :file_name, :class=>"control-label"
+        .controls
+          / 不依赖对象，手动组合二级form结构!
+          = text_field :tag_table_schema, :file_name, :value=>"#{tag_table_schema.table}_#{tag_table_schema.version}.nsf"
+
+      .control-group
+        .controls
+          = f.submit "Create", :class=>"btn btn-success"
+          %button{:class=>"btn", "data-dismiss"=>"modal", "aria-hidden"=>"true"} Cancel
+

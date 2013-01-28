@@ -55,8 +55,10 @@
             %td= tag_table_schema.owner
             %td= tag_table_schema.updated_at.to_s[0..-7]
             %td
-              %a{:href=>"#myModalDumpXml#{tag_table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} Dump
+              %a{:href=>"#myModalDumpXml#{tag_table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} XML
               = render :partial=>"dump_xml", :locals=>{:tag_table_schema=>tag_table_schema}
+              %a{:href=>"#myModalDumpNsf#{tag_table_schema.id}", :role=>"button", :class=>"btn btn-small btn-success", "data-toggle"=>"modal"} NSF
+              = render :partial=>"dump_nsf", :locals=>{:tag_table_schema=>tag_table_schema}
               = link_to 'Show', tag_table_schema, :class=>"btn btn-small"
               = link_to 'Destroy', tag_table_schema, method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
 
