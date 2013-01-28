@@ -20,5 +20,6 @@ FactoryGirl.define do
   end
 
   factory :recommend_config do
+    association   :table_schema
   end
 end
