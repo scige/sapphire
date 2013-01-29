@@ -1,4 +1,14 @@
 FactoryGirl.define do
+  factory :table_field, class: TableField do
+    group         "key"
+    name          "domain"
+    label         "domain"
+    default_value ""
+    help_text     ""
+    field_type    "input"
+    option_value  ""
+  end
+
   factory :table_field_1, class: TableField do
     group   "key"
     name    "domain"
@@ -47,4 +57,5 @@ FactoryGirl.define do
   factory :tag_recommend_config do
     association   :tag_table_schema
   end
+  # define tag models end
 end
