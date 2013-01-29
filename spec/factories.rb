@@ -33,6 +33,14 @@ FactoryGirl.define do
     association   :table_schema
   end
 
+  factory :table_schema_seq, class: TableSchema do
+    sequence(:table) {|n| "test_#{n}"}
+    version       "trunk"
+    owner         "sandbox"
+    table_fields  {[FactoryGirl.build(:table_field_1),
+                    FactoryGirl.build(:table_field_2)]}
+  end
+
   # define tag models"
   factory :tag_table_field_1, class: TableField do
     group   "key"
