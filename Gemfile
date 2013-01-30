@@ -26,7 +26,7 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass', '~> 2.2.2.0'
 
-gem 'haml'
+gem 'haml-rails'
 
 gem 'mongoid'
 

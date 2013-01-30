@@ -34,115 +34,11 @@ describe TagTableSchemasController do
     {}
   end
 
-  describe "GET index" do
-    it "assigns all tag_table_schemas as @tag_table_schemas" do
-      tag_table_schema = TagTableSchema.create! valid_attributes
-      get :index, {}, valid_session
-      assigns(:tag_table_schemas).should eq([tag_table_schema])
-    end
-  end
-
   describe "GET show" do
     it "assigns the requested tag_table_schema as @tag_table_schema" do
       tag_table_schema = TagTableSchema.create! valid_attributes
       get :show, {:id => tag_table_schema.to_param}, valid_session
       assigns(:tag_table_schema).should eq(tag_table_schema)
-    end
-  end
-
-  describe "GET new" do
-    it "assigns a new tag_table_schema as @tag_table_schema" do
-      get :new, {}, valid_session
-      assigns(:tag_table_schema).should be_a_new(TagTableSchema)
-    end
-  end
-
-  describe "GET edit" do
-    it "assigns the requested tag_table_schema as @tag_table_schema" do
-      tag_table_schema = TagTableSchema.create! valid_attributes
-      get :edit, {:id => tag_table_schema.to_param}, valid_session
-      assigns(:tag_table_schema).should eq(tag_table_schema)
-    end
-  end
-
-  describe "POST create" do
-    describe "with valid params" do
-      it "creates a new TagTableSchema" do
-        expect {
-          post :create, {:tag_table_schema => valid_attributes}, valid_session
-        }.to change(TagTableSchema, :count).by(1)
-      end
-
-      it "assigns a newly created tag_table_schema as @tag_table_schema" do
-        post :create, {:tag_table_schema => valid_attributes}, valid_session
-        assigns(:tag_table_schema).should be_a(TagTableSchema)
-        assigns(:tag_table_schema).should be_persisted
-      end
-
-      it "redirects to the created tag_table_schema" do
-        post :create, {:tag_table_schema => valid_attributes}, valid_session
-        response.should redirect_to(TagTableSchema.last)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns a newly created but unsaved tag_table_schema as @tag_table_schema" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        TagTableSchema.any_instance.stub(:save).and_return(false)
-        post :create, {:tag_table_schema => {  }}, valid_session
-        assigns(:tag_table_schema).should be_a_new(TagTableSchema)
-      end
-
-      it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        TagTableSchema.any_instance.stub(:save).and_return(false)
-        post :create, {:tag_table_schema => {  }}, valid_session
-        response.should render_template("new")
-      end
-    end
-  end
-
-  describe "PUT update" do
-    describe "with valid params" do
-      it "updates the requested tag_table_schema" do
-        tag_table_schema = TagTableSchema.create! valid_attributes
-        # Assuming there are no other tag_table_schemas in the database, this
-        # specifies that the TagTableSchema created on the previous line
-        # receives the :update_attributes message with whatever params are
-        # submitted in the request.
-        TagTableSchema.any_instance.should_receive(:update_attributes).with({ "these" => "params" })
-        put :update, {:id => tag_table_schema.to_param, :tag_table_schema => { "these" => "params" }}, valid_session
-      end
-
-      it "assigns the requested tag_table_schema as @tag_table_schema" do
-        tag_table_schema = TagTableSchema.create! valid_attributes
-        put :update, {:id => tag_table_schema.to_param, :tag_table_schema => valid_attributes}, valid_session
-        assigns(:tag_table_schema).should eq(tag_table_schema)
-      end
-
-      it "redirects to the tag_table_schema" do
-        tag_table_schema = TagTableSchema.create! valid_attributes
-        put :update, {:id => tag_table_schema.to_param, :tag_table_schema => valid_attributes}, valid_session
-        response.should redirect_to(tag_table_schema)
-      end
-    end
-
-    describe "with invalid params" do
-      it "assigns the tag_table_schema as @tag_table_schema" do
-        tag_table_schema = TagTableSchema.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        TagTableSchema.any_instance.stub(:save).and_return(false)
-        put :update, {:id => tag_table_schema.to_param, :tag_table_schema => {  }}, valid_session
-        assigns(:tag_table_schema).should eq(tag_table_schema)
-      end
-
-      it "re-renders the 'edit' template" do
-        tag_table_schema = TagTableSchema.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        TagTableSchema.any_instance.stub(:save).and_return(false)
-        put :update, {:id => tag_table_schema.to_param, :tag_table_schema => {  }}, valid_session
-        response.should render_template("edit")
-      end
     end
   end
 
