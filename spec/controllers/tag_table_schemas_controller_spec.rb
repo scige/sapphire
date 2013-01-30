@@ -24,7 +24,24 @@ describe TagTableSchemasController do
   # TagTableSchema. As you add validations to TagTableSchema, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {  }
+    {
+      "table" => "mytable",
+      "version" => "trunk",
+      "owner" => "sandbox",
+      "table_fields_attributes"=>
+      {
+        "1359542151595"=>
+        {"group"=>"key",
+         "label"=>"domain",
+         "name"=>"domain",
+         "field_type"=>"input"},
+        "1359542161209"=>
+        {"group"=>"value",
+         "label"=>"pattern",
+         "name"=>"pattern",
+         "field_type"=>"input"}
+      }
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -53,7 +70,7 @@ describe TagTableSchemasController do
     it "redirects to the tag_table_schemas list" do
       tag_table_schema = TagTableSchema.create! valid_attributes
       delete :destroy, {:id => tag_table_schema.to_param}, valid_session
-      response.should redirect_to(tag_table_schemas_url)
+      response.should redirect_to(table_schemas_url)
     end
   end
 
