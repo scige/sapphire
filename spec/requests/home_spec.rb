@@ -1,11 +1,26 @@
+#coding: utf-8
+
 require 'spec_helper'
 
 describe "Home" do
-  describe "GET /home" do
-    it "works! (now write some real specs)" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      get home_path
-      response.status.should be(200)
+
+  subject{ page }
+
+  describe "when visit index" do
+    before(:each) do
+      visit root_path
     end
+
+    #it { puts page.html }
+
+    it { should have_content("Home") }
+    it { should have_content("Configurations") }
+    it { should have_content("Repositories") }
+    it { should have_content("RecTeam") }
+    it { should have_content("配置&部署中心 V0.1") }
+    it { should have_content("用户手册 V0.1") }
+
+    #it { should have_css("container") }
+    #it { should have_selector("navbar-inner") }
   end
 end
