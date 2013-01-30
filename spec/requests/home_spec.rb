@@ -20,7 +20,7 @@ describe "Home" do
     it { should have_content("配置&部署中心 V0.1") }
     it { should have_content("用户手册 V0.1") }
 
-    #it { should have_css("container") }
-    #it { should have_selector("navbar-inner") }
+    it { should have_css(".container") }
+    it { should have_selector("div.navbar-inner") }
   end
 end

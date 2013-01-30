@@ -41,6 +41,14 @@ FactoryGirl.define do
                     FactoryGirl.build(:table_field_2)]}
   end
 
+  factory :table_schema_online, class: TableSchema do
+    table         "sites"
+    version       "trunk"
+    owner         "online"
+    table_fields  {[FactoryGirl.build(:table_field_1),
+                    FactoryGirl.build(:table_field_2)]}
+  end
+
   # define tag models"
   factory :tag_table_field_1, class: TableField do
     group   "key"
