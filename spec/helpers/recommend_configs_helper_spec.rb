@@ -11,5 +11,46 @@ require 'spec_helper'
 #   end
 # end
 describe RecommendConfigsHelper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "when normal string" do
+    it "should have 3 option" do
+      option_string = "online,offline,flow"
+      option_array  = helper.get_options(option_string)
+      option_array.should have(3).items
+    end
+
+    it "should have 1 option" do
+      option_string = "online"
+      option_array  = helper.get_options(option_string)
+      option_array.should have(1).items
+    end
+  end
+
+  describe "when exception string" do
+    it "should have 2 option" do
+      option_string = "   online,   offline  "
+      option_array  = helper.get_options(option_string)
+      option_array.should have(2).items
+    end
+
+    it "should have 3 option" do
+      option_string = "   online, ,  offline  "
+      option_array  = helper.get_options(option_string)
+      option_array.should have(3).items
+      option_array[1].should == ["",""]
+    end
+
+    it "should have 2 option" do
+      option_string = "   online, "
+      option_array  = helper.get_options(option_string)
+      option_array.should have(2).items
+      option_array[1].should == ["",""]
+    end
+
+    it "should have 2 option" do
+      option_string = ",   online"
+      option_array  = helper.get_options(option_string)
+      option_array.should have(2).items
+      option_array[0].should == ["",""]
+    end
+  end
 end

@@ -15,5 +15,9 @@ describe TagTableSchemasController do
       post("/tag_table_schemas/dump_xml").should route_to("tag_table_schemas#dump_xml")
     end
 
+    it "routes to #dump_nsf" do
+      post("/tag_table_schemas/dump_nsf").should route_to("tag_table_schemas#dump_nsf")
+    end
+
   end
 end

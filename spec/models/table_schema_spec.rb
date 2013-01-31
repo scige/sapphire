@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe TableSchema do
   describe "validate presence" do
-    describe "all field are present" do
+    describe "when all field are present" do
       let(:ts) { FactoryGirl.build(:table_schema) }
 
       it "should have these field" do
@@ -17,7 +17,7 @@ describe TableSchema do
       end
     end
 
-    describe "table is not present" do
+    describe "when table is not present" do
       let(:ts) { FactoryGirl.build(:table_schema, table: nil) }
 
       it "should not be valid" do
@@ -25,7 +25,7 @@ describe TableSchema do
       end
     end
 
-    describe "table is null" do
+    describe "when table is null" do
       let(:ts) { FactoryGirl.build(:table_schema, table: "") }
 
       it "should not be valid" do
@@ -33,7 +33,7 @@ describe TableSchema do
       end
     end
 
-    describe "version is not present" do
+    describe "when version is not present" do
       let(:ts) { FactoryGirl.build(:table_schema, version: nil) }
 
       it "should not be valid" do
@@ -41,7 +41,7 @@ describe TableSchema do
       end
     end
 
-    describe "version is null" do
+    describe "when version is null" do
       let(:ts) { FactoryGirl.build(:table_schema, version: "") }
 
       it "should not be valid" do
@@ -49,7 +49,7 @@ describe TableSchema do
       end
     end
 
-    describe "owner is not present" do
+    describe "when owner is not present" do
       let(:ts) { FactoryGirl.build(:table_schema, owner: nil) }
 
       it "should not be valid" do
@@ -57,7 +57,7 @@ describe TableSchema do
       end
     end
 
-    describe "owner is null" do
+    describe "when owner is null" do
       let(:ts) { FactoryGirl.build(:table_schema, owner: "") }
 
       it "should not be valid" do
@@ -65,7 +65,7 @@ describe TableSchema do
       end
     end
 
-    describe "table_fields is not present" do
+    describe "when table_fields is not present" do
       let(:ts) { FactoryGirl.build(:table_schema, table_fields: nil) }
 
       it "should not be valid" do
@@ -73,7 +73,7 @@ describe TableSchema do
       end
     end
 
-    describe "table_fields is null" do
+    describe "when table_fields is null" do
       let(:ts) { FactoryGirl.build(:table_schema, table_fields: []) }
 
       it "should not be valid" do
@@ -82,7 +82,7 @@ describe TableSchema do
     end
   end
 
-  describe "validate uniqueness" do
+  describe "when validate uniqueness" do
     let(:ts) { FactoryGirl.create(:table_schema) }
     let(:ts2) { FactoryGirl.build(:table_schema) }
 
@@ -100,11 +100,18 @@ describe TableSchema do
     end
   end
 
-  describe "group_fields method" do
+  describe "when use group_fields method" do
     let(:ts) { FactoryGirl.create(:table_schema) }
     let(:gfs) { ts.group_fields }
 
-    it "" do
+    it "should have key value hash" do
+      gfs.should be_an_instance_of(Hash)
+      gfs.should have_key("key")
+      gfs.should have_key("value")
+      gfs["key"].should have(1).table_fields
+      gfs["key"].should == [FactoryGirl.build(:table_field_1, "_id"=>1)]
+      gfs["value"].should have(1).table_fields
+      gfs["value"].should == [FactoryGirl.build(:table_field_2, "_id"=>2)]
     end
   end
 end

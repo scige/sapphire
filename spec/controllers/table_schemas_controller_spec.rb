@@ -24,7 +24,24 @@ describe TableSchemasController do
   # TableSchema. As you add validations to TableSchema, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { "table" => "MyString" }
+    {
+      "table" => "mytable",
+      "version" => "trunk",
+      "owner" => "sandbox",
+      "table_fields_attributes"=>
+      {
+        "1359542151595"=>
+        {"group"=>"key",
+         "label"=>"domain",
+         "name"=>"domain",
+         "field_type"=>"input"},
+        "1359542161209"=>
+        {"group"=>"value",
+         "label"=>"pattern",
+         "name"=>"pattern",
+         "field_type"=>"input"}
+      }
+    }
   end
 
   # This should return the minimal set of values that should be in the session

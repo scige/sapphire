@@ -30,3 +30,5 @@
               = link_to 'Show', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small"
               = link_to 'Edit', edit_recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small btn-info"
               = link_to 'Destroy', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
+
+      = paginate @recommend_configs

@@ -5,14 +5,18 @@ gem 'rails', '3.2.8'
 group :development, :test do
   gem 'sqlite3'
   gem 'rspec-rails'
-  gem 'capybara'
+  gem 'capybara', '1.1.2'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
+  gem 'faker'
+  gem 'simplecov'
 
   gem 'pry-rails'
   gem 'pry-debugger'
   gem 'pry-stack_explorer'
   #gem 'pry-exception_explorer'
+
+  gem 'better_errors'
 end
 
 group :assets do
@@ -25,7 +29,7 @@ gem 'jquery-rails'
 
 gem 'bootstrap-sass', '~> 2.2.2.0'
 
-gem 'haml'
+gem 'haml-rails'
 
 gem 'mongoid'
 
@@ -34,4 +38,6 @@ gem 'bson_ext'
 gem 'mongoid_auto_increment_id', '0.5.0'
 
 gem 'nested_form'
+
+gem 'kaminari'
 

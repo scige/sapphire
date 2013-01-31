@@ -16,7 +16,7 @@ describe "table_schemas/new" do
     assert_select "form", :action => table_schemas_path, :method => "post" do
       assert_select "input#table_schema_table", :name => "table_schema[table]"
       assert_select "input#table_schema_version", :name => "table_schema[version]"
-      assert_select "input#table_schema_owner", :name => "table_schema[owner]"
+      assert_select "select#table_schema_owner", :name => "table_schema[owner]"
     end
   end
 end

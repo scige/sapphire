@@ -24,7 +24,7 @@ describe RecommendConfigsController do
   # RecommendConfig. As you add validations to RecommendConfig, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {  }
+    { :table_schema_id=>1 }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -69,19 +69,19 @@ describe RecommendConfigsController do
     describe "with valid params" do
       it "creates a new RecommendConfig" do
         expect {
-          post :create, {:recommend_config => valid_attributes}, valid_session
+          post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
         }.to change(RecommendConfig, :count).by(1)
       end
 
       it "assigns a newly created recommend_config as @recommend_config" do
-        post :create, {:recommend_config => valid_attributes}, valid_session
+        post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
         assigns(:recommend_config).should be_a(RecommendConfig)
         assigns(:recommend_config).should be_persisted
       end
 
       it "redirects to the created recommend_config" do
-        post :create, {:recommend_config => valid_attributes}, valid_session
-        response.should redirect_to(RecommendConfig.last)
+        post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
+        response.should redirect_to(recommend_config_url(RecommendConfig.last, :table=>"mytable"))
       end
     end
 
