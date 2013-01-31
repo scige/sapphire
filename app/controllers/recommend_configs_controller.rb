@@ -1,7 +1,7 @@
 class RecommendConfigsController < ApplicationController
   def index
     @table_schema = TableSchema.find_by(:table=>params[:table])
-    @recommend_configs = @table_schema.recommend_configs
+    @recommend_configs = @table_schema.recommend_configs.page(params[:page])
   end
 
   def show
