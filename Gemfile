@@ -15,6 +15,8 @@ group :development, :test do
   gem 'pry-debugger'
   gem 'pry-stack_explorer'
   #gem 'pry-exception_explorer'
+
+  gem 'better_errors'
 end
 
 group :assets do
