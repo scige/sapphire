@@ -10,18 +10,17 @@
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
-          /= link_to "Sapphire", root_path, :class=>"brand"
           .nav-collapse.collapse
             %ul.nav
-              %li{:class => (controller_name=="home"?"active":nil)}= link_to "Home", root_path
-              %li{:class => (controller_name=="recommend_configs"?"active":nil)}= link_to "Configurations", recommend_configs_path(:owner=>"online", :table=>get_owner_first_table("online"))
-              %li{:class => (controller_name=="table_schemas"?"active":nil)}= link_to "Repositories", table_schemas_path
-              %li{:class => (controller_name=="deploy"?"active":nil)}= link_to "Deploying", "#"
-              %li{:class => (controller_name=="helps"?"active":nil)}= link_to "Help", "#"
+              %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
+              %li{:class => (controller_name=="recommend_configs"?"active":nil)}= link_to "配置管理", recommend_configs_path(:owner=>"online", :table=>get_owner_first_table("online"))
+              %li{:class => (controller_name=="table_schemas"?"active":nil)}= link_to "数据表管理", table_schemas_path
+              %li{:class => (controller_name=="deploy"?"active":nil)}= link_to "自动部署", "#"
+              %li{:class => (controller_name=="helps"?"active":nil)}= link_to "帮助", "#"
     
     %header.jumbotron.subhead
       .container
-        %h1 RecTeam
+        %h2 配置&部署中心
         %p.lead Move fast, and break things.
 
     .container
