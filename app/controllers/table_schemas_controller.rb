@@ -65,7 +65,6 @@ class TableSchemasController < ApplicationController
           ts_old = table_field_pair["old"]
           ts_new = table_field_pair["new"]
           #先插入新的字段, 更新默认值, 然后再删除旧的字段
-          binding.pry
           if !update_attributes[ts_new["group"]].has_key?(ts_old["name"]) 
             update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
           else
