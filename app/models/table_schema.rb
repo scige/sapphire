@@ -19,7 +19,7 @@ class TableSchema
 
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
-  before_save :sort_table_fields
+  after_save :sort_table_fields
 
   def sort_table_fields
     self.table_fields.each do |field|
