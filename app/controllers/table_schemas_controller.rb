@@ -65,12 +65,24 @@ class TableSchemasController < ApplicationController
           ts_old = table_field_pair["old"]
           ts_new = table_field_pair["new"]
           #先插入新的字段, 更新默认值, 然后再删除旧的字段
-          value = update_attributes[ts_new["group"]][ts_old["name"]]
-          if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
-            value = ts_new["default_value"]
+          binding.pry
+          if !update_attributes[ts_new["group"]].has_key?(ts_old["name"]) 
+            update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
+          else
+            if ts_old["default_value"] == ts_new["default_value"]
+              #此时一定是 ts_old["name"] == ts_new["name"]
+              update_attributes[ts_new["group"]][ts_new["name"]] = update_attributes[ts_new["group"]][ts_old["name"]]
+            else
+              if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
+                update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
+              end
+            end
+
+            #不管default_value字段是否更新，只要name字段更新了，就要删除旧的 ts_old["name"]
+            if ts_old["name"] != ts_new["name"]
+              update_attributes[ts_new["group"]].delete(ts_old["name"])
+            end
           end
-          update_attributes[ts_new["group"]][ts_new["name"]] = value
-          update_attributes[ts_new["group"]].delete(ts_old["name"])
         end
 
         logger.debug diff_fields
