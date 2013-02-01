@@ -66,8 +66,7 @@ class TableSchemasController < ApplicationController
           ts_new = table_field_pair["new"]
           #先插入新的字段, 更新默认值, 然后再删除旧的字段
           value = update_attributes[ts_new["group"]][ts_old["name"]]
-          if update_attributes[ts_new["group"]][ts_old["name"]] == ""
-             or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
+          if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
             value = ts_new["default_value"]
           end
           update_attributes[ts_new["group"]][ts_new["name"]] = value
