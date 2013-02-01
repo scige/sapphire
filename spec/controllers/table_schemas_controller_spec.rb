@@ -178,4 +178,101 @@ describe TableSchemasController do
     end
   end
 
+  describe "when call get_diff_fields method" do
+
+    before(:each) do
+      @table_schema_old = FactoryGirl.create(:table_schema)
+      @table_schema_new = @table_schema_old.dup
+    end
+
+    describe "when no modify" do
+      it "should return default hash" do
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields.should == {:add=>[], :remove=>[], :modify=>[]}
+      end
+    end
+
+    describe "when add field" do
+      it "should have add field" do
+        @table_schema_new.table_fields << FactoryGirl.build(:table_field_3)
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields[:add].should have(1).items
+      end
+    end
+
+    describe "when remove field" do
+      it "should have remove field" do
+        @table_schema_new.table_fields.delete_if {|f| f.name == "pattern"}
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields[:remove].should have(1).items
+      end
+    end
+
+    describe "when modify field's group" do
+      it "should be nil" do
+        @table_schema_new.table_fields[1]["group"] = "new_value"
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields.should == nil
+      end
+    end
+
+    describe "when modify field's label" do
+      it "should not have modify field" do
+        @table_schema_new.table_fields[1]["label"] = "new_pattern"
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields.should == {:add=>[], :remove=>[], :modify=>[]}
+      end
+    end
+
+    describe "when modify field's name" do
+      it "should have modify field" do
+        @table_schema_new.table_fields[1]["name"] = "new_pattern"
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields[:modify].should have(1).items
+      end
+    end
+
+    describe "when modify field's defalut_value" do
+      it "should have modify field" do
+        @table_schema_new.table_fields[1]["default_value"] = "http://abc.com/*/*.html"
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields[:modify].should have(1).items
+      end
+    end
+
+    describe "when remove, add, modify fields" do
+      it "should have remove, add, modify field" do
+        @table_schema_new.table_fields.delete_if {|f| f.name == "pattern"}
+        @table_schema_new.table_fields << FactoryGirl.build(:table_field_3)
+        @table_schema_new.table_fields[0]["name"] = "new_domain"
+        @table_schema_new.save
+        diff_fields = controller.send(:get_diff_fields, 
+                                      @table_schema_old.table_fields,
+                                      @table_schema_new.table_fields)
+        diff_fields[:remove].should have(1).items
+        diff_fields[:add].should have(1).items
+        diff_fields[:modify].should have(1).items
+      end
+    end
+  end
 end
