@@ -22,22 +22,23 @@ class TableSchema
   after_save :sort_table_fields
 
   def sort_table_fields
-    self.table_fields.each do |field|
+    temp_table_fields = self.table_fields.each do |field|
       if field.group == "key"
         field.group = " key"
       end
     end
 
-    temp_table_fields = self.table_fields.sort do |left, right|
+    temp_table_fields.sort! do |left, right|
       [left.group, left.id] <=> [right.group, right.id]
     end
-    self.table_fields = temp_table_fields
 
-    self.table_fields.each do |field|
+    temp_table_fields.each do |field|
       if field.group == " key"
         field.group = "key"
       end
     end
+
+    self.table_fields = temp_table_fields
   end
 
   def group_fields
