@@ -19,6 +19,27 @@ class TableSchema
 
   attr_accessible :table_fields_attributes, :table, :version, :owner
 
+  before_save :sort_table_fields
+
+  def sort_table_fields
+    self.table_fields.each do |field|
+      if field.group == "key"
+        field.group = " key"
+      end
+    end
+
+    temp_table_fields = self.table_fields.sort do |left, right|
+      [left.group, left.id] <=> [right.group, right.id]
+    end
+    self.table_fields = temp_table_fields
+
+    self.table_fields.each do |field|
+      if field.group == " key"
+        field.group = "key"
+      end
+    end
+  end
+
   def group_fields
       group_fields_hash = {}
       self.table_fields.each do |field|
