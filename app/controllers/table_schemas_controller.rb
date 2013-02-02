@@ -40,14 +40,23 @@ class TableSchemasController < ApplicationController
       #获取更新详情：增加，删除，修改的field
       diff_fields = get_diff_fields(table_schema_old.table_fields, table_schema_new.table_fields)
       if !diff_fields
-        flash[:error] = 'Table schema was updated, but recommend config data updated failed.'
-        redirect_to @table_schema
-        return
+        #TODO: recover to old table_schema, 下面的恢复方式无效
+        #@table_schema.update_attributes(table_schema_old.attributes)
+        flash[:error] = 'Table schema was updated, but recommend config data updated failed. Reason: diff_field failed!'
+        redirect_to @table_schema and return
       end
 
       #更新已经存在的数据
       @table_schema.recommend_configs.each do |recommend_config|
+        #只拷贝table_fields对应的属性, 接下来只修改这些属性
+        #如果使用recommend_config.attributes, 会拷贝全部属性
+        #比如_id, update_at, table_schema_id等，接下来可能会误操作这些属性
         update_attributes = clone_attributes(recommend_config, table_schema_old)
+        if !update_attributes
+          #TODO: 跳过这条数据继续处理其他数据，但这条数据如何处理？
+          #TODO: 在日志中记录这条数据的相关信息
+          next
+        end
         #更新field的数据, 也可以新增group
         diff_fields[:remove].each do |table_field|
           update_attributes[table_field["group"]].delete(table_field["name"])
@@ -132,15 +141,14 @@ class TableSchemasController < ApplicationController
     
     if tag_table_schema_find.count > 0
       flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed. Reason: it has exist."
-      redirect_to table_schemas_url
-      return
+      redirect_to table_schemas_url and return
     end
 
     #要先save tag_table_schema, 然后再save tag_recommend_config
     #否则tag_recommend_config.tag_table_schema_id为nil
     if !@tag_table_schema.save
       flash[:error] = "Create table: [#{@tag_table_schema.table}] tag: [#{@tag_table_schema.version}] failed. Reason: save table schema failed."
-      redirect_to table_schemas_url
+      redirect_to table_schemas_url and return
     end
 
     @table_schema.recommend_configs.each do |recommend_config|
@@ -225,14 +233,20 @@ class TableSchemasController < ApplicationController
   end
 
   def clone_attributes(recommend_config, table_schema)
+    #recommend_config是由table_schema生成的，因此所有field都会存在
+    #可能某些field的值是""，但不可能某些field不存在
+    #如果不是这样，那就是数据有错误
     rc_clone = {}
-    table_schema.table_fields.each do |table_field|
-      if !rc_clone.has_key?(table_field.group)
-        if !recommend_config.has_attribute?(table_field.group)
-          next
-        end
-        rc_clone[table_field.group] = recommend_config[table_field.group].dup
+    table_schema_groups = table_schema.groups
+    table_schema_groups.each do |group|
+      if !recommend_config.has_attribute?(group)
+        return nil
       end
+      rc_clone[group] = recommend_config[group].dup
+    end
+
+    if table_schema_groups.length != rc_clone.length
+      return nil
     end
 
     return rc_clone

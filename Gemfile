@@ -17,6 +17,8 @@ group :development, :test do
   #gem 'pry-exception_explorer'
 
   gem 'better_errors'
+  gem 'quiet_assets'
+  gem 'thin'
 end
 
 group :assets do
