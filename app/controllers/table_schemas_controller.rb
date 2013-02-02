@@ -245,6 +245,11 @@ class TableSchemasController < ApplicationController
       rc_clone[group] = recommend_config[group].dup
     end
 
+    #extra fields: table_schema_id, updated_at, created_at, _id
+    if table_schema_groups.length+4 != recommend_config.attributes.length
+      return nil
+    end
+
     if table_schema_groups.length != rc_clone.length
       return nil
     end

@@ -39,6 +39,11 @@ FactoryGirl.define do
     association   :table_schema
   end
 
+  #factory :recommend_config_real, :parent=>:recommend_config do
+  #  key      {{:domain=>"meishichina.com"}}
+  #  value    {{:pattern=>"http://home.meishichina.com/*/*.html"}}
+  #end
+
   factory :table_schema_seq, class: TableSchema do
     sequence(:table) {|n| "test_#{n}"}
     version       "trunk"
