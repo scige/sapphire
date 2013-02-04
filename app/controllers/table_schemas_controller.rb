@@ -47,75 +47,7 @@ class TableSchemasController < ApplicationController
       end
 
       #更新已经存在的数据
-      @table_schema.recommend_configs.each do |recommend_config|
-        #只拷贝table_fields对应的属性, 接下来只修改这些属性
-        #如果使用recommend_config.attributes, 会拷贝全部属性
-        #比如_id, update_at, table_schema_id等，接下来可能会误操作这些属性
-        update_attributes = clone_attributes(recommend_config, table_schema_old)
-        if !update_attributes
-          #TODO: 跳过这条数据继续处理其他数据，但这条数据如何处理？
-          #TODO: 在日志中记录这条数据的相关信息
-          next
-        end
-        #更新field的数据, 也可以新增group
-        diff_fields[:remove].each do |table_field|
-          update_attributes[table_field["group"]].delete(table_field["name"])
-        end
-
-        diff_fields[:add].each do |table_field|
-          #新增group
-          if !update_attributes.has_key?(table_field["group"])
-            update_attributes[table_field["group"]] = {}
-          end
-          update_attributes[table_field["group"]][table_field["name"]] = table_field["default_value"]
-        end
-
-        diff_fields[:modify].each do |table_field_pair|
-          ts_old = table_field_pair["old"]
-          ts_new = table_field_pair["new"]
-          #先插入新的字段, 更新默认值, 然后再删除旧的字段
-          if !update_attributes[ts_new["group"]].has_key?(ts_old["name"]) 
-            update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
-          else
-            if ts_old["default_value"] == ts_new["default_value"]
-              #此时一定是 ts_old["name"] == ts_new["name"]
-              update_attributes[ts_new["group"]][ts_new["name"]] = update_attributes[ts_new["group"]][ts_old["name"]]
-            else
-              if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
-                update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
-              end
-            end
-
-            #不管default_value字段是否更新，只要name字段更新了，就要删除旧的 ts_old["name"]
-            if ts_old["name"] != ts_new["name"]
-              update_attributes[ts_new["group"]].delete(ts_old["name"])
-            end
-          end
-        end
-
-        logger.debug diff_fields
-        logger.debug recommend_config.attributes
-        logger.debug update_attributes
-
-        recommend_config.update_attributes(update_attributes)
-
-        #删除空的group
-        remove_attributes = []
-        update_attributes.each do |key, value|
-          if value.length == 0
-            remove_attributes << key
-          end
-        end
-
-        remove_attributes.each do |remove_attribute|
-          recommend_config.remove_attribute(remove_attribute)
-        end
-
-        logger.debug recommend_config.attributes
-        logger.debug remove_attributes
-
-        recommend_config.save
-      end
+      update_recommend_configs(diff_fields, table_schema_old, @table_schema)
 
       redirect_to @table_schema, notice: 'Table schema was successfully updated.'
     else
@@ -189,6 +121,78 @@ class TableSchemasController < ApplicationController
   #end
 
   private
+
+  def update_recommend_configs(diff_fields, table_schema_old, table_schema_new)
+    table_schema_new.recommend_configs.each do |recommend_config|
+      #只拷贝table_fields对应的属性, 接下来只修改这些属性
+      #如果使用recommend_config.attributes, 会拷贝全部属性
+      #比如_id, update_at, table_schema_id等，接下来可能会误操作这些属性
+      update_attributes = clone_attributes(recommend_config, table_schema_old)
+      if !update_attributes
+        #TODO: 跳过这条数据继续处理其他数据，但这条数据如何处理？
+        #TODO: 在日志中记录这条数据的相关信息
+        next
+      end
+      #更新field的数据, 也可以新增group
+      diff_fields[:remove].each do |table_field|
+        update_attributes[table_field["group"]].delete(table_field["name"])
+      end
+
+      diff_fields[:add].each do |table_field|
+        #新增group
+        if !update_attributes.has_key?(table_field["group"])
+          update_attributes[table_field["group"]] = {}
+        end
+        update_attributes[table_field["group"]][table_field["name"]] = table_field["default_value"]
+      end
+
+      diff_fields[:modify].each do |table_field_pair|
+        ts_old = table_field_pair["old"]
+        ts_new = table_field_pair["new"]
+        #先插入新的字段, 更新默认值, 然后再删除旧的字段
+        if !update_attributes[ts_new["group"]].has_key?(ts_old["name"]) 
+          update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
+        else
+          if ts_old["default_value"] == ts_new["default_value"]
+            #此时一定是 ts_old["name"] == ts_new["name"]
+            update_attributes[ts_new["group"]][ts_new["name"]] = update_attributes[ts_new["group"]][ts_old["name"]]
+          else
+            if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
+              update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
+            end
+          end
+
+          #不管default_value字段是否更新，只要name字段更新了，就要删除旧的 ts_old["name"]
+          if ts_old["name"] != ts_new["name"]
+            update_attributes[ts_new["group"]].delete(ts_old["name"])
+          end
+        end
+      end
+
+      logger.debug diff_fields
+      logger.debug recommend_config.attributes
+      logger.debug update_attributes
+
+      recommend_config.update_attributes(update_attributes)
+
+      #删除空的group
+      remove_attributes = []
+      update_attributes.each do |key, value|
+        if value.length == 0
+          remove_attributes << key
+        end
+      end
+
+      remove_attributes.each do |remove_attribute|
+        recommend_config.remove_attribute(remove_attribute)
+      end
+
+      logger.debug recommend_config.attributes
+      logger.debug remove_attributes
+
+      recommend_config.save
+    end
+  end
 
   def get_diff_fields(ts_olds, ts_news)
     diff_fields = {:add=>[], :remove=>[], :modify=>[]}

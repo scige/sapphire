@@ -23,8 +23,21 @@ FactoryGirl.define do
 
   factory :table_field_3, class: TableField do
     group   "value"
+    name    "description"
+    label   "description"
+  end
+
+  factory :table_field_4, class: TableField do
+    group   "value"
     name    "transform"
     label   "transform"
+    default_value "default"
+  end
+
+  factory :table_field_5, class: TableField do
+    group   "algorithm"
+    name    "alg_search"
+    label   "alg_search"
   end
 
   factory :table_schema do
@@ -33,6 +46,15 @@ FactoryGirl.define do
     owner         "sandbox"
     table_fields  {[FactoryGirl.build(:table_field_1),
                     FactoryGirl.build(:table_field_2)]}
+  end
+
+  factory :table_schema_three, class: TableSchema do
+    table         "test"
+    version       "trunk"
+    owner         "sandbox"
+    table_fields  {[FactoryGirl.build(:table_field_1),
+                    FactoryGirl.build(:table_field_2),
+                    FactoryGirl.build(:table_field_3)]}
   end
 
   factory :recommend_config do
