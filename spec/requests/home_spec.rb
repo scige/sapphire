@@ -13,10 +13,10 @@ describe "Home" do
 
     #it { puts page.html }
 
-    it { should have_content("Home") }
-    it { should have_content("Configurations") }
-    it { should have_content("Repositories") }
-    it { should have_content("RecTeam") }
+    it { should have_content("首页") }
+    it { should have_content("配置管理") }
+    it { should have_content("数据表管理") }
+    it { should have_content("配置&部署中心") }
     it { should have_content("配置&部署中心 V0.1") }
     it { should have_content("用户手册 V0.1") }
 

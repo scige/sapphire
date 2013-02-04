@@ -15,4 +15,5 @@
 /tmp
 /public/assets/
 /public/recommend_configs/
+/public/coverage/
 /coverage/

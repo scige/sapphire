@@ -114,4 +114,16 @@ describe TableSchema do
       gfs["value"].should == [FactoryGirl.build(:table_field_2, "_id"=>2)]
     end
   end
+
+  describe "when use groups method" do
+    let(:ts) { FactoryGirl.create(:table_schema) }
+    let(:gs) { ts.groups }
+
+    it "should have key value hash" do
+      gs.should be_an_instance_of(Array)
+      gs.should have(2).items
+      gs[0].should == "key"
+      gs[1].should == "value"
+    end
+  end
 end

@@ -34,10 +34,14 @@ describe RecommendConfigsController do
     {}
   end
 
+  before(:each) do
+    FactoryGirl.create(:table_schema)
+  end
+
   describe "GET index" do
     it "assigns all recommend_configs as @recommend_configs" do
       recommend_config = RecommendConfig.create! valid_attributes
-      get :index, {}, valid_session
+      get :index, {:table => "test"}, valid_session
       assigns(:recommend_configs).should eq([recommend_config])
     end
   end
@@ -45,14 +49,14 @@ describe RecommendConfigsController do
   describe "GET show" do
     it "assigns the requested recommend_config as @recommend_config" do
       recommend_config = RecommendConfig.create! valid_attributes
-      get :show, {:id => recommend_config.to_param}, valid_session
+      get :show, {:id => recommend_config.to_param, :table => "test"}, valid_session
       assigns(:recommend_config).should eq(recommend_config)
     end
   end
 
   describe "GET new" do
     it "assigns a new recommend_config as @recommend_config" do
-      get :new, {}, valid_session
+      get :new, {:table => "test"}, valid_session
       assigns(:recommend_config).should be_a_new(RecommendConfig)
     end
   end
@@ -60,7 +64,7 @@ describe RecommendConfigsController do
   describe "GET edit" do
     it "assigns the requested recommend_config as @recommend_config" do
       recommend_config = RecommendConfig.create! valid_attributes
-      get :edit, {:id => recommend_config.to_param}, valid_session
+      get :edit, {:id => recommend_config.to_param, :table => "test"}, valid_session
       assigns(:recommend_config).should eq(recommend_config)
     end
   end
