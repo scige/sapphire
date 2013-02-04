@@ -11,6 +11,7 @@ class RecommendConfigsController < ApplicationController
 
   def new
     @table_schema = TableSchema.find_by(:table=>params[:table])
+    @recommend_config = RecommendConfig.new    #just for test use
   end
 
   def edit
