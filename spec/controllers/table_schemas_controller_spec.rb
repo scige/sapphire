@@ -25,21 +25,27 @@ describe TableSchemasController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      "table" => "mytable",
-      "version" => "trunk",
-      "owner" => "sandbox",
+      "table"=>"test_valid",
+      "version"=>"trunk",
+      "owner"=>"online",
       "table_fields_attributes"=>
       {
-        "1359542151595"=>
+        "0"=>
         {"group"=>"key",
          "label"=>"domain",
          "name"=>"domain",
-         "field_type"=>"input"},
-        "1359542161209"=>
+         "default_value"=>"domain",
+         "help_text"=>"",
+         "field_type"=>"select",
+         "option_value"=>"domain, host"},
+        "1"=>
         {"group"=>"value",
          "label"=>"pattern",
          "name"=>"pattern",
-         "field_type"=>"input"}
+         "default_value"=>"abc",
+         "help_text"=>"",
+         "field_type"=>"input",
+         "option_value"=>""}
       }
     }
   end
