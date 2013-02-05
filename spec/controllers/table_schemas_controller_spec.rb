@@ -25,21 +25,27 @@ describe TableSchemasController do
   # update the return value of this method accordingly.
   def valid_attributes
     {
-      "table" => "mytable",
-      "version" => "trunk",
-      "owner" => "sandbox",
+      "table"=>"test_valid",
+      "version"=>"trunk",
+      "owner"=>"online",
       "table_fields_attributes"=>
       {
-        "1359542151595"=>
+        "0"=>
         {"group"=>"key",
          "label"=>"domain",
          "name"=>"domain",
-         "field_type"=>"input"},
-        "1359542161209"=>
+         "default_value"=>"domain",
+         "help_text"=>"",
+         "field_type"=>"select",
+         "option_value"=>"domain, host"},
+        "1"=>
         {"group"=>"value",
          "label"=>"pattern",
          "name"=>"pattern",
-         "field_type"=>"input"}
+         "default_value"=>"abc",
+         "help_text"=>"",
+         "field_type"=>"input",
+         "option_value"=>""}
       }
     }
   end
@@ -139,6 +145,7 @@ describe TableSchemasController do
 
       it "redirects to the table_schema" do
         table_schema = TableSchema.create! valid_attributes
+        #binding.pry
         put :update, {:id => table_schema.to_param, :table_schema => valid_attributes}, valid_session
         response.should redirect_to(table_schema)
       end
@@ -572,6 +579,49 @@ describe TableSchemasController do
           RecommendConfig.find(id)["value"].should_not == nil
           RecommendConfig.find(id)["value"].should have_key("pattern")
           RecommendConfig.find(id)["value"]["pattern"].should == "default"
+        end
+      end
+    end
+  end
+
+  describe "when call create_tag method" do
+    before(:each) do
+      @table_schema = FactoryGirl.create(:table_schema)
+
+      @rc1 = FactoryGirl.create(:recommend_config, :table_schema=>@table_schema)
+      @rc1["key"] = {"domain"=>"meishichina.com"}
+      @rc1["value"] = {"pattern"=>"http://home.meishichina.com/*/*.html"}
+      @rc1.save
+
+      @rc2 = FactoryGirl.create(:recommend_config, :table_schema=>@table_schema)
+      @rc2["key"] = {"domain"=>"hongxiu.com"}
+      @rc2["value"] = {"pattern"=>"http://book.hongxiu.com/*/*.html"}
+      @rc2.save
+
+      post :create_tag, {"table_schema"=>{"id"=>"1", "tag_version"=>"0.0.1"}}
+    end
+
+    describe "when create tag for table_schema" do
+      it "should create tag_table_schema and copy recommend_configs" do
+        TagTableSchema.should have(1).tag_table_schema
+        tts = TagTableSchema.find(1)
+        tts.table.should == @table_schema.table
+        tts.version.should == "0.0.1"
+        tts.owner.should == @table_schema.owner
+        tts.table_fields.should == @table_schema.table_fields
+
+        TagRecommendConfig.should have(2).recommend_configs
+        TagRecommendConfig.find(1)["key"].should == @rc1["key"]
+        TagRecommendConfig.find(1)["value"].should == @rc1["value"]
+        TagRecommendConfig.find(2)["key"].should == @rc2["key"]
+        TagRecommendConfig.find(2)["value"].should == @rc2["value"]
+      end
+
+      describe "when tag_table_schema have exist" do
+        it "should response error info" do
+          post :create_tag, {"table_schema"=>{"id"=>"1", "tag_version"=>"0.0.1"}}
+          flash[:error].should == "Create table: [test] tag: [0.0.1] failed. Reason: it has exist."
+          response.should redirect_to(table_schemas_url)
         end
       end
     end
