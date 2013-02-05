@@ -145,6 +145,7 @@ describe TableSchemasController do
 
       it "redirects to the table_schema" do
         table_schema = TableSchema.create! valid_attributes
+        #binding.pry
         put :update, {:id => table_schema.to_param, :table_schema => valid_attributes}, valid_session
         response.should redirect_to(table_schema)
       end
