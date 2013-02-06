@@ -22,6 +22,11 @@ class RecommendConfigsController < ApplicationController
   def create
     @recommend_config = RecommendConfig.new(params[params[:table]])
 
+    if validate_present?(@recommend_config, params[:table])
+      flash[:error] = 'Created recommend config failed. Reason: recommend config has existed.'
+      redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table]) and return
+    end
+
     if @recommend_config.save
       redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully created.'
     else
@@ -31,6 +36,11 @@ class RecommendConfigsController < ApplicationController
 
   def update
     @recommend_config = RecommendConfig.find(params[:id])
+
+    if validate_present?(@recommend_config, params[:table])
+      flash[:error] = 'Updated recommend config failed. Reason: recommend config has existed.'
+      redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table]) and return
+    end
 
     if @recommend_config.update_attributes(params[:recommend_config])
       redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully updated.'
@@ -81,10 +91,27 @@ class RecommendConfigsController < ApplicationController
   def copy_create
     @recommend_config = RecommendConfig.new(params[params[:table]])
 
+    if validate_present?(@recommend_config, params[:table])
+      flash[:error] = 'Created recommend config failed. Reason: recommend config has existed.'
+      redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table]) and return
+    end
+
     if @recommend_config.save
       redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully created.'
     else
       render action: "new"
     end
+  end
+
+  private
+
+  def validate_present?(recommend_config, table)
+    key_group_hash = {}
+    @table_schema = TableSchema.find_by(:table=>table)
+    @table_schema.group_fields["key"].each do |table_field|
+      key_group_hash[table_field.name] = recommend_config["key"][table_field.name]
+    end
+    rc_find = RecommendConfig.where(:key=>key_group_hash)
+    !rc_find.empty?
   end
 end
