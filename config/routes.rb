@@ -11,6 +11,9 @@ Sapphire::Application.routes.draw do
   resources :recommend_configs do
     get :batch_edit, :on => :collection
     post :batch_update, :on => :collection
+
+    get :copy_new, :on => :collection
+    post :copy_create, :on => :collection
   end
 
   # You can have the root of your site routed with "root"

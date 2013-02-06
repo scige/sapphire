@@ -8,16 +8,16 @@
         .accordion-body.collapse.in{:id=>"collapse#{group}"}
           .accordion-inner
             - fields.each do |field|
-              /= debug "#{group}    #{field[:name]}    #{@recommend_config[group][field[:name]]}"
+              /= debug "#{group}    #{field.name}    #{@recommend_config[field.group][field.name]}"
               = form.fields_for group, @recommend_config[group] do |f|
                 .control-group
                   .control-label
-                    = f.label field[:name]
+                    = f.label field.name
                   .controls
-                    - if field[:field_type] == "select"
-                      = f.select field[:name], get_options(field[:option_value]), :selected=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
+                    - if field.field_type == "select"
+                      = f.select field.name, get_options(field.option_value), :selected=>@recommend_config[group][field.name], :class=>"input-xxlarge"
                     - else
-                      = f.text_field field[:name], :value=>@recommend_config[group][field[:name]], :class=>"input-xxlarge"
+                      = f.text_field field.name, :value=>@recommend_config[group][field.name], :class=>"input-xxlarge"
 
   .control-group
     .controls
