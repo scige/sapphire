@@ -72,4 +72,19 @@ class RecommendConfigsController < ApplicationController
     redirect_to recommend_configs_url(:owner=>@table_schema.owner,
                                       :table=>@table_schema.table)
   end
+
+  def copy_new
+    @table_schema = TableSchema.find_by(:table=>params[:table])
+    @recommend_config = RecommendConfig.find(params[:id])
+  end
+
+  def copy_create
+    @recommend_config = RecommendConfig.new(params[params[:table]])
+
+    if @recommend_config.save
+      redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully created.'
+    else
+      render action: "new"
+    end
+  end
 end

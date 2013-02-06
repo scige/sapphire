@@ -1,4 +1,4 @@
-= form_tag recommend_configs_path(:owner=>params[:owner], :table=>params[:table]), :class=>"form-horizontal" do
+= form_tag copy_create_recommend_configs_path(:owner=>params[:owner], :table=>params[:table]), :class=>"form-horizontal" do
   = fields_for "#{@table_schema.table}" do |f|
     = f.hidden_field :table_schema_id, :value=>@table_schema.id
   .accordion#accordion2
@@ -15,9 +15,9 @@
                     = f.label field.label
                   .controls
                     - if field.field_type == "select"
-                      = f.select field.name, get_options(field.option_value), :class=>"input-xxlarge"
+                      = f.select field.name, get_options(field.option_value), :selected=>@recommend_config[field.group][field.name], :class=>"input-xxlarge"
                     - else
-                      = f.text_field field.name, :value=>field.default_value, :class=>"input-xxlarge"
+                      = f.text_field field.name, :value=>@recommend_config[field.group][field.name], :class=>"input-xxlarge"
                   - if field.help_text and field.help_text != ""
                     .controls
                       = "( #{field.help_text} )"
