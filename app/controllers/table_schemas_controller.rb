@@ -149,23 +149,12 @@ class TableSchemasController < ApplicationController
       diff_fields[:modify].each do |table_field_pair|
         ts_old = table_field_pair["old"]
         ts_new = table_field_pair["new"]
-        #先插入新的字段, 更新默认值, 然后再删除旧的字段
+        #先插入新的字段, 然后再删除旧的字段
         if !update_attributes[ts_new["group"]].has_key?(ts_old["name"]) 
-          update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
+          update_attributes[ts_new["group"]][ts_new["name"]] = ""
         else
-          if ts_old["default_value"] == ts_new["default_value"]
-            #此时一定是 ts_old["name"] == ts_new["name"]
-            update_attributes[ts_new["group"]][ts_new["name"]] = update_attributes[ts_new["group"]][ts_old["name"]]
-          else
-            if update_attributes[ts_new["group"]][ts_old["name"]] == "" or update_attributes[ts_new["group"]][ts_old["name"]] == ts_old["default_value"]
-              update_attributes[ts_new["group"]][ts_new["name"]] = ts_new["default_value"]
-            end
-          end
-
-          #不管default_value字段是否更新，只要name字段更新了，就要删除旧的 ts_old["name"]
-          if ts_old["name"] != ts_new["name"]
-            update_attributes[ts_new["group"]].delete(ts_old["name"])
-          end
+          update_attributes[ts_new["group"]][ts_new["name"]] = update_attributes[ts_new["group"]][ts_old["name"]]
+          update_attributes[ts_new["group"]].delete(ts_old["name"])
         end
       end
 
@@ -206,8 +195,7 @@ class TableSchemasController < ApplicationController
           if ts_new["group"] != ts_old["group"]
             return nil
           end
-          if ts_new["name"] != ts_old["name"] or
-             ts_new["default_value"] != ts_old["default_value"]
+          if ts_new["name"] != ts_old["name"]
             diff_fields[:modify] << {"old"=>ts_old, "new"=>ts_new}
           end
           break
@@ -234,30 +222,5 @@ class TableSchemasController < ApplicationController
     end
 
     return diff_fields
-  end
-
-  def clone_attributes(recommend_config, table_schema)
-    #recommend_config是由table_schema生成的，因此所有field都会存在
-    #可能某些field的值是""，但不可能某些field不存在
-    #如果不是这样，那就是数据有错误
-    rc_clone = {}
-    table_schema_groups = table_schema.groups
-    table_schema_groups.each do |group|
-      if !recommend_config.has_attribute?(group)
-        return nil
-      end
-      rc_clone[group] = recommend_config[group].dup
-    end
-
-    #extra fields: table_schema_id, updated_at, created_at, _id
-    if table_schema_groups.length+4 != recommend_config.attributes.length
-      return nil
-    end
-
-    if table_schema_groups.length != rc_clone.length
-      return nil
-    end
-
-    return rc_clone
   end
 end

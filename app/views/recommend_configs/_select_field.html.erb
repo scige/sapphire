@@ -1,0 +1,22 @@
+<script>
+  $(function(){
+    var group_fields = Array()
+    <% @table_schema.group_fields.each do |group, fields| %>
+      var js_fields = Array()
+      <% fields.each do |field| %>
+        js_fields.push(<%= "\"#{field.name}\"".html_safe %>)
+      <% end %>
+      group_fields[<%= "\"#{group}\"".html_safe %>] = js_fields
+    <% end %>
+    $('#table_field_group').click(function(){
+      $('#table_field_name').empty()
+      var $group_select = $('#table_field_group option:selected')
+      for (i in group_fields[$group_select.text()]){
+        var field = group_fields[$group_select.text()][i]
+        var field_string = "<option value='" + field + "'>" + field + "</option>"
+        var $field_option = $(field_string)
+        $('#table_field_name').append($field_option)
+      };
+    });
+  });
+</script>

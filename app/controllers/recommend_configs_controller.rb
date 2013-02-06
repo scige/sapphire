@@ -45,4 +45,31 @@ class RecommendConfigsController < ApplicationController
 
     redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table])
   end
+
+  def batch_edit
+    @table_schema = TableSchema.find_by(:table=>params[:table])
+  end
+
+  def batch_update
+    @table_schema = TableSchema.find(params[:table_schema][:id])
+    group = params[:table_field][:group]
+    name = params[:table_field][:name]
+    value = params[:table_field][:value]
+    @table_schema.recommend_configs.each do |recommend_config|
+      update_attributes = clone_attributes(recommend_config, @table_schema)
+      if !update_attributes
+        #TODO: 跳过这条数据继续处理其他数据，但这条数据如何处理？
+        #TODO: 在日志中记录这条数据的相关信息
+        next
+      end
+      update_attributes[group][name] = value
+      recommend_config.update_attributes(update_attributes)
+
+      #必须在完整attributes的基础上做修改，下面的方式是不行的
+      #recommend_config.update_attributes(group=>{name=>value})
+    end
+
+    redirect_to recommend_configs_url(:owner=>@table_schema.owner,
+                                      :table=>@table_schema.table)
+  end
 end
