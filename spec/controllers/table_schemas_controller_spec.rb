@@ -256,17 +256,6 @@ describe TableSchemasController do
       end
     end
 
-    describe "when modify field's defalut_value" do
-      it "should have modify field" do
-        @table_schema_new.table_fields[1]["default_value"] = "http://abc.com/*/*.html"
-        @table_schema_new.save
-        diff_fields = controller.send(:get_diff_fields, 
-                                      @table_schema_old.table_fields,
-                                      @table_schema_new.table_fields)
-        diff_fields[:modify].should have(1).items
-      end
-    end
-
     describe "when remove, add, modify fields" do
       it "should have remove, add, modify field" do
         @table_schema_new.table_fields.delete_if {|f| f.name == "pattern"}
@@ -457,89 +446,6 @@ describe TableSchemasController do
           RecommendConfig.find(id)["value"].should_not == nil
           RecommendConfig.find(id)["value"].should_not have_key("pattern")
           RecommendConfig.find(id)["value"].should have_key("item_pattern")
-        end
-      end
-    end
-
-    describe "when diff_fields have modify 1 field's defalut value and old value is not old default value" do
-      it "should not modify this field for all recommend_configs" do
-        @table_schema_new.table_fields[1]["default_value"] = "default"
-
-        diff_fields = controller.send(:get_diff_fields,
-                                      @table_schema_old.table_fields,
-                                      @table_schema_new.table_fields)
-        diff_fields[:modify].should have(1).items
-
-        RecommendConfig.all.should have(2).recommend_configs
-        RecommendConfig.find(1).should == @rc1
-        RecommendConfig.find(2).should == @rc2
-
-        controller.send(:update_recommend_configs,
-                        diff_fields, @table_schema_old, @table_schema)
-
-        RecommendConfig.all.should have(2).recommend_configs
-        2.upto(2).each do |id|
-          RecommendConfig.find(id)["key"].should_not == nil
-          RecommendConfig.find(id)["value"].should_not == nil
-          RecommendConfig.find(id)["value"].should have_key("pattern")
-          RecommendConfig.find(id)["value"]["pattern"].should_not == "default"
-        end
-      end
-    end
-
-    describe "when diff_fields have modify 1 field's defalut value and old value is null" do
-      it "should modify this field for all recommend_configs" do
-        @rc1["value"]["pattern"] = ""
-        @rc2["value"]["pattern"] = ""
-        @table_schema_new.table_fields[1]["default_value"] = "default"
-
-        diff_fields = controller.send(:get_diff_fields,
-                                      @table_schema_old.table_fields,
-                                      @table_schema_new.table_fields)
-        diff_fields[:modify].should have(1).items
-
-        RecommendConfig.all.should have(2).recommend_configs
-        RecommendConfig.find(1).should == @rc1
-        RecommendConfig.find(2).should == @rc2
-
-        controller.send(:update_recommend_configs,
-                        diff_fields, @table_schema_old, @table_schema)
-
-        RecommendConfig.all.should have(2).recommend_configs
-        2.upto(2).each do |id|
-          RecommendConfig.find(id)["key"].should_not == nil
-          RecommendConfig.find(id)["value"].should_not == nil
-          RecommendConfig.find(id)["value"].should have_key("pattern")
-          RecommendConfig.find(id)["value"]["pattern"].should == "default"
-        end
-      end
-    end
-
-    describe "when diff_fields have modify 1 field's defalut value and old value is old default value" do
-      it "should modify this field for all recommend_configs" do
-        @rc1["value"]["pattern"] = "old_default"
-        @rc2["value"]["pattern"] = "old_default"
-        @table_schema_old.table_fields[1]["default_value"] = "old_default"
-        @table_schema_new.table_fields[1]["default_value"] = "default"
-
-        diff_fields = controller.send(:get_diff_fields,
-                                      @table_schema_old.table_fields,
-                                      @table_schema_new.table_fields)
-        diff_fields[:modify].should have(1).items
-
-        RecommendConfig.all.should have(2).recommend_configs
-        RecommendConfig.find(1).should == @rc1
-        RecommendConfig.find(2).should == @rc2
-
-        controller.send(:update_recommend_configs,
-                        diff_fields, @table_schema_old, @table_schema)
-
-        RecommendConfig.all.should have(2).recommend_configs
-        2.upto(2).each do |id|
-          RecommendConfig.find(id)["key"].should_not == nil
-          RecommendConfig.find(id)["value"].should_not == nil
-          RecommendConfig.find(id)["value"].should have_key("pattern")
-          RecommendConfig.find(id)["value"]["pattern"].should == "default"
         end
       end
     end
