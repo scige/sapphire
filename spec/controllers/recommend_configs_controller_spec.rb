@@ -24,7 +24,17 @@ describe RecommendConfigsController do
   # RecommendConfig. As you add validations to RecommendConfig, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    { :table_schema_id=>1 }
+    {
+      "table_schema_id"=>1,
+      "key"=>
+      {
+        "domain"=>"meishichina.com"
+      },
+      "value"=>
+      {
+        "pattern"=>"http://home.meishichina.com/*/*.html"
+      }
+    }
   end
 
   # This should return the minimal set of values that should be in the session
@@ -73,19 +83,20 @@ describe RecommendConfigsController do
     describe "with valid params" do
       it "creates a new RecommendConfig" do
         expect {
-          post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
+          post :create, {:test => valid_attributes, :table=>"test"}, valid_session
         }.to change(RecommendConfig, :count).by(1)
       end
 
       it "assigns a newly created recommend_config as @recommend_config" do
-        post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
+        post :create, {:test => valid_attributes, :table=>"test"}, valid_session
         assigns(:recommend_config).should be_a(RecommendConfig)
         assigns(:recommend_config).should be_persisted
       end
 
       it "redirects to the created recommend_config" do
-        post :create, {:mytable => valid_attributes, :table=>"mytable"}, valid_session
-        response.should redirect_to(recommend_config_url(RecommendConfig.last, :table=>"mytable"))
+        binding.pry
+        post :create, {:test => valid_attributes, :table=>"test"}, valid_session
+        response.should redirect_to(recommend_config_url(RecommendConfig.last, :table=>"test"))
       end
     end
 
@@ -93,14 +104,14 @@ describe RecommendConfigsController do
       it "assigns a newly created but unsaved recommend_config as @recommend_config" do
         # Trigger the behavior that occurs when invalid params are submitted
         RecommendConfig.any_instance.stub(:save).and_return(false)
-        post :create, {:recommend_config => {  }}, valid_session
+        post :create, {:test => {  }, :table=>"test"}, valid_session
         assigns(:recommend_config).should be_a_new(RecommendConfig)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         RecommendConfig.any_instance.stub(:save).and_return(false)
-        post :create, {:recommend_config => {  }}, valid_session
+        post :create, {:test => {  }, :table=>"test"}, valid_session
         response.should render_template("new")
       end
     end
@@ -115,18 +126,18 @@ describe RecommendConfigsController do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         RecommendConfig.any_instance.should_receive(:update_attributes).with({ "these" => "params" })
-        put :update, {:id => recommend_config.to_param, :recommend_config => { "these" => "params" }}, valid_session
+        put :update, {:id => recommend_config.to_param, :test => valid_attributes, :table=>"test"}, valid_session
       end
 
       it "assigns the requested recommend_config as @recommend_config" do
         recommend_config = RecommendConfig.create! valid_attributes
-        put :update, {:id => recommend_config.to_param, :recommend_config => valid_attributes}, valid_session
+        put :update, {:id => recommend_config.to_param, :test => valid_attributes, :table=>"test"}, valid_session
         assigns(:recommend_config).should eq(recommend_config)
       end
 
       it "redirects to the recommend_config" do
         recommend_config = RecommendConfig.create! valid_attributes
-        put :update, {:id => recommend_config.to_param, :recommend_config => valid_attributes}, valid_session
+        put :update, {:id => recommend_config.to_param, :test => valid_attributes, :table=>"test"}, valid_session
         response.should redirect_to(recommend_config)
       end
     end
@@ -136,7 +147,7 @@ describe RecommendConfigsController do
         recommend_config = RecommendConfig.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         RecommendConfig.any_instance.stub(:save).and_return(false)
-        put :update, {:id => recommend_config.to_param, :recommend_config => {  }}, valid_session
+        put :update, {:id => recommend_config.to_param, :test => {  }, :table=>"test"}, valid_session
         assigns(:recommend_config).should eq(recommend_config)
       end
 
@@ -144,7 +155,7 @@ describe RecommendConfigsController do
         recommend_config = RecommendConfig.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         RecommendConfig.any_instance.stub(:save).and_return(false)
-        put :update, {:id => recommend_config.to_param, :recommend_config => {  }}, valid_session
+        put :update, {:id => recommend_config.to_param, :test => {  }, :table=>"test"}, valid_session
         response.should render_template("edit")
       end
     end

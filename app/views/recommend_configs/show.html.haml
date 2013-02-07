@@ -6,19 +6,5 @@
     %section.page-content
       %h3 Showing recommend config
 
-      = form_for @recommend_config, :html=>{:class=>"form-horizontal"} do |form|
-        - @table_schema.group_fields.each do |group, fields|
-          %legend= "#{group.upcase} GROUP"
-          - fields.each do |field|
-            = form.fields_for group, @recommend_config[group] do |f|
-              .control-group
-                .control-label
-                  = f.label field[:name]
-                .controls
-                  = f.text_field field[:name], :value=>@recommend_config[group][field[:name]], :class=>"input-xxlarge", :disabled=>"disabled"
-
-        .control-group
-          .controls
-            = link_to 'Edit', edit_recommend_config_path(@recommend_config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-info"
-            = link_to 'Back', recommend_configs_path(:owner=>params[:owner], :table=>params[:table]), :class=>"btn"
+      = render 'show'
 

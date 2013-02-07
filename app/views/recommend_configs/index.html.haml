@@ -29,9 +29,11 @@
               - if field[:group] == "key" and config["key"]
                 %td= config["key"][field[:name]]
             %td
-              = link_to 'Show', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small"
+              = link_to 'Show', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :remote=>true, :class=>"btn btn-small"
               = link_to 'Edit', edit_recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small btn-info"
               = link_to 'Copy', copy_new_recommend_configs_path(:id=>config.id, :owner=>params[:owner], :table=>params[:table]), :class=>"btn btn-small btn-primary"
               = link_to 'Destroy', recommend_config_path(config, :owner=>params[:owner], :table=>params[:table]), method: :delete, data: { confirm: 'Are you sure?' }, :class=>"btn btn-small btn-danger"
 
       = paginate @recommend_configs
+
+      #show-ajax

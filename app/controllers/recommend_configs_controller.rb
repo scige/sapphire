@@ -7,6 +7,11 @@ class RecommendConfigsController < ApplicationController
   def show
     @table_schema = TableSchema.find_by(:table=>params[:table])
     @recommend_config = RecommendConfig.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
   end
 
   def new
