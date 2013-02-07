@@ -42,11 +42,6 @@ class RecommendConfigsController < ApplicationController
   def update
     @recommend_config = RecommendConfig.find(params[:id])
 
-    if validate_present?(@recommend_config, params[:table])
-      flash[:error] = 'Updated recommend config failed. Reason: recommend config has existed.'
-      redirect_to recommend_configs_url(:owner=>params[:owner], :table=>params[:table]) and return
-    end
-
     if @recommend_config.update_attributes(params[:recommend_config])
       redirect_to recommend_config_url(@recommend_config, :owner=>params[:owner], :table=>params[:table]), notice: 'Recommend config was successfully updated.'
     else
