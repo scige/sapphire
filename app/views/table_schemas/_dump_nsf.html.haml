@@ -1,5 +1,6 @@
 %div{:id=>"myModalDumpNsf#{tag_table_schema.id}", :class=>"modal hide fade", :tabindex=>"-1", :role=>"dialog", "aria-labelledby"=>"myModalLabel", "aria-hidden"=>"true"}
   .modal-header
+    %button.close{:type=>"button", "data-dismiss"=>"modal", "aria-hidden"=>"true"}= "&times;".html_safe
     %h3#myModalLabel Dump Data to NSF
   .modal-body
     = form_for tag_table_schema, :url=>dump_nsf_tag_table_schemas_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
