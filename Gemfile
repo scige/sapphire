@@ -43,3 +43,5 @@ gem 'nested_form'
 
 gem 'kaminari'
 
+gem 'settingslogic'
+

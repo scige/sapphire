@@ -2,7 +2,7 @@
 
 class DeployDataController < ApplicationController
   def index
-    @deploy_data = DeployDatum.all
+    @deploy_data = DeployDatum.order_by([[:id, :asc]])
   end
 
   def show

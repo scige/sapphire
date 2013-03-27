@@ -15,7 +15,7 @@
               %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
               %li{:class => (controller_name=="recommend_configs"?"active":nil)}= link_to "配置管理", recommend_configs_path(:owner=>"online", :table=>get_owner_first_table("online"))
               %li{:class => (controller_name=="table_schemas"?"active":nil)}= link_to "数据表管理", table_schemas_path
-              %li{:class => (controller_name=="deploy_data"?"active":nil)}= link_to "自动部署", new_deploy_datum_path
+              %li{:class => ((controller_name=="deploy_data" or controller_name=="deploy_machines" or controller_name=="auto_deploy") ? "active":nil)}= link_to "自动化部署", new_deploy_datum_path
               %li{:class => (controller_name=="helps"?"active":nil)}= link_to "帮助", "#"
     
     %header.jumbotron.subhead

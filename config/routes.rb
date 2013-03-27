@@ -18,8 +18,11 @@ Sapphire::Application.routes.draw do
 
   resources :deploy_data
 
+  resources :deploy_machines
+
   resources :auto_deploy do
-    get :ready_deploy, :on => :collection
+    post :deploy, :on => :collection
+    post :rollback, :on => :collection
   end
 
   # You can have the root of your site routed with "root"

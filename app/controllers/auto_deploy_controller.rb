@@ -1,15 +1,8 @@
 class AutoDeployController < ApplicationController
-  def initialize
-    super
-    @test_machine_spec = ""
-    @production_machine_spec = ""
-    @static_username = ""
-    @static_password = ""
-  end
-
   def index
+    @deploy_machines = DeployMachine.order_by([[:id, :asc]])
   end
 
-  def ready_deploy
+  def deploy
   end
 end

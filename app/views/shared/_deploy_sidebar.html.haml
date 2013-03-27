@@ -1,0 +1,13 @@
+%ul.nav.nav-list.bs-docs-sidenav
+  %li{:class => (controller_name=="deploy_data"?"active":nil)}
+    %a{:href=>deploy_data_path}
+      %i.icon-chevron-right
+      上线单管理
+  %li{:class => (controller_name=="deploy_machines"?"active":nil)}
+    %a{:href=>deploy_machines_path}
+      %i.icon-chevron-right
+      部署机器管理
+  %li{:class => (controller_name=="auto_deploy"?"active":nil)}
+    %a{:href=>auto_deploy_index_path}
+      %i.icon-chevron-right
+      自动化部署

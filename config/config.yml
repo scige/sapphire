@@ -1,0 +1,16 @@
+defaults: &defaults
+  username: raoxing
+  password: penglei3777
+  command:
+    reload: "reload"
+    rollback: "rollback"
+  release_address: "http://10.250.12.70/galaxy_release/"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -1,0 +1,42 @@
+= form_for @deploy_machine, :html=>{:class=>"form-horizontal"} do |f|
+  - if @deploy_machine.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@deploy_machine.errors.count, "error")} prohibited this deploy_machine from being saved:"
+      %ul
+        - @deploy_machine.errors.full_messages.each do |msg|
+          %li= msg
+
+  .control-group
+    .control-label
+      = f.label :name
+    .controls
+      = f.text_field :name
+
+  .control-group
+    .control-label
+      = f.label :status
+    .controls
+      = f.text_field :status
+
+  .control-group
+    .control-label
+      = f.label :address
+    .controls
+      = f.text_field :address
+
+  .control-group
+    .control-label
+      = f.label :agent
+    .controls
+      = f.text_field :agent
+
+  .control-group
+    .control-label
+      = f.label :directory
+    .controls
+      = f.text_field :directory
+
+  .control-group
+    .controls
+      = f.submit '保存', :class=>"btn btn-success"
+
