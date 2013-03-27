@@ -16,6 +16,12 @@ Sapphire::Application.routes.draw do
     post :copy_create, :on => :collection
   end
 
+  resources :deploy_data
+
+  resources :auto_deploy do
+    get :ready_deploy, :on => :collection
+  end
+
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
   root :to => 'home#index'

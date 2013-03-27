@@ -1,0 +1,37 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 上线进行中
+
+      %table.table.table-striped
+        %tr
+          %th{:width=>100} 环境
+          %th{:width=>100} 状态
+          %th{:width=>100} 操作
+      
+        %tr
+          %td Test
+          %td NONE
+          %td
+            =link_to "部署", ready_deploy_auto_deploy_index_path, :class=>"btn btn-success"
+            =link_to "回滚", ready_deploy_auto_deploy_index_path, :class=>"btn btn-danger"
+
+        %tr
+          %td Agg05
+          %td NONE
+          %td
+            =link_to "部署", ready_deploy_auto_deploy_index_path, :class=>"btn btn-success"
+            =link_to "回滚", ready_deploy_auto_deploy_index_path, :class=>"btn btn-danger"
+
+        %tr
+          %td Agg06
+          %td NONE
+          %td
+            =link_to "部署", ready_deploy_auto_deploy_index_path, :class=>"btn btn-success"
+            =link_to "回滚", ready_deploy_auto_deploy_index_path, :class=>"btn btn-danger"
+
+      =link_to "开始上线", ready_deploy_auto_deploy_index_path, :class=>"btn btn-info"
+

@@ -1,0 +1,38 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 管理上线数据
+
+      %table.table.table-striped
+        %tr
+          %th Agg config
+          %th Site config
+          %th Rec package
+          %th Rerank package
+          %th Item package
+          %th Trim package
+          %th Query package
+          %th Aliguess package
+          %th Operation
+      
+        - @deploy_data.each do |deploy_datum|
+          %tr
+            %td= deploy_datum.agg_config
+            %td= deploy_datum.site_config
+            %td= deploy_datum.rec_package
+            %td= deploy_datum.rerank_package
+            %td= deploy_datum.item_package
+            %td= deploy_datum.trim_package
+            %td= deploy_datum.query_package
+            %td= deploy_datum.aliguess_package
+            %td
+              = link_to 'Show', deploy_datum, :class=>"btn btn-info"
+              = link_to 'Edit', edit_deploy_datum_path(deploy_datum), :class=>"btn btn-info"
+              = link_to 'Destroy', deploy_datum, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=>"btn btn-info"
+      
+      %br
+      
+      = link_to 'New', new_deploy_datum_path, :class=>"btn btn-info"

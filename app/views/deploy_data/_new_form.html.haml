@@ -1,0 +1,14 @@
+= form_for @deploy_datum, :url=>deploy_data_path, :method=>:post, :html=>{:class=>"form-horizontal"} do |f|
+  - if @deploy_datum.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@deploy_datum.errors.count, "error")} prohibited this deploy_datum from being saved:"
+      %ul
+        - @deploy_datum.errors.full_messages.each do |msg|
+          %li= msg
+
+  = render :partial=>"form_input", :locals=>{:f=>f}
+
+  .control-group
+    .controls
+      = f.submit '下一步', :class=>"btn btn-info"
+

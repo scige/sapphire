@@ -1,0 +1,48 @@
+.row
+  .span3
+    = render "shared/editor_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 确认上线数据
+
+      %table.table.table-striped
+        %tr
+          %th 名称
+          %th 地址
+      
+        %tr
+          %td Agg config:
+          %td= @deploy_datum.agg_config
+
+        %tr
+          %td Site config:
+          %td= @deploy_datum.site_config
+
+        %tr
+          %td Rec package:
+          %td= @deploy_datum.rec_package
+
+        %tr
+          %td Rerank package:
+          %td= @deploy_datum.rerank_package
+
+        %tr
+          %td Item package:
+          %td= @deploy_datum.item_package
+
+        %tr
+          %td Trim package:
+          %td= @deploy_datum.trim_package
+
+        %tr
+          %td Query package:
+          %td= @deploy_datum.query_package
+
+        %tr
+          %td Aliguess package:
+          %td= @deploy_datum.aliguess_package
+
+      = link_to "上一步", edit_deploy_datum_path(@deploy_datum), :class=>"btn btn-info"
+      = link_to "下一步", ready_deploy_auto_deploy_index_path, :class=>"btn btn-info"
+
