@@ -7,6 +7,8 @@ class DeployDataController < ApplicationController
 
   def show
     @deploy_datum = DeployDatum.find(params[:id])
+    #在哪里清除？
+    session[:deploy_datum_id] = @deploy_datum.id
   end
 
   def new

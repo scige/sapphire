@@ -45,3 +45,4 @@ gem 'kaminari'
 
 gem 'settingslogic'
 
+gem 'rest-client'

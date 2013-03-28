@@ -1,9 +1,21 @@
 defaults: &defaults
-  username: raoxing
-  password: penglei3777
-  command:
-    reload: "reload"
-    rollback: "rollback"
+  protocol:
+    username:
+      key: "username"
+      value: "raoxing"
+    password:
+      key: "password"
+      value: "penglei3777"
+    command:
+      key: "command"
+      reload: "reload"
+      rollback: "rollback"
+    host: "host"
+    directory: "directory"
+    config:
+      key: "config"
+      value: "http://svn.simba.taobao.com/svn/Apsara/galaxy/trunk2/online/online_confs/aggregator_recommend/"
+    package: "package"
   release_address: "http://10.250.12.70/galaxy_release/"
 
 development:

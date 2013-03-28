@@ -4,9 +4,9 @@ class DeployMachine
 
   field :name, type: String
   field :status, type: String
-  field :address, type: String
+  field :host, type: String
   field :agent, type: String
   field :directory, type: String
 
-  attr_accessible :name, :status, :address, :agent, :directory
+  attr_accessible :name, :status, :host, :agent, :directory
 end

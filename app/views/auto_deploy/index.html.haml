@@ -16,9 +16,9 @@
         - @deploy_machines.each do |deploy_machine|
           %tr
             %td= deploy_machine.name
-            %td= deploy_machine.address
+            %td= deploy_machine.host
             %td= deploy_machine.status
             %td
-              =link_to "部署", deploy_auto_deploy_index_path, :class=>"btn btn-small btn-success"
-              =link_to "回滚", rollback_auto_deploy_index_path, :class=>"btn btn-small btn-danger"
+              =link_to "部署", "/auto_deploy/deploy?machine=#{deploy_machine.id}", :data=>{:confirm => "机器【#{deploy_machine.name}】将要执行【上线】操作，是否确定？"}, :class=>"btn btn-small btn-success"
+              =link_to "回滚", "/auto_deploy/rollback?machine=#{deploy_machine.id}", :data=>{:confirm => "机器【#{deploy_machine.name}】将要执行【回滚】操作，是否确定？"}, :class=>"btn btn-small btn-danger"
 
