@@ -8,10 +8,9 @@
 
       %table.table.table-striped
         %tr
-          %th Agg config
-          %th Site config
           %th Rec package
           %th Rerank package
+          %th Site package
           %th Item package
           %th Trim package
           %th Query package
@@ -20,10 +19,9 @@
       
         - @deploy_data.each do |deploy_datum|
           %tr
-            %td= deploy_datum.agg_config
-            %td= deploy_datum.site_config
             %td= deploy_datum.rec_package
             %td= deploy_datum.rerank_package
+            %td= deploy_datum.site_package
             %td= deploy_datum.item_package
             %td= deploy_datum.trim_package
             %td= deploy_datum.query_package
