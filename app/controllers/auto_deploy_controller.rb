@@ -19,10 +19,10 @@ class AutoDeployController < ApplicationController
     post_data[Setting.protocol.config.key] = Setting.protocol.config.value
     #增加package参数
 
-    @response = RestClient.post @deploy_machine.agent, post_data
+    @response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
 
     respond_to do |format|
-      format.html
+      #format.html
       format.js {render :layout => false}
     end
   end
@@ -37,6 +37,11 @@ class AutoDeployController < ApplicationController
     post_data[Setting.protocol.host] = @deploy_machine.host
     post_data[Setting.protocol.directory] = @deploy_machine.directory
 
-    @response = RestClient.post @deploy_machine.agent, post_data
+    @response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
+
+    respond_to do |format|
+      #format.html
+      format.js {render :layout => false}
+    end
   end
 end
