@@ -20,6 +20,11 @@ class AutoDeployController < ApplicationController
     #增加package参数
 
     @response = RestClient.post @deploy_machine.agent, post_data
+
+    respond_to do |format|
+      format.html
+      format.js {render :layout => false}
+    end
   end
 
   def rollback

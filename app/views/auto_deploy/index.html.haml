@@ -6,20 +6,22 @@
     %section.page-content
       %h3 开始自动化部署
 
-      %table.table.table-striped
+      %table.table.table-striped#machine-table
         %tr
           %th{:width=>100} 环境
           %th{:width=>100} 地址
           %th{:width=>100} 状态
           %th{:width=>100} 操作
       
+        - number=0
         - @deploy_machines.each do |deploy_machine|
+          - number += 1
           %tr
             %td= deploy_machine.name
             %td= deploy_machine.host
-            %td{:id=>"td-status"}= deploy_machine.status
+            %td{:id=>"td-status-#{number}"}= deploy_machine.status
             %td
-              =link_to "部署", "/auto_deploy/deploy?machine=#{deploy_machine.id}", :class=>"btn btn-small btn-success", :id=>"btn-deploy"
+              =link_to "部署", "/auto_deploy/deploy?machine=#{deploy_machine.id}&row=#{number}", :remote=>true, :class=>"btn btn-small btn-success", :id=>"btn-deploy"
               /=link_to "部署", "/auto_deploy/deploy?machine=#{deploy_machine.id}", :data=>{:confirm => "机器【#{deploy_machine.name}】将要执行【上线】操作，是否确定？"}, :class=>"btn btn-small btn-success", :id=>"btn-deploy"
               =link_to "回滚", "/auto_deploy/rollback?machine=#{deploy_machine.id}", :data=>{:confirm => "机器【#{deploy_machine.name}】将要执行【回滚】操作，是否确定？"}, :class=>"btn btn-small btn-danger"
 

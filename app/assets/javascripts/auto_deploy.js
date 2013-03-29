@@ -5,8 +5,6 @@ $(function(){
       var progress = "<div style=\"height:10px;\"><div class=\"progress progress-striped active\"><div class=\"bar\" style=\"width:100%;\"></div></div></div>";
       $(e.target).parent().prev().empty();
       $(e.target).parent().prev().append(progress);
-      //$("#td-status").empty();
-      //$("#td-status").append(progress);
       return true;
     }
     else
@@ -14,4 +12,8 @@ $(function(){
       return false;
     }
   });
+
+  //$("#machine-table").click(function(e){
+  //  alert(e.target.parentNode.outerHTML)
+  //});
 });
