@@ -46,3 +46,6 @@ gem 'kaminari'
 gem 'settingslogic'
 
 gem 'rest-client'
+
+gem 'xml-simple'
+

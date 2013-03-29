@@ -2,41 +2,41 @@
   .control-label
     = f.label :rec_package
   .controls
-    = f.text_field :rec_package, :class=>"input-xxlarge"
+    = f.select :rec_package, get_package_option(Setting.package_name.rec_package), :selected=>nil, :class=>"input-xxlarge set-select-width"
 
 .control-group
   .control-label
     = f.label :rerank_package
   .controls
-    = f.text_field :rerank_package, :class=>"input-xxlarge"
+    = f.select :rerank_package, get_package_option(Setting.package_name.rerank_package), :selected=>nil, :class=>"input-xxlarge"
 
 .control-group
   .control-label
     = f.label :site_package
   .controls
-    = f.text_field :site_package, :class=>"input-xxlarge"
+    = f.select :site_package, get_package_option(Setting.package_name.site_package), :selected=>nil, :class=>"input-xxlarge"
 
 .control-group
   .control-label
     = f.label :item_package
   .controls
-    = f.text_field :item_package, :class=>"input-xxlarge"
+    = f.select :item_package, get_package_option(Setting.package_name.item_package), :selected=>nil, :class=>"input-xxlarge"
 
 .control-group
   .control-label
     = f.label :trim_package
   .controls
-    = f.text_field :trim_package, :class=>"input-xxlarge"
+    = f.select :trim_package, get_package_option(Setting.package_name.trim_package), :selected=>nil, :class=>"input-xxlarge"
 
 .control-group
   .control-label
     = f.label :query_package
   .controls
-    = f.text_field :query_package, :class=>"input-xxlarge"
+    = f.select :query_package, get_package_option(Setting.package_name.query_package), :selected=>nil, :class=>"input-xxlarge"
 
 .control-group
   .control-label
     = f.label :aliguess_package
   .controls
-    = f.text_field :aliguess_package, :class=>"input-xxlarge"
+    = f.select :aliguess_package, get_package_option(Setting.package_name.aliguess_package), :selected=>nil, :class=>"input-xxlarge"
 
