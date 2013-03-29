@@ -44,4 +44,10 @@ class AutoDeployController < ApplicationController
       format.js {render :layout => false}
     end
   end
+
+  def finish
+    deploy_datum_id = session[:deploy_datum_id]
+    @deploy_datum = DeployDatum.find(deploy_datum_id)
+    @deploy_machines = DeployMachine.order_by([[:id, :asc]])
+  end
 end

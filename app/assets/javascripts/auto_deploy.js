@@ -1,6 +1,7 @@
 $(function(){
   $("td #btn-deploy").click(function(e){
-    if (confirm("将要执行【上线】操作，是否确定？"))
+    var machine = $(e.target).parent().prev().prev().prev().text();
+    if (confirm("机器【" + machine + "】将要执行【上线】操作，是否确定？"))
     {
       var progress = "<div style=\"height:10px;\"><div class=\"progress progress-striped active\"><div class=\"bar\" style=\"width:100%;\"></div></div></div>";
       $(e.target).parent().prev().empty();
@@ -14,7 +15,8 @@ $(function(){
   });
 
   $("td #btn-rollback").click(function(e){
-    if (confirm("将要执行【回滚】操作，是否确定？"))
+    var machine = $(e.target).parent().prev().prev().prev().text();
+    if (confirm("机器【" + machine + "】将要执行【回滚】操作，是否确定？"))
     {
       var progress = "<div style=\"height:10px;\"><div class=\"progress progress-striped active\"><div class=\"bar\" style=\"width:100%;\"></div></div></div>";
       $(e.target).parent().prev().empty();

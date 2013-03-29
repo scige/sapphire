@@ -6,38 +6,7 @@
     %section.page-content
       %h3 确认上线单
 
-      %table.table.table-striped
-        %tr
-          %th 名称
-          %th 地址
-      
-        %tr
-          %td Rec package:
-          %td= @deploy_datum.rec_package
-
-        %tr
-          %td Rerank package:
-          %td= @deploy_datum.rerank_package
-
-        %tr
-          %td Site package:
-          %td= @deploy_datum.site_package
-
-        %tr
-          %td Item package:
-          %td= @deploy_datum.item_package
-
-        %tr
-          %td Trim package:
-          %td= @deploy_datum.trim_package
-
-        %tr
-          %td Query package:
-          %td= @deploy_datum.query_package
-
-        %tr
-          %td Aliguess package:
-          %td= @deploy_datum.aliguess_package
+      = render "show"
 
       = link_to "上一步", edit_deploy_datum_path(@deploy_datum), :class=>"btn btn-info"
       = link_to "下一步", auto_deploy_index_path, :class=>"btn btn-info"
