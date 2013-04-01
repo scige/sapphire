@@ -1,5 +1,8 @@
-$(function(){
+$(function() {
   var $tdStatus = $("#td-status-" + <%= params[:row] %>);
   $tdStatus.empty();
   $tdStatus.text("<%= @response_status %>");
+  if ("<%= @response_status %>" != "<%= Setting.deploy_machine_status.deploy_success %>") {
+    alert("<%= @response_detail %>");
+  }
 });

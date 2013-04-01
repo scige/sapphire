@@ -28,9 +28,9 @@ class AutoDeployController < ApplicationController
     if @response_status == Setting.deploy_machine_status.deploy_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_success)
     else
-      @respons_status = Setting.deploy_machine_status.deploy_failed
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_failed)
     end
+    @response_status = @deploy_machine.status
 
     respond_to do |format|
       #format.html
@@ -54,9 +54,9 @@ class AutoDeployController < ApplicationController
     if @response_status == Setting.deploy_machine_status.rollback_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_success)
     else
-      @response_status = Setting.deploy_machine_status.rollback_failed
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_failed)
     end
+    @response_status = @deploy_machine.status
 
     respond_to do |format|
       #format.html
