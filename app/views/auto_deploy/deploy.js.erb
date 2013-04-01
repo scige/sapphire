@@ -1,5 +1,5 @@
 $(function(){
   var $tdStatus = $("#td-status-" + <%= params[:row] %>);
   $tdStatus.empty();
-  $tdStatus.text("DEPLOY SUCCESS");
+  $tdStatus.text("<%= @response_status %>");
 });
