@@ -16,16 +16,21 @@ class AutoDeployController < ApplicationController
     post_data = {}
     post_data[Setting.protocol.username.key] = Setting.protocol.username.value
     post_data[Setting.protocol.password.key] = Setting.protocol.password.value
-    post_data[Setting.protocol.command.key] = Setting.protocol.command.reload
+    post_data[Setting.protocol.command.key] = Setting.protocol.command.deploy
     post_data[Setting.protocol.host] = @deploy_machine.host
     post_data[Setting.protocol.directory] = @deploy_machine.directory
     post_data[Setting.protocol.config.key] = Setting.protocol.config.value
     #增加package参数
 
-    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.Running)
+    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
-    @deploy_machine.update_attributes(:status=>@response_status)
+    if @response_status == Setting.deploy_machine_status.deploy_success
+      @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_success)
+    else
+      @respons_status = Setting.deploy_machine_status.deploy_failed
+      @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_failed)
+    end
 
     respond_to do |format|
       #format.html
@@ -43,10 +48,15 @@ class AutoDeployController < ApplicationController
     post_data[Setting.protocol.host] = @deploy_machine.host
     post_data[Setting.protocol.directory] = @deploy_machine.directory
 
-    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.Running)
+    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
-    @deploy_machine.update_attributes(:status=>@response_status)
+    if @response_status == Setting.deploy_machine_status.rollback_success
+      @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_success)
+    else
+      @response_status = Setting.deploy_machine_status.rollback_failed
+      @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_failed)
+    end
 
     respond_to do |format|
       #format.html
@@ -56,17 +66,30 @@ class AutoDeployController < ApplicationController
 
   def finish
     deploy_machines = DeployMachine.order_by([[:id, :asc]])
-    @deploy_machines = [] #为了view显示本次上线结果
+    is_all_success = true
     deploy_machines.each do |machine|
-      @deploy_machines << machine.dup
-      machine.update_attributes(:status=>Setting.deploy_machine_status.Active)
+      if machine.status != Setting.deploy_machine_status.deploy_success
+        is_all_success = false
+        break
+      end
+    end
+
+    @deploy_machines = []
+    if is_all_success
+      #只有全部机器成功才会自动修改状态，为了view显示本次上线结果
+      deploy_machines.each do |machine|
+        @deploy_machines << machine.dup
+        machine.update_attributes(:status=>Setting.deploy_machine_status.active)
+      end
+    else
+      @deploy_machines = deploy_machines
     end
 
     #@deploy_machines = DeployMachine.order_by([[:id, :asc]])
 
     deploy_datum_id = session[:deploy_datum_id]
     @deploy_datum = DeployDatum.find(deploy_datum_id)
-    @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.Finish)
+    @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.finish)
     session[:deploy_datum_id] = nil
   end
 

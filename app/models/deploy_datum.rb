@@ -2,7 +2,7 @@ class DeployDatum
   include Mongoid::Document
   include Mongoid::Timestamps
 
-  field :status, type: String, :default => Setting.deploy_datum_status.New
+  field :status, type: String, :default => Setting.deploy_datum_status.new
 
   field :rec_package, type: String
   field :rerank_package, type: String

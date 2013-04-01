@@ -9,14 +9,14 @@ class DeployDataController < ApplicationController
   def show
     deploy_data = DeployDatum.all
     deploy_data.each do |datum|
-      if datum.status != Setting.deploy_datum_status.Finish
-        datum.update_attributes(:status=>Setting.deploy_datum_status.New)
+      if datum.status != Setting.deploy_datum_status.finish
+        datum.update_attributes(:status=>Setting.deploy_datum_status.new)
       end
     end
 
     @deploy_datum = DeployDatum.find(params[:id])
-    if @deploy_datum.status != Setting.deploy_datum_status.Finish
-      @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.Ready)
+    if @deploy_datum.status != Setting.deploy_datum_status.finish
+      @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.ready)
       session[:deploy_datum_id] = @deploy_datum.id
     end
   end

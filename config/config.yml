@@ -8,7 +8,7 @@ defaults: &defaults
       value: "penglei3777"
     command:
       key: "command"
-      reload: "reload"
+      deploy: "deploy"
       rollback: "rollback"
     host: "host"
     directory: "directory"
@@ -29,17 +29,18 @@ defaults: &defaults
   release_address: "http://10.250.12.70/galaxy_release/"
 
   deploy_datum_status:
-    New:      "New"
-    Ready:    "Ready"
-    Finish:   "Finish"
+    new:     "new"
+    ready:   "ready"
+    finish:  "finish"
 
   deploy_machine_status:
-    Active:   "Active"
-    Dead:     "Dead"
-    Running:  "Running"
-    Success:  "Success"
-    Failed:   "Failed"
-    Rollback: "Rollback"
+    active:  "active"
+    dead:    "dead"
+    running: "running"
+    deploy_success:   "deploy success"
+    deploy_failed:    "deploy failed"
+    rollback_success: "rollback success"
+    rollback_failed:  "rollback failed"
 
 development:
   <<: *defaults

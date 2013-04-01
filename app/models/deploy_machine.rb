@@ -3,7 +3,7 @@ class DeployMachine
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :status, type: String, :default => Setting.deploy_machine_status.Active
+  field :status, type: String, :default => Setting.deploy_machine_status.active
   field :host, type: String
   field :agent, type: String
   field :directory, type: String
