@@ -16,7 +16,9 @@ Sapphire::Application.routes.draw do
     post :copy_create, :on => :collection
   end
 
-  resources :deploy_data
+  resources :deploy_data do
+    get :help, :on => :collection
+  end
 
   resources :deploy_machines
 

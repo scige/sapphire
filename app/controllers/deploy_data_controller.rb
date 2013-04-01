@@ -7,9 +7,18 @@ class DeployDataController < ApplicationController
   end
 
   def show
+    deploy_data = DeployDatum.all
+    deploy_data.each do |datum|
+      if datum.status != Setting.deploy_datum_status.Finish
+        datum.update_attributes(:status=>Setting.deploy_datum_status.New)
+      end
+    end
+
     @deploy_datum = DeployDatum.find(params[:id])
-    #在哪里清除？
-    session[:deploy_datum_id] = @deploy_datum.id
+    if @deploy_datum.status != Setting.deploy_datum_status.Finish
+      @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.Ready)
+      session[:deploy_datum_id] = @deploy_datum.id
+    end
   end
 
   def new
@@ -28,7 +37,8 @@ class DeployDataController < ApplicationController
     if @deploy_datum.save
       redirect_to @deploy_datum, notice: '创建上线数据成功'
     else
-      render action: "new"
+      redirect_to new_deploy_datum_url, notice: '上线单需要至少包括一个Package'
+      #render action: "new"
     end
   end
 
@@ -48,6 +58,11 @@ class DeployDataController < ApplicationController
 
     redirect_to deploy_data_url
   end
+
+  def help
+  end
+
+  private
 
   def get_release_package
     doc = RestClient.get(Setting.release_address)

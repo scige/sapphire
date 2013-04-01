@@ -28,6 +28,19 @@ defaults: &defaults
 
   release_address: "http://10.250.12.70/galaxy_release/"
 
+  deploy_datum_status:
+    New:      "New"
+    Ready:    "Ready"
+    Finish:   "Finish"
+
+  deploy_machine_status:
+    Active:   "Active"
+    Dead:     "Dead"
+    Running:  "Running"
+    Success:  "Success"
+    Failed:   "Failed"
+    Rollback: "Rollback"
+
 development:
   <<: *defaults
 

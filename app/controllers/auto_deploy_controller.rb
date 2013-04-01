@@ -49,5 +49,8 @@ class AutoDeployController < ApplicationController
     deploy_datum_id = session[:deploy_datum_id]
     @deploy_datum = DeployDatum.find(deploy_datum_id)
     @deploy_machines = DeployMachine.order_by([[:id, :asc]])
+
+    @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.Finish)
+    session[:deploy_datum_id] = nil
   end
 end

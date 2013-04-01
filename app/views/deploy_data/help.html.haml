@@ -1,0 +1,16 @@
+.row
+  .span3
+    = render "shared/deploy_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 自动化部署操作流程
+
+      = link_to '新建上线单', new_deploy_datum_path, :class=>"btn btn-primary"
+      = "->"
+      = link_to '确认上线单', "#", :class=>"btn btn-info"
+      = "->"
+      = link_to '自动化部署', "#", :class=>"btn btn-danger"
+      = "->"
+      = link_to '上线完成', "#", :class=>"btn btn-success"
+
