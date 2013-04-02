@@ -13,17 +13,25 @@ class AutoDeployController < ApplicationController
     @deploy_datum = DeployDatum.find(deploy_datum_id)
     deploy_machine_id = params[:machine]
     @deploy_machine = DeployMachine.find(deploy_machine_id)
-    post_data = {}
-    post_data[Setting.protocol.username.key] = Setting.protocol.username.value
-    post_data[Setting.protocol.password.key] = Setting.protocol.password.value
-    post_data[Setting.protocol.command.key] = Setting.protocol.command.deploy
-    post_data[Setting.protocol.host] = @deploy_machine.host
-    post_data[Setting.protocol.directory] = @deploy_machine.directory
-    post_data[Setting.protocol.config.key] = Setting.protocol.config.value
+    post_data = []
+    post_data << Setting.protocol.username.key + "=" + Setting.protocol.username.value
+    post_data << Setting.protocol.password.key + "=" + Setting.protocol.password.value
+    post_data << Setting.protocol.command.key + "=" + Setting.protocol.command.deploy
+    post_data << Setting.protocol.host + "=" + @deploy_machine.host
+    post_data << Setting.protocol.directory + "=" + @deploy_machine.directory
+    post_data << Setting.protocol.config.key + "=" + Setting.protocol.config.value
     #增加package参数
+    add_package_to_post_data(post_data, @deploy_datum.rec_package)
+    add_package_to_post_data(post_data, @deploy_datum.rerank_package)
+    add_package_to_post_data(post_data, @deploy_datum.site_package)
+    add_package_to_post_data(post_data, @deploy_datum.item_package)
+    add_package_to_post_data(post_data, @deploy_datum.trim_package)
+    add_package_to_post_data(post_data, @deploy_datum.query_package)
+    add_package_to_post_data(post_data, @deploy_datum.aliguess_package)
 
+    post_string = post_data.join('&')
     @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
-    response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
+    response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
     if @response_status == Setting.deploy_machine_status.deploy_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_success)
@@ -41,15 +49,16 @@ class AutoDeployController < ApplicationController
   def rollback
     deploy_machine_id = params[:machine]
     @deploy_machine = DeployMachine.find(deploy_machine_id)
-    post_data = {}
-    post_data[Setting.protocol.username.key] = Setting.protocol.username.value
-    post_data[Setting.protocol.password.key] = Setting.protocol.password.value
-    post_data[Setting.protocol.command.key] = Setting.protocol.command.rollback
-    post_data[Setting.protocol.host] = @deploy_machine.host
-    post_data[Setting.protocol.directory] = @deploy_machine.directory
+    post_data = []
+    post_data << Setting.protocol.username.key + "=" + Setting.protocol.username.value
+    post_data << Setting.protocol.password.key + "=" + Setting.protocol.password.value
+    post_data << Setting.protocol.command.key + "=" + Setting.protocol.command.rollback
+    post_data << Setting.protocol.host + "=" + @deploy_machine.host
+    post_data << Setting.protocol.directory + "=" + @deploy_machine.directory
 
+    post_string = post_data.join('&')
     @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
-    response = RestClient.post @deploy_machine.agent, post_data, :timeout=>30, :open_timeout=>30
+    response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
     if @response_status == Setting.deploy_machine_status.rollback_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_success)
@@ -108,5 +117,11 @@ class AutoDeployController < ApplicationController
     status = dom_tree["machine"][0]["status"][0]
     detail = dom_tree["machine"][0]["detail"][0]
     return status, detail
+  end
+
+  def add_package_to_post_data(post_data, package)
+    if package and !package.empty?
+      post_data << Setting.protocol.package + "=" + Setting.release_address + package
+    end
   end
 end
