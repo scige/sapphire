@@ -6,6 +6,7 @@ $(function(){
       var progress = "<div style=\"height:10px;\"><div class=\"progress progress-striped active\"><div class=\"bar\" style=\"width:100%;\"></div></div></div>";
       $(e.target).parent().prev().empty();
       $(e.target).parent().prev().append(progress);
+      $(".deploy_mask").show(0);
       return true;
     }
     else
@@ -21,6 +22,7 @@ $(function(){
       var progress = "<div style=\"height:10px;\"><div class=\"progress progress-striped active\"><div class=\"bar\" style=\"width:100%;\"></div></div></div>";
       $(e.target).parent().prev().empty();
       $(e.target).parent().prev().append(progress);
+      $(".deploy_mask").show(0);
       return true;
     }
     else

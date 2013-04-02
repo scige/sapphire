@@ -2,6 +2,7 @@ $(function() {
   var $tdStatus = $("#td-status-" + <%= params[:row] %>);
   $tdStatus.empty();
   $tdStatus.text("<%= @response_status %>");
+  $(".deploy_mask").hide(0);
   if ("<%= @response_status %>" != "<%= Setting.deploy_machine_status.rollback_success %>") {
     alert("<%= @response_detail %>");
   }
