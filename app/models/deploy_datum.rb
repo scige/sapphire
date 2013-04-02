@@ -4,6 +4,8 @@ class DeployDatum
 
   field :status, type: String, :default => Setting.deploy_datum_status.new
 
+  field :title, type: String
+
   field :svn_config, type: String
 
   field :rec_package, type: String
@@ -15,9 +17,10 @@ class DeployDatum
   field :query_package, type: String
   field :aliguess_package, type: String
 
-  attr_accessible :status, :svn_config, :rec_package, :rerank_package, :site_package, :item_package, :trim_package, :query_package, :aliguess_package
+  attr_accessible :status, :title, :svn_config, :rec_package, :rerank_package, :site_package, :item_package, :trim_package, :query_package, :aliguess_package
 
   validates_presence_of :status
+  validates_presence_of :title
 
   validate :at_least_one_package
 

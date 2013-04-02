@@ -8,28 +8,20 @@
 
       %table.table.table-striped
         %tr
-          %th Status
-          %th Svn config
-          %th Rec package
-          %th Rerank package
-          %th Site package
-          %th Item package
-          %th Trim package
-          %th Query package
-          %th Aliguess package
-          %th Operation
+          %th 编号
+          %th 标题
+          %th 状态
+          %th 创建时间
+          %th 更新时间
+          %th 操作
       
         - @deploy_data.each do |deploy_datum|
           %tr
+            %td= deploy_datum.id
+            %td= deploy_datum.title
             %td= deploy_datum.status
-            %td= deploy_datum.svn_config
-            %td= deploy_datum.rec_package
-            %td= deploy_datum.rerank_package
-            %td= deploy_datum.site_package
-            %td= deploy_datum.item_package
-            %td= deploy_datum.trim_package
-            %td= deploy_datum.query_package
-            %td= deploy_datum.aliguess_package
+            %td= deploy_datum.created_at.to_s[0..-7]
+            %td= deploy_datum.updated_at.to_s[0..-7]
             %td
               = link_to 'Show', deploy_datum, :class=>"btn btn-small"
               = link_to 'Edit', edit_deploy_datum_path(deploy_datum), :class=>"btn btn-small btn-info"

@@ -16,7 +16,7 @@
     .control-label
       = f.label :status
     .controls
-      = f.text_field :status
+      = f.select :status, get_machine_status_option
 
   .control-group
     .control-label

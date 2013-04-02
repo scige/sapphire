@@ -1,5 +1,11 @@
 .control-group
   .control-label
+    = f.label :title
+  .controls
+    = f.text_field :title, :class=>"input-xxlarge"
+
+.control-group
+  .control-label
     = f.label :svn_config
   .controls
     = f.select :svn_config, [[nil, nil],[Setting.protocol.config.value, Setting.protocol.config.value]], {}, {:class=>"span5"}
