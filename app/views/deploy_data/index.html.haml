@@ -9,6 +9,7 @@
       %table.table.table-striped
         %tr
           %th Status
+          %th Svn config
           %th Rec package
           %th Rerank package
           %th Site package
@@ -21,6 +22,7 @@
         - @deploy_data.each do |deploy_datum|
           %tr
             %td= deploy_datum.status
+            %td= deploy_datum.svn_config
             %td= deploy_datum.rec_package
             %td= deploy_datum.rerank_package
             %td= deploy_datum.site_package

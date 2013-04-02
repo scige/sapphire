@@ -19,7 +19,10 @@ class AutoDeployController < ApplicationController
     post_data << Setting.protocol.command.key + "=" + Setting.protocol.command.deploy
     post_data << Setting.protocol.host + "=" + @deploy_machine.host
     post_data << Setting.protocol.directory + "=" + @deploy_machine.directory
-    post_data << Setting.protocol.config.key + "=" + Setting.protocol.config.value
+    #增加svn config
+    if !@deploy_datum.svn_config.empty?
+      post_data << Setting.protocol.config.key + "=" + @deploy_datum.svn_config
+    end
     #增加package参数
     add_package_to_post_data(post_data, @deploy_datum.rec_package)
     add_package_to_post_data(post_data, @deploy_datum.rerank_package)
@@ -30,6 +33,7 @@ class AutoDeployController < ApplicationController
     add_package_to_post_data(post_data, @deploy_datum.aliguess_package)
 
     post_string = post_data.join('&')
+    logger.debug "Send To Agent: #{post_string}"
     @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
@@ -57,6 +61,7 @@ class AutoDeployController < ApplicationController
     post_data << Setting.protocol.directory + "=" + @deploy_machine.directory
 
     post_string = post_data.join('&')
+    logger.debug "Send To Agent: #{post_string}"
     @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)

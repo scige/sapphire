@@ -1,5 +1,11 @@
 .control-group
   .control-label
+    = f.label :svn_config
+  .controls
+    = f.select :svn_config, [[nil, nil],[Setting.protocol.config.value, Setting.protocol.config.value]], {}, {:class=>"span5"}
+
+.control-group
+  .control-label
     = f.label :rec_package
   .controls
     = f.select :rec_package, get_package_option(Setting.package_name.rec_package), {}, {:class=>"span5"}

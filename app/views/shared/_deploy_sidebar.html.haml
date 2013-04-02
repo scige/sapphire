@@ -1,5 +1,9 @@
 %ul.nav.nav-list.bs-docs-sidenav
-  %li{:class => (controller_name=="deploy_data"?"active":nil)}
+  %li{:class => (controller_name=="deploy_data" and action_name!="index"?"active":nil)}
+    %a{:href=>new_deploy_datum_path}
+      %i.icon-chevron-right
+      新建上线单
+  %li{:class => (controller_name=="deploy_data" and action_name=="index"?"active":nil)}
     %a{:href=>deploy_data_path}
       %i.icon-chevron-right
       上线单管理
