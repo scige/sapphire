@@ -49,3 +49,5 @@ gem 'rest-client'
 
 gem 'xml-simple'
 
+gem 'devise'
+

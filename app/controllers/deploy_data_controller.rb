@@ -2,6 +2,8 @@
 require 'xmlsimple'
 
 class DeployDataController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @deploy_data = DeployDatum.order_by([[:id, :asc]])
   end

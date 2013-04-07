@@ -2,6 +2,7 @@
 require 'xmlsimple'
 
 class AutoDeployController < ApplicationController
+  before_filter :authenticate_user!
   before_filter :necessary_conditions
 
   def index

@@ -1,8 +1,9 @@
 # coding: utf-8
-
 require "builder"
 
 class TagTableSchemasController < ApplicationController
+  before_filter :authenticate_user!
+
   def show
     @tag_table_schema = TagTableSchema.find(params[:id])
   end

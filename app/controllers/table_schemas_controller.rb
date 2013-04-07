@@ -1,4 +1,8 @@
+# coding: utf-8
+
 class TableSchemasController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     if !params[:owner]
       @table_schemas = TableSchema.order_by([[:owner, :asc], [:id, :asc]])

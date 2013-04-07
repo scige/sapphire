@@ -1,6 +1,8 @@
 # coding: utf-8
 
 class DeployMachinesController < ApplicationController
+  before_filter :authenticate_user!
+
   def index
     @deploy_machines = DeployMachine.order_by([[:id, :asc]])
   end
