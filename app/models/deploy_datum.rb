@@ -2,6 +2,8 @@ class DeployDatum
   include Mongoid::Document
   include Mongoid::Timestamps
 
+  belongs_to :user
+
   field :status, type: String, :default => Setting.deploy_datum_status.new
 
   field :title, type: String

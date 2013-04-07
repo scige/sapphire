@@ -11,7 +11,7 @@
           %th 编号
           %th 标题
           %th 状态
-          %th 创建时间
+          %th 创建人
           %th 更新时间
           %th 操作
       
@@ -20,7 +20,7 @@
             %td= deploy_datum.id
             %td= deploy_datum.title
             %td= deploy_datum.status
-            %td= deploy_datum.created_at.to_s[0..-7]
+            %td= deploy_datum.user ? deploy_datum.user.name : ""
             %td= deploy_datum.updated_at.to_s[0..-7]
             %td
               = link_to 'Show', deploy_datum, :class=>"btn btn-small"

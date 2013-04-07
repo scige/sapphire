@@ -21,16 +21,16 @@
                   %li{:class => ((controller_name=="deploy_data" or controller_name=="deploy_machines" or controller_name=="auto_deploy") ? "active":nil)}= link_to "自动化部署", help_deploy_data_path
                   %li{:class => (controller_name=="home" and action_name=="help"?"active":nil)}= link_to "帮助", home_help_path
               - if user_signed_in?
-                .offset2.span4
+                .offset3.span3
                   %ul.nav
-                    %li= link_to "欢迎您，#{current_user.email}", "#"
+                    %li= link_to "欢迎您，#{current_user.name}", "#"
                     %li= link_to "退出", destroy_user_session_path, :method => :delete
               - else
                 .offset4.span2
                   %ul.nav
                     %li= link_to "登录", new_user_session_path
-                    %li= link_to "注册", "#"
-                    /%li= link_to "注册", new_user_registration_path
+                    /%li= link_to "注册", "#"
+                    %li= link_to "注册", new_user_registration_path
 
     
     /%header.jumbotron.subhead
