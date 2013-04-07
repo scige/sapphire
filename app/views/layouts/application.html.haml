@@ -1,7 +1,7 @@
 !!! 5
 %html
   %head
-    %title= Sapphire
+    %title= "配置&部署中心 - 云推荐"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
@@ -32,10 +32,10 @@
                     %li= link_to "注册", new_user_registration_path
 
     
-    %header.jumbotron.subhead
-      .container
-        %h2 配置&部署中心
-        %p.lead Move fast, and break things.
+    /%header.jumbotron.subhead
+    /  .container
+    /    %h2 配置&部署中心
+    /    %p.lead Move fast, and break things.
 
     .container
       = render "layouts/flash_messages"

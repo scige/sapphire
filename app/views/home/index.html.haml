@@ -1,2 +1,22 @@
-.hero-unit
-  %h1 Hello, world!
+.row
+  .span9
+    #myCarousel.carousel.slide
+      .carousel-inner
+        .active.item
+          =image_tag "carousel-02.jpg"
+          .carousel-caption
+            %h4 配置中心
+            %p 灵活配置各个站点的推荐策略。
+        .item
+          =image_tag "carousel-03.jpg"
+          .carousel-caption
+            %h4 部署中心
+            %p 自动化部署推荐在线系统，分钟级响应客户需求。
+      %a.carousel-control.left{:href=>"#myCarousel", "data-slide"=>"prev"} &lsaquo;
+      %a.carousel-control.right{:href=>"#myCarousel", "data-slide"=>"next"} &rsaquo;
+
+<script>
+$(function(){
+$('#myCarousel').carousel();
+});
+</script>
