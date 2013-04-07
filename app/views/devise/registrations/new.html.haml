@@ -8,6 +8,12 @@
       
         .control-group
           .control-label
+            = f.label "昵称"
+          .controls
+            = f.text_field :name
+
+        .control-group
+          .control-label
             = f.label "邮箱"
           .controls
             = f.email_field :email

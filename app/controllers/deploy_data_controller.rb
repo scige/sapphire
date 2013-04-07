@@ -35,6 +35,7 @@ class DeployDataController < ApplicationController
 
   def create
     @deploy_datum = DeployDatum.new(params[:deploy_datum])
+    @deploy_datum.user = current_user
 
     if @deploy_datum.save
       redirect_to @deploy_datum, notice: '创建上线数据成功'
