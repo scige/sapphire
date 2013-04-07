@@ -1,4 +1,6 @@
 Sapphire::Application.routes.draw do
+  devise_for :users
+
   resources :table_schemas do
     post :create_tag, :on => :collection
   end
@@ -15,6 +17,20 @@ Sapphire::Application.routes.draw do
     get :copy_new, :on => :collection
     post :copy_create, :on => :collection
   end
+
+  resources :deploy_data do
+    get :help, :on => :collection
+  end
+
+  resources :deploy_machines
+
+  resources :auto_deploy do
+    get :deploy, :on => :collection
+    get :rollback, :on => :collection
+    get :finish, :on => :collection
+  end
+
+  match "home/help"
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

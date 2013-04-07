@@ -1,0 +1,52 @@
+defaults: &defaults
+  protocol:
+    username:
+      key: "username"
+      value: "raoxing"
+    password:
+      key: "password"
+      value: "penglei3777"
+    command:
+      key: "command"
+      deploy: "Deploy"
+      rollback: "Rollback"
+    host: "host"
+    directory: "directory"
+    config:
+      key: "config"
+      value: "http://svn.simba.taobao.com/svn/Apsara/galaxy/trunk2/online/online_confs/aggregator_recommend/"
+    package: "package"
+
+  package_name:
+    rec_package: "agg_recommend_processor_release64"
+    rerank_package: "agg_rec_rerank"
+    site_package: "site_config_test"
+    item_package: "item_pattern_test"
+    trim_package: "title_trim_test"
+    query_package: "top_query_test"
+    aliguess_package: "aliguess_data_test"
+
+  release_address: "http://10.250.12.70/galaxy_release/"
+
+  deploy_datum_status:
+    new:     "New"
+    ready:   "Ready"
+    finish:  "Finish"
+
+  deploy_machine_status:
+    active:  "Active"
+    dead:    "Dead"
+    running: "Running"
+    deploy_success:   "Deploy Success"
+    deploy_failed:    "Deploy Failed"
+    rollback_success: "Rollback Success"
+    rollback_failed:  "Rollback Failed"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

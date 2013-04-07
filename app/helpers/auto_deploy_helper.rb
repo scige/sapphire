@@ -1,0 +1,2 @@
+module AutoDeployHelper
+end

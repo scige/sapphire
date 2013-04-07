@@ -1,6 +1,9 @@
+# coding: utf-8
 require "builder"
 
 class TagTableSchemasController < ApplicationController
+  before_filter :authenticate_user!
+
   def show
     @tag_table_schema = TagTableSchema.find(params[:id])
   end
@@ -58,6 +61,8 @@ class TagTableSchemasController < ApplicationController
     file.puts(@xml_string)
     file.close
 
+    release_site_config(file_name)
+
     flash[:info] = "XML File Address: http://#{request.env["HTTP_HOST"]}/#{file_name[Rails.public_path.length+1..-1]}"
 
     redirect_to table_schemas_url
@@ -95,5 +100,21 @@ class TagTableSchemasController < ApplicationController
     flash[:info] = "XML File Address: http://#{request.env["HTTP_HOST"]}/#{file_name[Rails.public_path.length+1..-1]}"
 
     redirect_to table_schemas_url
+  end
+
+  private
+
+  def release_site_config(file_name)
+    package_path = Rails.public_path + "/recommend_configs/package/"
+    conf_path = package_path + "conf/"
+    file_name =~ /\d+\.\d+\.\d+\.\d+/
+    version = $&
+    # 这里默认都是发的site_config package
+    package_name = "site_config-#{version}.tar.gz"
+    `rm -rf #{package_path}`
+    `mkdir -p #{conf_path}`
+    `cp #{file_name} #{conf_path}rec_sites.xml`
+    `cd #{package_path} ; tar -zcvf #{package_name} conf/`
+    `cd #{package_path} ; yes | /home/admin/bin/release.pl panfeng.pan@alibaba-inc.com #{package_name}`
   end
 end

@@ -43,3 +43,11 @@ gem 'nested_form'
 
 gem 'kaminari'
 
+gem 'settingslogic'
+
+gem 'rest-client'
+
+gem 'xml-simple'
+
+gem 'devise'
+

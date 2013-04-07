@@ -1,0 +1,54 @@
+.control-group
+  .control-label
+    = f.label :title
+  .controls
+    = f.text_field :title, :class=>"input-xxlarge"
+
+.control-group
+  .control-label
+    = f.label :svn_config
+  .controls
+    = f.select :svn_config, [[nil, nil],[Setting.protocol.config.value, Setting.protocol.config.value]], {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :rec_package
+  .controls
+    = f.select :rec_package, get_package_option(Setting.package_name.rec_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :rerank_package
+  .controls
+    = f.select :rerank_package, get_package_option(Setting.package_name.rerank_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :site_package
+  .controls
+    = f.select :site_package, get_package_option(Setting.package_name.site_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :item_package
+  .controls
+    = f.select :item_package, get_package_option(Setting.package_name.item_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :trim_package
+  .controls
+    = f.select :trim_package, get_package_option(Setting.package_name.trim_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :query_package
+  .controls
+    = f.select :query_package, get_package_option(Setting.package_name.query_package), {}, {:class=>"span5"}
+
+.control-group
+  .control-label
+    = f.label :aliguess_package
+  .controls
+    = f.select :aliguess_package, get_package_option(Setting.package_name.aliguess_package), {}, {:class=>"span5"}
+

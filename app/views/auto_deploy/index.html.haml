@@ -1,0 +1,28 @@
+.row
+  .span3
+    = render "shared/deploy_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 开始自动化部署
+
+      %table.table.table-striped#machine-table
+        %tr
+          %th{:width=>100} 环境
+          %th{:width=>100} 地址
+          %th{:width=>100} 状态
+          %th{:width=>100} 操作
+      
+        - number=0
+        - @deploy_machines.each do |deploy_machine|
+          - number += 1
+          %tr
+            %td= deploy_machine.name
+            %td= deploy_machine.host
+            %td{:id=>"td-status-#{number}"}= deploy_machine.status
+            %td
+              =link_to "部署", "/auto_deploy/deploy?machine=#{deploy_machine.id}&row=#{number}", :remote=>true, :class=>"btn btn-small btn-success", :id=>"btn-deploy"
+              =link_to "回滚", "/auto_deploy/rollback?machine=#{deploy_machine.id}&row=#{number}", :remote=>true, :class=>"btn btn-small btn-danger", :id=>"btn-rollback"
+
+      = link_to "上线完成", finish_auto_deploy_index_path, :class=>"btn btn-info"
+

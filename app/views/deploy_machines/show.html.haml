@@ -1,0 +1,25 @@
+.row
+  .span3
+    = render "shared/deploy_sidebar"
+
+  .span9
+    %section.page-content
+      %h3 查看部署机器
+
+      %table.table.table-striped
+        %tr
+          %td Name:
+          %td= @deploy_machine.name
+        %tr
+          %td Status:
+          %td= @deploy_machine.status
+        %tr
+          %td Address:
+          %td= @deploy_machine.host
+        %tr
+          %td Agent:
+          %td= @deploy_machine.agent
+        %tr
+          %td Directory:
+          %td= @deploy_machine.directory
+

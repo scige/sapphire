@@ -1,27 +1,41 @@
 !!! 5
 %html
   %head
-    %title= Sapphire
+    %title= "配置&部署中心 - 云推荐"
     = stylesheet_link_tag "application", :media => "all"
     = javascript_include_tag "application"
     = csrf_meta_tags
 
   %body
+    .deploy_mask
     .navbar.navbar-inverse.navbar-fixed-top
       .navbar-inner
         .container
           .nav-collapse.collapse
-            %ul.nav
-              %li{:class => (controller_name=="home"?"active":nil)}= link_to "首页", root_path
-              %li{:class => (controller_name=="recommend_configs"?"active":nil)}= link_to "配置管理", recommend_configs_path(:owner=>"online", :table=>get_owner_first_table("online"))
-              %li{:class => (controller_name=="table_schemas"?"active":nil)}= link_to "数据表管理", table_schemas_path
-              %li{:class => (controller_name=="deploy"?"active":nil)}= link_to "自动部署", "#"
-              %li{:class => (controller_name=="helps"?"active":nil)}= link_to "帮助", "#"
+            .row
+              .span6
+                %ul.nav
+                  %li{:class => (controller_name=="home" and action_name=="index"?"active":nil)}= link_to "首页", root_path
+                  %li{:class => (controller_name=="recommend_configs"?"active":nil)}= link_to "配置管理", recommend_configs_path(:owner=>"online", :table=>get_owner_first_table("online"))
+                  %li{:class => (controller_name=="table_schemas"?"active":nil)}= link_to "数据表管理", table_schemas_path
+                  %li{:class => ((controller_name=="deploy_data" or controller_name=="deploy_machines" or controller_name=="auto_deploy") ? "active":nil)}= link_to "自动化部署", help_deploy_data_path
+                  %li{:class => (controller_name=="home" and action_name=="help"?"active":nil)}= link_to "帮助", home_help_path
+              - if user_signed_in?
+                .offset2.span4
+                  %ul.nav
+                    %li= link_to "欢迎您，#{current_user.email}", "#"
+                    %li= link_to "退出", destroy_user_session_path, :method => :delete
+              - else
+                .offset4.span2
+                  %ul.nav
+                    %li= link_to "登录", new_user_session_path
+                    %li= link_to "注册", new_user_registration_path
+
     
-    %header.jumbotron.subhead
-      .container
-        %h2 配置&部署中心
-        %p.lead Move fast, and break things.
+    /%header.jumbotron.subhead
+    /  .container
+    /    %h2 配置&部署中心
+    /    %p.lead Move fast, and break things.
 
     .container
       = render "layouts/flash_messages"
