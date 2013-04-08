@@ -18,13 +18,13 @@ defaults: &defaults
     package: "package"
 
   package_name:
-    rec_package: "agg_recommend_processor_release64"
-    rerank_package: "agg_rec_rerank"
-    site_package: "site_config_test"
-    item_package: "item_pattern_test"
-    trim_package: "title_trim_test"
-    query_package: "top_query_test"
-    aliguess_package: "aliguess_data_test"
+    rec_package: "resys_agg_recommend"
+    rerank_package: "resys_agg_rerank"
+    site_package: "resys_site_config"
+    item_package: "resys_item_common_lib_data"
+    trim_package: "resys_title_trim"
+    query_package: "resys_top_query"
+    aliguess_package: "resys_aliguess_data"
 
   release_address: "http://10.250.12.70/galaxy_release/"
 
