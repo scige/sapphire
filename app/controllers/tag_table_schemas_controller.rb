@@ -110,7 +110,7 @@ class TagTableSchemasController < ApplicationController
     file_name =~ /\d+\.\d+\.\d+\.\d+/
     version = $&
     # 这里默认都是发的site_config package
-    package_name = "site_config-#{version}.tar.gz"
+    package_name = "resys_site_config-#{version}.tar.gz"
     `rm -rf #{package_path}`
     `mkdir -p #{conf_path}`
     `cp #{file_name} #{conf_path}rec_sites.xml`
