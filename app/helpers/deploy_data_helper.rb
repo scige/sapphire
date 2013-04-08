@@ -1,6 +1,8 @@
 module DeployDataHelper
   def get_package_option(package_name)
     options = [[nil, nil]]
-    options += @our_package_hash[package_name].map {|o| [o, o]}
+    if @our_package_hash.has_key?package_name
+      options += @our_package_hash[package_name].map {|o| [o, o]}
+    end
   end
 end
