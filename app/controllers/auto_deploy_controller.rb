@@ -49,6 +49,7 @@ class AutoDeployController < ApplicationController
     #@deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
+    @response_detail.gsub!(/[\r\n]/, " ")
     if @response_status == Setting.deploy_machine_status.deploy_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.deploy_success)
     else
@@ -133,7 +134,8 @@ class AutoDeployController < ApplicationController
   private
 
   def necessary_conditions
-    if !session[:deploy_datum_id]
+    @deploy_data = DeployDatum.where(:status=>Setting.deploy_datum_status.ready)
+    if @deploy_data.empty? or !session[:deploy_datum_id]
       redirect_to deploy_data_url, notice: '还没有创建上线单'
     end
 
