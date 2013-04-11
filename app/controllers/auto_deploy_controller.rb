@@ -89,6 +89,7 @@ class AutoDeployController < ApplicationController
     #@deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
+    @response_detail.gsub!(/[\r\n]/, " ")
     if @response_status == Setting.deploy_machine_status.rollback_success
       @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.rollback_success)
     else
