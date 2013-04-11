@@ -1,8 +1,15 @@
 $(function() {
+  $(".deploy_mask").hide(0);
   var $tdStatus = $("#td-status-" + <%= params[:row] %>);
   $tdStatus.empty();
+
+  if (<%= @agent_status %> == 0) {
+    $tdStatus.text("<%= @deploy_machine.status %>");
+    alert("Deploy Agent Server没有响应，请检查后重试！");
+    return;
+  }
+
   $tdStatus.text("<%= @response_status %>");
-  $(".deploy_mask").hide(0);
   if ("<%= @response_status %>" != "<%= Setting.deploy_machine_status.rollback_success %>") {
     alert("<%= @response_detail %>");
   }
