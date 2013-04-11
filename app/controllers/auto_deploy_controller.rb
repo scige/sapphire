@@ -14,6 +14,16 @@ class AutoDeployController < ApplicationController
     @deploy_datum = DeployDatum.find(deploy_datum_id)
     deploy_machine_id = params[:machine]
     @deploy_machine = DeployMachine.find(deploy_machine_id)
+
+    @agent_status = 1
+    if !check_agent_valid?(@deploy_machine.agent)
+      @agent_status = 0
+      respond_to do |format|
+        format.js {render :layout => false}
+      end
+      return
+    end
+
     post_data = []
     post_data << Setting.protocol.username.key + "=" + Setting.protocol.username.value
     post_data << Setting.protocol.password.key + "=" + Setting.protocol.password.value
@@ -35,7 +45,8 @@ class AutoDeployController < ApplicationController
 
     post_string = post_data.join('&')
     logger.debug "Send To Agent: #{post_string}"
-    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
+    #running状态似乎没有什么意义
+    #@deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
     if @response_status == Setting.deploy_machine_status.deploy_success
@@ -54,6 +65,16 @@ class AutoDeployController < ApplicationController
   def rollback
     deploy_machine_id = params[:machine]
     @deploy_machine = DeployMachine.find(deploy_machine_id)
+
+    @agent_status = 1
+    if !check_agent_valid?(@deploy_machine.agent)
+      @agent_status = 0
+      respond_to do |format|
+        format.js {render :layout => false}
+      end
+      return
+    end
+
     post_data = []
     post_data << Setting.protocol.username.key + "=" + Setting.protocol.username.value
     post_data << Setting.protocol.password.key + "=" + Setting.protocol.password.value
@@ -63,7 +84,8 @@ class AutoDeployController < ApplicationController
 
     post_string = post_data.join('&')
     logger.debug "Send To Agent: #{post_string}"
-    @deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
+    #running状态似乎没有什么意义
+    #@deploy_machine.update_attributes(:status=>Setting.deploy_machine_status.running)
     response = RestClient.post @deploy_machine.agent, post_string, :timeout=>30, :open_timeout=>30
     @response_status, @response_detail = parse_response(response)
     if @response_status == Setting.deploy_machine_status.rollback_success
@@ -128,6 +150,19 @@ class AutoDeployController < ApplicationController
   def add_package_to_post_data(post_data, package)
     if package and !package.empty?
       post_data << Setting.protocol.package + "=" + Setting.release_address + package
+    end
+  end
+
+  def check_agent_valid?(agent)
+    parts = agent.split(':')
+    if parts.size != 2
+      return false
+    end
+    status = `nc -v -z -w2 #{parts[0]} #{parts[1]}`
+    if status.index("succeeded")
+      return true
+    else
+      return false
     end
   end
 end
