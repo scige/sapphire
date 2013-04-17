@@ -25,6 +25,7 @@ defaults: &defaults
     trim_package: "resys_title_trim"
     query_package: "resys_top_query"
     aliguess_package: "resys_aliguess_data"
+    filter_package: "resys_common_result_filter_data"
 
   release_address: "http://10.250.12.70/galaxy_release/"
 

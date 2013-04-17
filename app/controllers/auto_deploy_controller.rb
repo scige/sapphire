@@ -42,6 +42,7 @@ class AutoDeployController < ApplicationController
     add_package_to_post_data(post_data, @deploy_datum.trim_package)
     add_package_to_post_data(post_data, @deploy_datum.query_package)
     add_package_to_post_data(post_data, @deploy_datum.aliguess_package)
+    add_package_to_post_data(post_data, @deploy_datum.filter_package)
 
     post_string = post_data.join('&')
     logger.debug "Send To Agent: #{post_string}"

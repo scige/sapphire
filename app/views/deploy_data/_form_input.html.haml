@@ -52,3 +52,9 @@
   .controls
     = f.select :aliguess_package, get_package_option(Setting.package_name.aliguess_package), {}, {:class=>"span5"}
 
+.control-group
+  .control-label
+    = f.label :filter_package
+  .controls
+    = f.select :filter_package, get_package_option(Setting.package_name.filter_package), {}, {:class=>"span5"}
+
