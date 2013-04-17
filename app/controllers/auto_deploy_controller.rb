@@ -129,7 +129,11 @@ class AutoDeployController < ApplicationController
 
     deploy_datum_id = session[:deploy_datum_id]
     @deploy_datum = DeployDatum.find(deploy_datum_id)
-    @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.finish)
+    if is_all_success
+      @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.finish)
+    else
+      @deploy_datum.update_attributes(:status=>Setting.deploy_datum_status.failed)
+    end
     session[:deploy_datum_id] = nil
   end
 

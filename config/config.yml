@@ -33,6 +33,7 @@ defaults: &defaults
     new:     "New"
     ready:   "Ready"
     finish:  "Finish"
+    failed:  "Failed"
 
   deploy_machine_status:
     active:  "Active"
