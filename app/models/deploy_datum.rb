@@ -19,6 +19,7 @@ class DeployDatum
   field :query_package, type: String
   field :aliguess_package, type: String
   field :filter_package, type: String
+  field :indepsite_package, type: String
 
   attr_accessible :status, :title, :svn_config, :rec_package, :rerank_package, :site_package, :item_package, :trim_package, :query_package, :aliguess_package, :filter_package, :indepsite_package
 
