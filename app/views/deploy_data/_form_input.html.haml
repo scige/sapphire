@@ -58,3 +58,9 @@
   .controls
     = f.select :filter_package, get_package_option(Setting.package_name.filter_package), {}, {:class=>"span5"}
 
+.control-group
+  .control-label
+    = f.label :indepsite_package
+  .controls
+    = f.select :indepsite_package, get_package_option(Setting.package_name.indepsite_package), {}, {:class=>"span5"}
+

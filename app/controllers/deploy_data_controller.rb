@@ -85,7 +85,7 @@ class DeployDataController < ApplicationController
       end
     end
 
-    package_names = [Setting.package_name.rec_package, Setting.package_name.rerank_package, Setting.package_name.site_package, Setting.package_name.item_package, Setting.package_name.trim_package, Setting.package_name.query_package, Setting.package_name.aliguess_package, Setting.package_name.filter_package]
+    package_names = [Setting.package_name.rec_package, Setting.package_name.rerank_package, Setting.package_name.site_package, Setting.package_name.item_package, Setting.package_name.trim_package, Setting.package_name.query_package, Setting.package_name.aliguess_package, Setting.package_name.filter_package, Setting.package_name.indepsite_package]
 
     our_package_hash = {}
     package_names.each do |package_name|

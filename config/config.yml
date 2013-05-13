@@ -26,6 +26,7 @@ defaults: &defaults
     query_package: "resys_top_query"
     aliguess_package: "resys_aliguess_data"
     filter_package: "resys_common_result_filter_data"
+    indepsite_package: "resys_indep_site"
 
   release_address: "http://10.250.12.70/galaxy_release/"
 
