@@ -64,3 +64,9 @@
   .controls
     = f.select :indepsite_package, get_package_option(Setting.package_name.indepsite_package), {}, {:class=>"span5"}
 
+.control-group
+  .control-label
+    = f.label :ibcf_package
+  .controls
+    = f.select :ibcf_package, get_package_option(Setting.package_name.ibcf_package), {}, {:class=>"span5"}
+

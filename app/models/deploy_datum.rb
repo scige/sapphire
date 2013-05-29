@@ -20,8 +20,9 @@ class DeployDatum
   field :aliguess_package, type: String
   field :filter_package, type: String
   field :indepsite_package, type: String
+  field :ibcf_package, type: String
 
-  attr_accessible :status, :title, :svn_config, :rec_package, :rerank_package, :site_package, :item_package, :trim_package, :query_package, :aliguess_package, :filter_package, :indepsite_package
+  attr_accessible :status, :title, :svn_config, :rec_package, :rerank_package, :site_package, :item_package, :trim_package, :query_package, :aliguess_package, :filter_package, :indepsite_package, :ibcf_package
 
   validates_presence_of :status
   validates_presence_of :title
@@ -39,6 +40,7 @@ class DeployDatum
     return if self.aliguess_package and !self.aliguess_package.empty?
     return if self.filter_package and !self.filter_package.empty?
     return if self.indepsite_package and !self.indepsite_package.empty?
+    return if self.ibcf_package and !self.ibcf_package.empty?
     errors[:base] << "at least one package"
   end
 end
