@@ -45,6 +45,7 @@ class AutoDeployController < ApplicationController
     add_package_to_post_data(post_data, @deploy_datum.filter_package)
     add_package_to_post_data(post_data, @deploy_datum.indepsite_package)
     add_package_to_post_data(post_data, @deploy_datum.ibcf_package)
+    add_package_to_post_data(post_data, @deploy_datum.taobao_package)
 
     post_string = post_data.join('&')
     logger.debug "Send To Agent: #{post_string}"

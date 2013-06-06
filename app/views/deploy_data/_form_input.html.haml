@@ -70,3 +70,9 @@
   .controls
     = f.select :ibcf_package, get_package_option(Setting.package_name.ibcf_package), {}, {:class=>"span5"}
 
+.control-group
+  .control-label
+    = f.label :taobao_package
+  .controls
+    = f.select :taobao_package, get_package_option(Setting.package_name.taobao_package), {}, {:class=>"span5"}
+
