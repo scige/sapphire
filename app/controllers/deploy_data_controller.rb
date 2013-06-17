@@ -91,10 +91,10 @@ class DeployDataController < ApplicationController
     package_names.each do |package_name|
       if package_hash.has_key?(package_name)
         package_list = package_hash[package_name]
-        if package_list.size <= 5
+        if package_list.size <= 20
           our_package_hash[package_name] = package_list
         else
-          our_package_hash[package_name] = package_list[package_list.size-5...package_list.size]
+          our_package_hash[package_name] = package_list[package_list.size-20...package_list.size]
         end
       end
     end
